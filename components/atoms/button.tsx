@@ -3,7 +3,8 @@ import type { ReactNode } from "react"
 interface ButtonProps {
   variant: string | 'contained',
   color: string | 'primary',
-  children: ReactNode
+  children: ReactNode,
+  onClick(): void
 };
 
 export default function Button({variant, color, children, ...props}: ButtonProps) {
