@@ -66,9 +66,36 @@ section#features {
 }
 
 .feature-img {
-  @apply relative w-full h-60 sm:h-56 lg:h-64;
+  @apply relative w-full h-60 sm:h-52 lg:h-52 lg:w-52;
 }
 
 .feature-desc {
   @apply mt-3 p-4;
+}
+
+/* footer */
+footer {
+  @apply bg-red-200;
+}
+
+footer .media-social {
+  @apply flex mb-4 bg-red-300 px-12 py-3;
+}
+
+footer .media-social .icons {
+  @apply w-8 h-8 text-primary mr-3;
+}
+footer .information {
+  @apply flex flex-wrap flex-col w-full bg-red-200 px-12 py-3 md:flex-row md:items-start md:text-left;
+}
+
+footer .information .more {
+  @apply mb-5 md:mr-10
+}
+
+footer  > * {
+  @apply mb-5 md:mb-0
+}
+.copyright {
+  @apply px-12 py-3 text-xs mb-0;
 }

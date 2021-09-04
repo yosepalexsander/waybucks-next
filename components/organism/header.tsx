@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Logo from 'public/assets/icons/logo.svg'
 import { MenuIcon } from 'icons';
-import Drawer from '../../moleculs/drawer';
+import Drawer from '../moleculs/drawer';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -15,23 +15,23 @@ export default function Header() {
     <header className="app-bar">
       <Link href="/">
         <a className="app-bar-brand">
-            <Image alt="brand" src={Logo} width={70} height={70} quality={65}/>
+          <Image alt="brand" src={Logo} width={60} height={60}/>
         </a>
       </Link>
-      <button id="menuButton" className="btn btn-menu" 
+      <button id="menuButton" className="btn-menu" 
       aria-label="open drawer" tabIndex={0} onClick={handleDrawer}>
         <span></span>
-        <MenuIcon className="text-primary" width={48} height={48}/>
+        <MenuIcon className="text-primary w-11 h-11"/>
       </button>
       <ul className="app-bar-menu">
-        <li>
+        <li className="m-2">
           <Link href="/products">
-            <a className="m-2">Products</a>
+            <a>MENU</a>
           </Link>
         </li>
-        <li>
-          <Link href="#store">
-            <a className="m-2">Store</a>
+        <li className="m-2">
+          <Link href="/about">
+            <a>ABOUT US</a>
           </Link>
         </li>
       </ul>
@@ -44,7 +44,24 @@ export default function Header() {
         </Link>
       </div>
       <Drawer open={open} onClick={handleDrawer}>
-        <div>Drawer</div>
+        <ul className="my-4">
+          <li className="mt-4 mx-2">
+            <Link href="/products">
+              <a>Products</a>
+            </Link>
+          </li>
+          <li className="mt-4 mx-2">
+            <Link href="#store">
+              <a>Store</a>
+            </Link>
+          </li>
+        </ul>
+        <Link href="/signin">
+          <a className="btn btn-primary-outline m-2">Sign in</a>
+        </Link>
+        <Link href="/">
+          <a className="btn btn-primary m-2">Sign up</a>
+        </Link>
       </Drawer>
     </header>
   )

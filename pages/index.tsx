@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import { ReactElement } from 'react';
 import Layout from '@/components/layouts/app';
+import Header from '@/components/organism/header';
 import Hero from '@/components/organism/landing/hero';
-import Header from '@/components/organism/landing/header';
 import Benefits from '@/components/organism/landing/benefits';
 import Features from '@/components/organism/landing/features';
+import Footer from '@/components/organism/footer';
 
 const Home = () => (
   <>
@@ -24,6 +25,7 @@ Home.getLayout = function getLayout(page: ReactElement) {
       <Layout>
           {page}
       </Layout>
+      <Footer />
     </div>
   );
 };

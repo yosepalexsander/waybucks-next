@@ -23,6 +23,13 @@ module.exports = {
       'lg': '0.5rem',
       'full': '50%'
     },
+    maxWidth: {
+      'xs': '16rem',
+      'sm': '20rem',
+      'md': '24rem',
+      'lg': '28rem',
+      'xl': '32rem'
+    },
     extend: {
       flex: {
         '1/2': '0 1 50%',
