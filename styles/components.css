@@ -1,0 +1,146 @@
+input {
+  @apply rounded-sm w-full border-primary bg-gray-400;
+}
+
+body {
+  @apply text-gray-700;
+}
+
+.h1 {
+  @apply text-4xl font-bold;
+}
+.h2 {
+  @apply text-3xl font-bold;
+}
+.h3 {
+  @apply text-2xl font-bold;
+}
+.h4 {
+  @apply text-xl font-bold;
+}
+.h5 {
+  @apply text-lg font-bold;
+}
+
+.container {
+  @apply mx-auto mt-24 w-11/12 md:w-10/12 lg:w-4/5;
+}
+
+/* app bar */
+.app-bar {
+  @apply fixed top-0 flex w-full bg-white z-50 px-12 items-center py-3 shadow;
+}
+.app-bar .app-bar-brand {
+  @apply flex-grow md:flex-none md:mr-5;
+  height: 60px;
+}
+.app-bar .btn-menu {
+  @apply block md:hidden;
+}
+.app-bar-menu {
+  @apply flex-none md:flex-grow;
+}
+.app-bar-menu > * {
+  @apply p-3 transition hover:bg-primary hover:text-white 
+}
+.app-bar-menu,
+.app-bar-btn {
+  @apply hidden md:flex sm:items-center;
+}
+/* button */
+.btn {
+  @apply relative overflow-hidden rounded-md px-4 py-2 text-center;
+}
+.btn-primary {
+  @apply text-white bg-primary border-2 border-transparent;
+}
+.btn-primary-outline {
+  @apply border-primary border-2 text-primary bg-white;
+}
+
+/* ripple effects */
+
+.btn::after {
+  content: "";
+  @apply hidden absolute rounded-full w-24 h-24 -mt-10 -ml-10 
+  top-1/2 left-1/2 bg-gray-400 bg-opacity-60 opacity-0;
+  background-color: rgba(255, 255, 255, 0.6);
+  animation: ripple 1s;
+}
+
+.btn:focus:not(:active)::after {
+  @apply block
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(5);
+  }
+}
+
+/* drawer */
+.drawer {
+  @apply fixed inset-0 z-40;
+}
+.drawer .paper {
+  @apply fixed top-0 right-0 h-full flex flex-col overflow-y-auto z-30 bg-white;
+  width: 250px;
+}
+.drawer .backdrop {
+  @apply inset-0 fixed flex items-center justify-center bg-gray-500 bg-opacity-50;
+  z-index: -1;
+}
+.drawer-enter .backdrop {
+  opacity: 0;
+}
+.drawer-enter .paper {
+  flex: 1 0 auto;
+  transform: translateX(100%);
+}
+.drawer-enter-active .backdrop {
+  opacity: 1;
+  transition: opacity cubic-bezier(0.3,0,0.2,1) 0ms
+}
+.drawer-enter-active .paper {
+  transform: translateX(0%);
+  transition: transform 300ms;
+}
+.drawer-exit .backdrop{
+  opacity: 1;
+}
+.drawer-exit .paper{
+  transform: translateX(0%);
+}
+
+.drawer-exit-active .backdrop{
+  opacity: 0;
+  transition: opacity 300ms
+}
+.drawer-exit-active .paper{
+  transform: translatex(100%);
+  transition: transform 300ms cubic-bezier(0,0,0.2,1) 0ms 
+}
+
+
+/* Responsiveness next image*/
+.img-container {
+  width: 100%;
+  height: 100%;
+}
+
+.img-container > div {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.img {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
