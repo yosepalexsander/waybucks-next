@@ -14,8 +14,8 @@ export default function Hero() {
         <br/>
         <p>Make your time more quality with a cup of coffee served by Waysbucks with modern packaging anywhere and anytime</p>
         <br/>
-        <Link href="/">
-          <a className="btn btn-primary-outline inline-block font-bold">Let&apos;s Order</a>
+        <Link href="/products">
+          <a className="btn cta">Let&apos;s Order</a>
         </Link>
       </div>
       <div className="hero-img">

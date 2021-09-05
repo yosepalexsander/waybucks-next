@@ -1,12 +1,21 @@
-import type { ReactElement } from 'react';
-
+import { ReactNode } from 'react';
+import Head from 'next/head'
+import Header from '@/components/organism/header'
+import Footer from '@/components/organism/footer'
 type LayoutProps = {
-  children: ReactElement
+  children: ReactNode
 }
 export default function Layout({ children }: LayoutProps) {
   return (
-    <main className="container">
-      {children}
-    </main>
+    <>
+      <Head>
+        <title>Waysbucks: Coffee For Everytime</title>
+      </Head>
+      <Header />
+      <main className="container">
+        {children}
+      </main>
+      <Footer />
+    </>
   );
 }

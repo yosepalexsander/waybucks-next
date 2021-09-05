@@ -1,6 +1,6 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
-import {createPortal} from "react-dom";
-import {CSSTransition} from "react-transition-group";
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import {createPortal} from 'react-dom';
+import {CSSTransition} from 'react-transition-group';
 
 type DrawerProps = {
   open: boolean,
@@ -12,7 +12,7 @@ export default function Drawer({open, children, ...props}: DrawerProps) {
   return (
     <>
       <CSSTransition
-      nodeRef={nodeRef}
+        nodeRef={nodeRef}
         in={open}
         timeout={300}
         classNames="drawer"
@@ -20,7 +20,7 @@ export default function Drawer({open, children, ...props}: DrawerProps) {
         <div className="drawer" {...props} ref={nodeRef}>
           <span className="backdrop" ></span>
           <div 
-          className={"paper"}>
+            className={'paper'}>
             {children}
           </div>
         </div>

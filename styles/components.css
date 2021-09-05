@@ -1,7 +1,3 @@
-input {
-  @apply rounded-sm w-full border-primary bg-gray-400;
-}
-
 body {
   @apply text-gray-700;
 }
@@ -24,6 +20,10 @@ body {
 
 .container {
   @apply mx-auto mt-24 w-11/12 md:w-10/12 lg:w-4/5;
+}
+
+.screen-center {
+  @apply h-screen w-screen flex flex-col justify-center items-center;
 }
 
 /* app bar */
@@ -52,10 +52,13 @@ body {
   @apply relative overflow-hidden rounded-md px-4 py-2 text-center;
 }
 .btn-primary {
-  @apply text-white bg-primary border-2 border-transparent;
+  @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
 }
 .btn-primary-outline {
-  @apply border-primary border-2 text-primary bg-white;
+  @apply border-primary border-2 text-primary bg-transparent;
+}
+.cta {
+  @apply text-gray-900 text-lg border-2 border-transparent inline-block font-bold bg-yellow-400; 
 }
 
 /* ripple effects */
@@ -143,4 +146,17 @@ body {
   width: 100% !important;
   height: 100% !important;
   position: relative !important;
+}
+
+/* form */
+.form {
+  @apply w-4/5 max-w-md mx-auto my-0 md:w-full;
+}
+
+.form-group {
+  @apply block h-12 mb-7;
+}
+.form-control {
+  @apply block rounded-sm border-gray-400 border rounded-md px-2 py-2 mb-0 w-full focus:outline-none
+  transition focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50;
 }

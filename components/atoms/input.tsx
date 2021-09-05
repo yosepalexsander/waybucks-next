@@ -1,8 +1,9 @@
+import type { InputHTMLAttributes } from 'react'
 
-export default function Input() {
+export default function Input(props: InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <div>
-      
-    </div>
+    <>
+      <input className="form-control" {...props}/>
+    </>
   )
 }

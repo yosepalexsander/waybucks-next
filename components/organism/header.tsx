@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Logo from 'public/assets/icons/logo.svg'
+import Logo from 'public/assets/icons/logo.svg';
 import { MenuIcon } from 'icons';
 import Drawer from '../moleculs/drawer';
 
@@ -19,7 +19,7 @@ export default function Header() {
         </a>
       </Link>
       <button id="menuButton" className="btn-menu" 
-      aria-label="open drawer" tabIndex={0} onClick={handleDrawer}>
+        aria-label="open drawer" tabIndex={0} onClick={handleDrawer}>
         <span></span>
         <MenuIcon className="text-primary w-11 h-11"/>
       </button>
@@ -39,7 +39,7 @@ export default function Header() {
         <Link href="/signin">
           <a className="btn btn-primary-outline m-2">Sign in</a>
         </Link>
-        <Link href="/">
+        <Link href="/signup">
           <a className="btn btn-primary m-2">Sign up</a>
         </Link>
       </div>

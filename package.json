@@ -9,6 +9,7 @@
     "lint": "next lint --fix ."
   },
   "dependencies": {
+    "formik": "^2.2.9",
     "next": "11.1.0",
     "postcss-import": "^14.0.2",
     "react": "17.0.2",

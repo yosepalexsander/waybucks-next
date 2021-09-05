@@ -35,7 +35,8 @@ module.exports = {
         '1/2': '0 1 50%',
         '2/5': '0 1 40%',
         '3/5': '0 1 60%'
-      }
+      },
+      ringColor: ['hover', 'active', 'focus'],
     },
   },
   variants: {

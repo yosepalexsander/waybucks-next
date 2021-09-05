@@ -4,8 +4,8 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'next/core-web-vitals',
     'plugin:@next/next/recommended',
+    'next/core-web-vitals',
     'next',
   ],
   parser: '@typescript-eslint/parser',
@@ -22,5 +22,11 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+    'indent': ['error', 2],
+    'quotes': 'off',
+    'jsx-quotes': ['error', 'prefer-double'],
+    '@typescript-eslint/quotes': [
+      'error', 'single', { 'allowTemplateLiterals': true }
+    ],
   },
 };
