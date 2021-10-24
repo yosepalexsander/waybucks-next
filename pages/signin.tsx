@@ -8,8 +8,9 @@ import SigninForm from '@/components/moleculs/form/signin';
 export default function Signin() {
   return (
     <Layout>
-      <div className="mb-6">
+      <div className="mb-6 text-center">
         <Image alt="brand" src={Logo} width={80} height={80} />
+        <p className="h3 text-gray-700">For Coffee Connoisseur</p>
       </div>
       <SigninForm />
       <p>Don&apos;t have an account yet? Please{' '}<Link href="/signup"><a className="text-blue-600">Sign up</a></Link></p>

@@ -59,7 +59,7 @@ export default function Header() {
         <Link href="/signin">
           <a className="btn btn-primary-outline m-2">Sign in</a>
         </Link>
-        <Link href="/">
+        <Link href="/signup">
           <a className="btn btn-primary m-2">Sign up</a>
         </Link>
       </Drawer>

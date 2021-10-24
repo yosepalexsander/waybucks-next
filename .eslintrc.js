@@ -24,6 +24,7 @@ module.exports = {
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
     'indent': ['error', 2],
     'quotes': 'off',
+    'max-len': ['error', { 'code': 150, 'ignoreComments': true }],
     'jsx-quotes': ['error', 'prefer-double'],
     '@typescript-eslint/quotes': [
       'error', 'single', { 'allowTemplateLiterals': true }

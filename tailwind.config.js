@@ -10,8 +10,9 @@ module.exports = {
       secondary: '#6207BD',
       red: colors.red,
       blue: colors.blue,
-      green: colors.green,
+      pink: colors.pink,
       yellow: colors.yellow,
+      green: colors.green,
       white: colors.white,
       gray: colors.gray,
       transparent: 'transparent'
@@ -38,6 +39,12 @@ module.exports = {
       },
       ringColor: ['hover', 'active', 'focus'],
     },
+    fill: theme => ({
+      'current': 'currentColor',
+      'red': theme('colors.red.500'),
+      'blue': theme('colors.blue.500'),
+      'pink': theme('colors.pink.500'),
+    })
   },
   variants: {
     extend: {
