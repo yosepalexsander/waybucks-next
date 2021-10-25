@@ -1,11 +1,11 @@
 import type {  ButtonHTMLAttributes } from 'react'
+import React, { PureComponent } from 'react'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &  {
   variant: 'contained' | 'outlined',
   color: 'secondary' | 'primary',
 };
 
-import React, { PureComponent } from 'react'
 
 export class Button extends PureComponent<ButtonProps> {
   constructor(props: ButtonProps) {
