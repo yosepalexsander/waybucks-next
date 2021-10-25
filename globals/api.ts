@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders, AxiosRespon
 import Cookies from 'js-cookie';
 
 
-export const createAxiosRequestConfig = (headers?: AxiosRequestHeaders): AxiosRequestConfig => {
+export const createAxiosRequestConfig = (headers: AxiosRequestHeaders): AxiosRequestConfig => {
   const newConfig: AxiosRequestConfig = {
     headers
   }
@@ -20,7 +20,7 @@ const API = () => (function(){
     if (error.response.status === 401) {
       Cookies.remove('token')
     }
-    return error;
+    return error.response;
   });
 
 

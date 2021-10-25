@@ -1,13 +1,14 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Formik, Field, Form, FormikHelpers } from 'formik'
 import { validateEmail, validateName, validatePassword, validateGender, validatePhone } from 'utils/validation'
 import Button from '@/components/atoms/button'
 import Input from '@/components/atoms/input'
-
-import API, { createAxiosRequestConfig } from 'globals/api'
-import { FemaleIcon, MaleIcon } from 'icons'
-import { SignupResponse } from 'interfaces/interfaces'
 import Alert from '@/components/atoms/alert'
+
+import { FemaleIcon, MaleIcon } from 'icons'
+import API, { createAxiosRequestConfig } from 'globals/api'
+import { SignupResponse } from 'interfaces/interfaces'
 
 type SignupFormValues = {
   name: string,
@@ -18,6 +19,7 @@ type SignupFormValues = {
 }
 
 export default function SignupForm() {
+  const router = useRouter()
   const initialValues: SignupFormValues = {
     name: '',
     email: '',
@@ -28,9 +30,12 @@ export default function SignupForm() {
 
   // for handle registration reply
   const [error, setError] = useState({
-    error: false,
+    isError: false,
     message: ''
   })
+
+  // handle show alert
+  const [showAlert, setShowAlert] = useState(false)
   
   // for live feedback from formik
   const [didFocus, setDidFocus] = useState(false);
@@ -40,19 +45,31 @@ export default function SignupForm() {
   const handleSubmit = async (values: SignupFormValues, formikHelpers: FormikHelpers<SignupFormValues>): Promise<any> => {
     const config = createAxiosRequestConfig({'Content-Type': 'application/json'})
 
-    const response = await API().register<SignupResponse>(values, config) 
-    if (response.status !== 200) {
-      setError({
-        error: true,
-        message: response.data.message
-      })
+    try {
+      const response = await API().register<SignupResponse>(values, config) 
+      if (response.status !== 200) {
+        setError({
+          isError: true,
+          message: response.data.message
+        })
+        console.log(response)
+      }
+      setShowAlert(true)
+    } catch (error) {
+      console.error(error)
     }
   }
   
   return (
     <>
-      {error.error && (<Alert severity="error">{error.message}</Alert>)}
-      {!error.error && (<Alert severity="success">{error.message}</Alert>)}
+      {error.isError && (<Alert severity="error" open={showAlert} onClose={() => setShowAlert(false)}>{error.message}</Alert>)}
+      {!error.isError && (
+        <Alert severity="success" open={showAlert} onClose={
+          () => {
+            setShowAlert(false)
+            router.push('/signin')
+          }}>Login success, you can login now</Alert>
+      )}
       <div className="form">
         <Formik
           initialValues={initialValues} 
@@ -109,9 +126,9 @@ export default function SignupForm() {
                   />
                   <MaleIcon className="icon" size={28}/>
                 </label>
-                <label className="checkbox-label" htmlFor="male">
+                <label className="checkbox-label" htmlFor="female">
                   <Field 
-                    id="male" 
+                    id="female" 
                     type="radio" 
                     name="gender" 
                     validate={validateGender} 

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Cookies from 'js-cookie'
 import { Formik, Field, Form, FormikHelpers } from 'formik'
@@ -5,11 +6,11 @@ import { validateEmail, validatePassword } from 'utils/validation'
 
 import Input from '@/components/atoms/input'
 import Button from '@/components/atoms/button'
+import { Alert } from '@/components/atoms/alert'
 
 import API, { createAxiosRequestConfig } from 'globals/api'
 import { SigninResponse } from 'interfaces/interfaces'
-import { Alert } from '@/components/atoms/alert'
-import { CSSTransition } from 'react-transition-group'
+
 
 type SigninFormValues = {
   email: string,
@@ -17,6 +18,7 @@ type SigninFormValues = {
 }
 
 export default function SigninForm() {
+  const router = useRouter()
   const initialValues: SigninFormValues = {
     email: '',
     password: ''
@@ -28,7 +30,7 @@ export default function SigninForm() {
     message: ''
   })
   
-  // handle open alert
+  // handle show alert
   const [showAlert, setShowAlert] = useState(false)
 
   // for live feedback from formik
@@ -42,9 +44,11 @@ export default function SigninForm() {
       const response = await API().login<SigninResponse>(values, config) 
       if (response?.status === 200) {
         Cookies.set('token', response.data.payload.token)
+        router.push('/product')
         return
       }
       setError({isError: true, message: 'Your Email/Password does\'nt match'})
+      setShowAlert(true)
     } catch (error) {
       console.log(error)
     }
@@ -53,14 +57,7 @@ export default function SigninForm() {
   return (
     <>
       {error.isError && (
-        <CSSTransition
-          in={showAlert}
-          timeout={300}
-          classNames="alert"
-          unmountOnExit
-        >   
-          <Alert severity="error" onClose={() => setShowAlert(false)}>{error.message}</Alert>
-        </CSSTransition>
+        <Alert severity="error" open={showAlert} onClose={() => setShowAlert(false)}>{error.message}</Alert>
       )}
       <div className="form">
         <Formik
