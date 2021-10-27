@@ -1,15 +1,14 @@
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import Cookies from 'js-cookie'
 import { Formik, Field, Form, FormikHelpers } from 'formik'
 import { validateEmail, validatePassword } from 'utils/validation'
 
 import Input from '@/components/atoms/input'
 import Button from '@/components/atoms/button'
-import { Alert } from '@/components/atoms/alert'
+import Alert from '@/components/atoms/alert'
 
-import API, { createAxiosRequestConfig } from 'globals/api'
-import { SigninResponse } from 'interfaces/interfaces'
+import API, { createAxiosRequestConfig } from 'utils/api'
+import { SigninResponse } from 'interfaces/api'
+import { authLogin } from 'utils/auth'
 
 
 type SigninFormValues = {
@@ -18,7 +17,6 @@ type SigninFormValues = {
 }
 
 export default function SigninForm() {
-  const router = useRouter()
   const initialValues: SigninFormValues = {
     email: '',
     password: ''
@@ -41,10 +39,13 @@ export default function SigninForm() {
     const config = createAxiosRequestConfig({'Content-Type': 'application/json'})
 
     try {
-      const response = await API().login<SigninResponse>(values, config) 
-      if (response?.status === 200) {
-        Cookies.set('token', response.data.payload.token)
-        router.push('/product')
+      const {data, ...response} = await API().login<SigninResponse>(values, config) 
+      if (response.status === 200) {
+        authLogin({
+          id: data.payload.id, 
+          token: data.payload.token,
+          redirect: '/'
+        })
         return
       }
       setError({isError: true, message: 'Your Email/Password does\'nt match'})
@@ -74,8 +75,13 @@ export default function SigninForm() {
                   className={values.email ? 'not-empty': ''}
                   validate={validateEmail} as={Input} 
                 />
-                {!!didFocus && values.email.trim().length > 2 || touched.email 
-                  ?(<span aria-live="polite" className="text-sm text-red-600 ml-1">{errors.email}</span>) : null}
+                {(!!didFocus && values.email.trim().length > 2) || touched.email ? (
+                  <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">
+                    {errors.email}
+                  </div>
+                ) : (
+                  <div className="h-3"></div>
+                )}
               </div>
               <div className="form-group">
                 <Field 
@@ -87,8 +93,13 @@ export default function SigninForm() {
                   className={values.password ? 'not-empty': ''}
                   validate={validatePassword} as={Input}
                 />
-                {!!didFocus && values.password.trim().length > 2 || touched.password 
-                  ?(<span aria-live="polite" className="text-sm text-red-600 ml-1">{errors.password}</span>) : null}
+                {(!!didFocus && values.password.trim().length > 2) || touched.password ? (
+                  <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">
+                    {errors.password}
+                  </div>
+                ) : (
+                  <div className="h-3"></div>
+                )}
               </div>
               <Button variant="contained" color="primary" type="submit" disabled={isValid ? false : true} className="w-full mt-2 mb-2">Submit</Button>
             </Form>

@@ -4,8 +4,12 @@ import Link from 'next/link';
 import Logo from 'public/assets/icons/logo.svg';
 import { MenuIcon } from 'icons';
 import Drawer from '../moleculs/drawer';
+import { User } from 'interfaces/object';
 
-export default function Header() {
+type HeaderProps = {
+  user: User | null
+}
+export default function Header({user}: HeaderProps) {
   const [open, setOpen] = useState(false);
 
   const handleDrawer = () => {
@@ -36,12 +40,18 @@ export default function Header() {
         </li>
       </ul>
       <div className="app-bar-btn">
-        <Link href="/signin">
-          <a className="btn btn-primary-outline m-2">Sign in</a>
-        </Link>
-        <Link href="/signup">
-          <a className="btn btn-primary m-2">Sign up</a>
-        </Link>
+        {user ? (
+          <p>user loggedin</p>
+        ) : (
+          <>
+            <Link href="/signin">
+              <a className="btn btn-primary-outline m-2">Sign in</a>
+            </Link>
+            <Link href="/signup">
+              <a className="btn btn-primary m-2">Sign up</a>
+            </Link>
+          </>
+        )}
       </div>
       <Drawer open={open} onClick={handleDrawer}>
         <ul className="my-4">

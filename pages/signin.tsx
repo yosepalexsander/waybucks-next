@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Logo from 'public/assets/icons/logo.svg';
 
 import Layout from '@/components/layouts/signin';
-import SigninForm from '@/components/moleculs/form/signin';
+import SigninForm from '@/components/organism/form/signin';
 
 export default function Signin() {
   return (

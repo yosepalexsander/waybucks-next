@@ -9,7 +9,8 @@ type AlertProps = ButtonHTMLAttributes<HTMLButtonElement> &  {
   onClose: () => void,
   open?: boolean
 };
-export class Alert extends PureComponent<AlertProps> {
+
+export default class Alert extends PureComponent<AlertProps> {
   private nodeRef: React.RefObject<HTMLDivElement>
   constructor(props: AlertProps) {
     super(props)
@@ -61,6 +62,4 @@ export class Alert extends PureComponent<AlertProps> {
     )
   }
 }
-
-export default Alert
 

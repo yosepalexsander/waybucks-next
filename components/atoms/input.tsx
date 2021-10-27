@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
-export class Input extends PureComponent<InputProps> {
+export default class Input extends PureComponent<InputProps> {
   constructor(props: InputProps) {
     super(props)
   }
@@ -19,5 +19,3 @@ export class Input extends PureComponent<InputProps> {
     )
   }
 }
-
-export default Input

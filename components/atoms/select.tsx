@@ -5,7 +5,7 @@ type SelectProps = InputHTMLAttributes<HTMLSelectElement> &  {
   labelId: 'string'
 };
 
-export class Select extends PureComponent<SelectProps> {
+export default class Select extends PureComponent<SelectProps> {
   constructor(props: SelectProps) {
     super(props)
   }
@@ -19,5 +19,3 @@ export class Select extends PureComponent<SelectProps> {
     )
   }
 }
-
-export default Select

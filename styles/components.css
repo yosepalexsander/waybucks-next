@@ -201,7 +201,7 @@ svg {
 }
 
 .checkbox-label input[type="radio"] + .icon {
-  @apply transition-all duration-200;
+  @apply mx-3 transition-all duration-200;
 }
 
 input[class="male"]:checked + .icon,

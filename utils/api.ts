@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 
 
@@ -9,9 +9,11 @@ export const createAxiosRequestConfig = (headers: AxiosRequestHeaders): AxiosReq
   return newConfig
 }
 
+
 const API = () => (function(){
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    withCredentials: true
   });
   
   instance.interceptors.response.use(response => {
@@ -19,6 +21,7 @@ const API = () => (function(){
   }, error => {
     if (error.response.status === 401) {
       Cookies.remove('token')
+      Cookies.remove('id')
     }
     return error.response;
   });
@@ -49,8 +52,8 @@ const API = () => (function(){
    * @param id user id
    * @returns response object
    */
-  async function getUser<T>(id: string): Promise<T> {
-    return instance.get(`/users/${id}`)
+  async function getUser<T>(id: string | undefined, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return instance.get<T>(`/users/${id}`, config)
   }
 
   /**Get all products from server
