@@ -57,7 +57,7 @@ export async function getUser<T>(id: string | undefined, config?: AxiosRequestCo
    * 
    * @returns response object
    */
-export async function getProducts<T>(): Promise<T> {
+export async function getProducts<T>(): Promise<AxiosResponse<T>> {
   return instance.get('/products')
 }
 
