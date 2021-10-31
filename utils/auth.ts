@@ -1,14 +1,22 @@
-import { NextPageContext } from 'next';
+import type { GetServerSidePropsContext, GetStaticPropsContext, NextPageContext } from 'next';
 import Router from 'next/router';
 import cookies from 'next-cookies';
 import cookie from 'js-cookie';
-import API, { createAxiosRequestConfig } from 'utils/api';
+import { createAxiosRequestConfig, getUser } from 'utils/api';
 import { GetUserResponse } from 'interfaces/api';
 import { User } from 'interfaces/object';
 
-export const auth = async (ctx: NextPageContext): Promise<User | undefined> => {
-  const { id } = cookies(ctx)
-  const response = await API().getUser<GetUserResponse>(id)
+/** Authentication for SSR Pages 
+ * 
+ * @param ctx Next SSR props context
+ * @returns User data
+ */
+export const authSSR = async (ctx: GetServerSidePropsContext): Promise<User | null> => {
+  const { id, token } = cookies(ctx)
+  const config = createAxiosRequestConfig({
+    Authorization: `Bearer ${token}`
+  })
+  const response = await getUser<GetUserResponse>(id, config)
   const user = response.data.payload
   if (response.status === 200) {
     return user
@@ -20,20 +28,47 @@ export const auth = async (ctx: NextPageContext): Promise<User | undefined> => {
       Router.push(
         {
           pathname: '/signin',
-          query: { redirect: ctx.asPath },
         },
         '/signin'
       );
     }
+    return null
   }
-  return undefined
+}
+
+/** Authentication for SSG Pages 
+ * 
+ * @param
+ * @returns User data
+ */
+export const authSSG =  async (): Promise<User | null> => {
+  const id = cookie.get('id')
+  const token = cookie.get('token')
+  
+  const config = createAxiosRequestConfig({
+    Authorization: `Bearer ${token}`
+  })
+  const response = await getUser<GetUserResponse>(id, config)
+  const user = response.data.payload
+  if (response.status === 200) {
+    return user
+  } else {
+    Router.push(
+      {
+        pathname: '/signin',
+      },
+      '/signin'
+    );
+    return null
+  }
 }
 
 export const authLogout = () => {
   cookie.remove('id');
+  cookie.remove('token')
   // To support logging out from all windows
-  window.localStorage.setItem('logout', Date.now().toLocaleString());
-  Router.push('/login');
+  window.localStorage.setItem('logout', Date.now().toString());
+  Router.push('/signin');
 };
 
 export const authLogin = ({id, token, redirect}: {id: string, token: string, redirect: string}) => {
