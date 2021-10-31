@@ -54,9 +54,8 @@ export default function SignupForm() {
       if (response.status !== 200) {
         setError({
           isError: true,
-          message: response.data.message,
+          message: 'email already registered',
         });
-        console.log(response);
       }
       setShowAlert(true);
     } catch (error) {

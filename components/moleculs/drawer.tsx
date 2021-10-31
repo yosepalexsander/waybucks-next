@@ -19,8 +19,7 @@ export default function Drawer({open, children, ...props}: DrawerProps) {
         unmountOnExit>
         <div className="drawer" {...props} ref={nodeRef}>
           <span className="backdrop" ></span>
-          <div 
-            className={'paper'}>
+          <div className="drawer-paper">
             {children}
           </div>
         </div>

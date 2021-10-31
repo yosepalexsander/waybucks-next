@@ -6,7 +6,7 @@ import Input from '@/components/atoms/input'
 import Button from '@/components/atoms/button'
 import Alert from '@/components/atoms/alert'
 
-import API, { createAxiosRequestConfig } from 'utils/api'
+import {login, createAxiosRequestConfig } from 'utils/api'
 import { SigninResponse } from 'interfaces/api'
 import { authLogin } from 'utils/auth'
 
@@ -39,7 +39,7 @@ export default function SigninForm() {
     const config = createAxiosRequestConfig({'Content-Type': 'application/json'})
 
     try {
-      const {data, ...response} = await API().login<SigninResponse>(values, config) 
+      const {data, ...response} = await login<SigninResponse>(values, config) 
       if (response.status === 200) {
         authLogin({
           id: data.payload.id, 

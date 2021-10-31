@@ -10,4 +10,6 @@ export {IoFemale as FemaleIcon } from 'react-icons/io5';
 export {IoMale as MaleIcon } from 'react-icons/io5';
 
 export {MdClose as CloseIcon} from 'react-icons/md'
+export {MdAccountCircle as AccountIcon} from 'react-icons/md'
 
+export {RiLogoutBoxRLine as LogoutIcon} from 'react-icons/ri'

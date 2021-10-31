@@ -1,0 +1,17 @@
+/* Dropdown */
+.menuList {
+  @apply py-1;
+}
+
+.menuItem {
+  @apply relative flex py-3 px-2 outline-none cursor-pointer 
+  m-0 p-0 select-none text-base transition hover:bg-gray-100;
+}
+
+.menuItem > * {
+  @apply flex;
+}
+
+.menuItem div {
+  @apply inline-flex w-10;
+}

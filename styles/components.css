@@ -1,9 +1,9 @@
-/* Universal */
+/* General */
 body {
   @apply text-gray-700;
 }
 svg {
-  display: inline-block
+  display: inline-block;
 }
 
 .h1 {
@@ -32,9 +32,14 @@ svg {
 
 .backdrop {
   @apply fixed top-0 left-0 bottom-0 right-0 bg-transparent;
+  z-index: -1;
+}
+
+.paper {
+  @apply rounded-md shadow-md bg-white;
+  z-index: 100;
 }
 /*  */
-
 
 /* app bar */
 .app-bar {
@@ -51,9 +56,10 @@ svg {
   @apply flex-none md:flex-grow;
 }
 .app-bar-menu > * {
-  @apply p-3 transition duration-300 hover:bg-primary hover:text-white 
+  @apply p-3 transition duration-300 hover:bg-primary hover:text-white;
 }
-.app-bar-menu, .app-bar-btn {
+.app-bar-menu,
+.app-bar-btn {
   @apply hidden md:flex sm:items-center;
 }
 /*  */
@@ -63,16 +69,13 @@ svg {
   @apply relative overflow-hidden rounded-md px-4 py-2 text-center;
 }
 .btn-primary {
-  @apply text-white bg-primary border-2 border-transparent;
-}
-.btn-primary-outline {
-  @apply border-primary border-2 text-primary bg-transparent;
-}
-.btn-submit {
   @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
 }
+.btn-primary-outline {
+  @apply border-primary border-2 text-primary bg-transparent disabled:bg-gray-400 disabled:text-white;
+}
 .cta {
-  @apply text-gray-900 text-lg border-2 border-transparent inline-block font-bold bg-yellow-400; 
+  @apply text-gray-900 text-lg border-2 border-transparent inline-block font-bold bg-yellow-400;
 }
 
 .btn::after {
@@ -84,7 +87,7 @@ svg {
 }
 
 .btn:focus:not(:active)::after {
-  @apply block
+  @apply block;
 }
 
 @keyframes ripple {
@@ -101,9 +104,9 @@ svg {
 
 /* Drawer */
 .drawer {
-  @apply fixed inset-0 z-40;
+  @apply fixed md:hidden inset-0 z-40;
 }
-.drawer .paper {
+.drawer .drawer-paper {
   @apply fixed top-0 right-0 h-full flex flex-col overflow-y-auto z-30 bg-white;
   width: 250px;
 }
@@ -112,32 +115,31 @@ svg {
   z-index: -1;
 }
 .drawer-enter .backdrop {
-  @apply opacity-0
+  @apply opacity-0;
 }
-.drawer-enter .paper {
+.drawer-enter .drawer-paper {
   flex: 1 0 auto;
   transform: translateX(100%);
 }
 .drawer-enter-active .backdrop {
   @apply transition duration-100 opacity-100;
 }
-.drawer-enter-active .paper {
-  @apply transition duration-300 transform translate-x-0
+.drawer-enter-active .drawer-paper {
+  @apply transition duration-300 transform translate-x-0;
 }
-.drawer-exit .backdrop{
+.drawer-exit .backdrop {
   @apply opacity-100;
 }
-.drawer-exit .paper{
+.drawer-exit .drawer-paper {
   @apply transform translate-x-0;
 }
 
-.drawer-exit-active .backdrop{
+.drawer-exit-active .backdrop {
   @apply transition duration-300 opacity-0;
 }
-.drawer-exit-active .paper{
+.drawer-exit-active .drawer-paper {
   @apply transition duration-300 translate-x-full;
 }
-
 
 /* Responsiveness next image*/
 .img-container {
@@ -157,13 +159,13 @@ svg {
   position: relative !important;
 }
 
-/* form */
+/* Form */
 .form {
   @apply w-4/5 max-w-md mx-auto my-0 md:w-full;
 }
 
 .form-group {
-  @apply mb-3 relative pt-3 ;
+  @apply mb-3 relative pt-3;
 }
 .form-control-root {
   @apply relative h-10;
@@ -175,9 +177,9 @@ svg {
 }
 
 .form-label::after {
-  content: '';
+  content: "";
   height: 2px;
-  @apply absolute bottom-0 left-2/4 w-2 invisible bg-red-200 transition-all ease-out duration-200; 
+  @apply absolute bottom-0 left-2/4 w-2 invisible bg-red-200 transition-all ease-out duration-200;
 }
 
 .form-control-input {
@@ -185,11 +187,12 @@ svg {
   transition duration-500 ease-out focus:bg-transparent;
 }
 
-.form-control-input:focus ~ .form-label, .not-empty ~ .form-label {
+.form-control-input:focus ~ .form-label,
+.not-empty ~ .form-label {
   @apply -top-5 left-0 text-gray-700 text-sm opacity-100;
 }
 
-.form-control-input:focus ~ .form-label::after{
+.form-control-input:focus ~ .form-label::after {
   @apply visible w-full left-0;
 }
 
@@ -214,46 +217,8 @@ input[class="female"]:focus + .icon {
   @apply fill-pink;
 }
 
-/* Alert */
-.alert {
-  @apply flex items-center px-3 py-2 rounded-md shadow-none;
-}
-.alert > svg {
-  @apply mr-2;
-}
-.alert .alert-message {
-  @apply py-2 flex-grow
-}
-.alert-success {
-  @apply bg-green-100;
-}
-.alert-success svg, .alert-success .alert-message {
-  @apply fill-current text-green-400;
-}
-.alert-error {
-  @apply bg-red-100;
-}
-.alert-error svg, .alert-error .alert-message {
-  @apply fill-current text-red-400;
-}
-
-.alert-close > svg {
-  @apply ml-4 transition duration-300 hover:scale-125;
-}
-.paper {
-  @apply z-10 absolute top-12;
-}
-
-.alert-enter {
-  @apply opacity-0 transform scale-90;
-}
-
-.alert-enter-active {
-  @apply transition duration-500 opacity-100 transform scale-100 translate-y-0;
-}
-.alert-exit {
-  @apply opacity-100;
-}
-.alert-exit-active {
-  @apply transition duration-500 opacity-0 transform scale-90 -translate-y-56;
+/* Avatar */
+.avatar {
+  @apply flex items-center justify-center rounded-full bg-yellow-400 text-2xl 
+  font-bold border border-primary cursor-pointer;
 }
