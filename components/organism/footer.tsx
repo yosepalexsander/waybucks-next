@@ -1,7 +1,7 @@
-import { GithubIcon, InstagramIcon, LinkedinIcon } from "icons";
-import Image from "next/image";
-import Link from "next/link";
-import Logo from "public/assets/icons/logo.svg";
+import { GithubIcon, InstagramIcon, LinkedinIcon } from 'icons';
+import Image from 'next/image';
+import Link from 'next/link';
+import Logo from 'public/assets/icons/logo.svg';
 
 export default function Footer() {
   return (

@@ -1,32 +1,45 @@
-import Head from 'next/head';
-import { ReactElement } from 'react';
+import { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import cookies from 'next-cookies';
 import Layout from '@/components/layouts/app';
-import Header from '@/components/organism/header';
 import Hero from '@/components/organism/landing/hero';
 import Benefits from '@/components/organism/landing/benefits';
 import Features from '@/components/organism/landing/features';
-import Footer from '@/components/organism/footer';
 
-const Home = () => (
-  <>
-    <Hero />
-    <Features />
-    <Benefits />
-  </>
-);
+import { getUser, createAxiosRequestConfig } from 'utils/api';
+import { User } from 'interfaces/object';
+import { GetUserResponse } from 'interfaces/api';
 
-Home.getLayout = function getLayout(page: ReactElement) {
+type HomeProps = {
+  user: User | null
+}
+
+export default function Home({user}: HomeProps) {
   return (
-    <div>
-      <Head>
-        <title>Waysbucks: Coffee For Everytime</title>
-      </Head>
-      <Header />
-      <Layout>
-          {page}
-      </Layout>
-      <Footer />
-    </div>
-  );
+    <Layout user={user}>
+      <Hero />
+      <Features />
+      <Benefits />
+    </Layout>
+  )
 };
-export default Home;
+
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (ctx): Promise<GetServerSidePropsResult<HomeProps>> => {
+  const { id, token } = cookies(ctx)
+  const config = createAxiosRequestConfig({
+    Authorization: `Bearer ${token}`
+  })
+  const {data, ...response} = await getUser<GetUserResponse>(id, config)
+  if (response.status !== 200) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+  return {
+    props: {
+      user: data.payload
+    }
+  }
+}

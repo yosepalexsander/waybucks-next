@@ -1,7 +1,7 @@
-import Image from "next/image";
-import FeatureOne from "public/assets/images/feature-1.svg";
-import FeatureTwo from "public/assets/images/feature-2.svg";
-import FeatureThree from "public/assets/images/feature-3.svg";
+import Image from 'next/image';
+import FeatureOne from 'public/assets/images/feature-1.svg';
+import FeatureTwo from 'public/assets/images/feature-2.svg';
+import FeatureThree from 'public/assets/images/feature-3.svg';
 
 
 export default function Features() {

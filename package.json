@@ -9,7 +9,11 @@
     "lint": "next lint --fix ."
   },
   "dependencies": {
-    "next": "11.1.0",
+    "axios": "^0.23.0",
+    "formik": "^2.2.9",
+    "js-cookie": "^3.0.1",
+    "next": "^11.1.2",
+    "next-cookies": "^2.0.3",
     "postcss-import": "^14.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -18,6 +22,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^11.1.0",
+    "@types/js-cookie": "^3.0.0",
     "@types/react": "17.0.19",
     "@types/react-dom": "^17.0.9",
     "@types/react-transition-group": "^4.4.2",

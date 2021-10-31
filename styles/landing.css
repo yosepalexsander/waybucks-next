@@ -10,7 +10,7 @@
   @apply text-lg text-white;
 }
 .hero .hero-bg {
-  @apply absolute top-0 left-0 w-full  h-full lg:w-5/6;
+  @apply absolute block top-0 left-0 w-full  h-full lg:w-5/6;
   z-index: -1;
 }
 

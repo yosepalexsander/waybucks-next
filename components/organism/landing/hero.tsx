@@ -14,15 +14,15 @@ export default function Hero() {
         <br/>
         <p>Make your time more quality with a cup of coffee served by Waysbucks with modern packaging anywhere and anytime</p>
         <br/>
-        <Link href="/">
-          <a className="btn btn-primary-outline inline-block font-bold">Let&apos;s Order</a>
+        <Link href="/product">
+          <a className="btn cta">Let&apos;s Order</a>
         </Link>
       </div>
-      <div className="hero-img">
-        <Image alt="hero" src={HeroImg} layout="fill" objectFit="contain" className="rounded-r-md"/>
+      <div className="img-container hero-img">
+        <Image alt="hero" src={HeroImg} layout="responsive" objectFit="contain" className="rounded-r-md"/>
       </div>
-      <div className="hero-bg">
-        <Image alt="hero background" src={HeroBg} layout="fill" className="rounded-md"/>
+      <div className="img-container hero-bg">
+        <Image alt="hero background" src={HeroBg} layout="responsive" className="rounded-md"/>
       </div>
     </section>
   )
