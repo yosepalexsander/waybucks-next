@@ -11,10 +11,9 @@ import { User } from 'interfaces/object';
 import Avatar from '../atoms/avatar';
 
 type HeaderProps = {
-  user: User | null
+  user: User | null | undefined
 }
 export default function Header({user}: HeaderProps) {
-  const router = useRouter()
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
 

@@ -15,7 +15,7 @@ type HomeProps = {
 
 export default function Home({user}: HomeProps) {
   return (
-    <Layout user={user}>
+    <Layout user={user} route="landing">
       <Hero />
       <Features />
       <Benefits />

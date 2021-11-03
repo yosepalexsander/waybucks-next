@@ -5,8 +5,8 @@ export default class CardMedia extends Component<ImgHTMLAttributes<HTMLImageElem
   render() {
     const {src, alt, height } =  this.props
     return (
-      <div className="img-container" style={{ height: height}}>
-        {src && (<Image src={src} alt={alt} layout="fill" objectFit="cover"/>)}
+      <div className="img-container relative" style={{ height: height, width: '100%'}}>
+        {src && (<Image src={src} alt={alt} layout="fill" objectFit="cover"  quality={70} className="rounded-md"/>)}
       </div>
     )
   }

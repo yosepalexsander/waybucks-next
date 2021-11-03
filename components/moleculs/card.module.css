@@ -1,0 +1,9 @@
+.card {
+  @apply bg-red-200 rounded-md shadow cursor-pointer transition duration-300 hover:scale-105;
+}
+.cardTitle {
+  @apply text-xl font-bold;
+}
+.cardBody {
+  @apply text-red-400 font-bold;
+}

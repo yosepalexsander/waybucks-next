@@ -41,26 +41,21 @@ export const authSSR = async (ctx: GetServerSidePropsContext): Promise<User | nu
  * @param
  * @returns User data
  */
-export const authSSG =  async (): Promise<User | null> => {
+export const authCSR =  async (): Promise<GetUserResponse | null> => {
   const id = cookie.get('id')
   const token = cookie.get('token')
   
   const config = createAxiosRequestConfig({
     Authorization: `Bearer ${token}`
   })
+  
   const response = await getUser<GetUserResponse>(id, config)
-  const user = response.data.payload
+  
   if (response.status === 200) {
-    return user
-  } else {
-    Router.push(
-      {
-        pathname: '/signin',
-      },
-      '/signin'
-    );
-    return null
+    return response.data
   }
+  const error = new Error('Authentication failed')
+  throw error
 }
 
 export const authLogout = () => {

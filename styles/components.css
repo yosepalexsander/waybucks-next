@@ -6,6 +6,10 @@ svg {
   display: inline-block;
 }
 
+footer {
+  @apply bottom-0
+}
+
 .h1 {
   @apply text-4xl font-bold;
 }
@@ -23,7 +27,7 @@ svg {
 }
 
 .container {
-  @apply mx-auto mt-24 w-11/12 md:w-10/12 lg:w-4/5;
+  @apply mx-auto mt-24 w-full md:w-11/12 lg:w-4/5 flex flex-col;
 }
 
 .screen-center {
@@ -215,6 +219,13 @@ input[class="male"]:focus + .icon {
 input[class="female"]:checked + .icon,
 input[class="female"]:focus + .icon {
   @apply fill-pink;
+}
+.input-search {
+  @apply border border-gray-500 text-base outline-none pl-10 p-2 rounded-md bg-gray-100 
+  bg-no-repeat w-full max-w-md;
+  background-image: url("/assets/icons/search.svg");
+  background-size: 25px;
+  background-position: 5px;
 }
 
 /* Avatar */

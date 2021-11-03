@@ -1,16 +1,12 @@
-import { SearchIcon } from 'icons'
-import React, { Component } from 'react'
+import React, { PureComponent, FocusEvent } from 'react'
 
 type InputSearchProps = {
-  onChange: () => void 
+  onChange: (e: FocusEvent<HTMLInputElement>) => void
 }
-export default class InputSearch extends Component<InputSearchProps> {
+export default class InputSearch extends PureComponent<InputSearchProps> {
   render() {
     return (
-      <div className="input">
-        <SearchIcon />
-        <input id="search" name="search" placeholder="Search..." onChange={this.props.onChange}/>
-      </div>
+      <input type="text" className="input-search" id="search" name="search" placeholder="Search..." onChange={this.props.onChange} />
     )
   }
 }

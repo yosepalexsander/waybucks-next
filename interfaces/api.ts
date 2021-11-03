@@ -25,5 +25,5 @@ export interface GetUserResponse extends CommonResponse {
 }
 
 export interface GetProductsResponse extends CommonResponse {
-  payload: Product
+  payload: Product[]
 }

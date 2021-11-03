@@ -6,9 +6,10 @@ import { User } from 'interfaces/object';
 
 type LayoutProps = {
   children: ReactNode,
-  user: User | null,
+  user: User | null | undefined,
+  route: string
 }
-export default function Layout({ children, user }: LayoutProps) {
+export default function Layout({ children, user, route }: LayoutProps) {
   return (
     <>
       <Head>
@@ -18,7 +19,7 @@ export default function Layout({ children, user }: LayoutProps) {
       <main className="container">
         {children}
       </main>
-      <Footer />
+      {route === 'landing' && (<Footer />)}
     </>
   );
 }
