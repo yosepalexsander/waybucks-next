@@ -24,7 +24,7 @@ instance.interceptors.response.use(response => {
 });
 
 
-/**User register
+/**Request for user register
    * 
    * @param data request body
    * @param config axios request config
@@ -34,7 +34,7 @@ export async function register<T>(data: Record<string, any>, config: AxiosReques
   return instance.post<T>('/register', data, config)
 }
 
-/**User login
+/**Request for user login
    * 
    * @param data request body
    * @param config axios request config
@@ -44,16 +44,16 @@ export async function login<T>(data: Record<string, any>, config: AxiosRequestCo
   return instance.post<T>('/login', data, config)
 }
 
-/**Get user data with corresponding id
+/**Request for get user data with corresponding id
    * 
    * @param id user id
    * @returns response object
    */
-export async function getUser<T>(id: string | undefined, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.get<T>(`/users/${id}`, config)
+export async function getUser<T>(id: string | undefined, config?: AxiosRequestConfig): Promise<T> {
+  return (await instance.get<T>(`/users/${id}`, config)).data
 }
 
-/**Get all products from server
+/**Request for get all products
    * 
    * @returns response object
    */
@@ -61,13 +61,21 @@ export async function getProducts<T>(): Promise<T> {
   return (await instance.get<T>('/products')).data
 }
 
-/**Get product with corresponding id
+/**Request for get product with corresponding id
    * 
    * @param id product id
    * @returns response object
    */
 export async function getProduct<T>(id: string): Promise<T> {
-  return instance.get(`/products/${id}`)
+  return (await instance.get<T>(`/products/${id}`)).data
+}
+
+/**Request for get all toppings
+   * 
+   * @returns response object
+   */
+export async function getToppings<T>(): Promise<T> {
+  return (await instance.get<T>('/toppings')).data
 }
 
 /**Request for get user carts.
@@ -76,7 +84,7 @@ export async function getProduct<T>(id: string): Promise<T> {
    * @returns response object
    */
 export async function getCarts<T>(): Promise<T> {
-  return instance.get('/carts')
+  return (await instance.get<T>('/carts')).data
 }
 
 /**Request for get user transactions.
@@ -84,7 +92,7 @@ export async function getCarts<T>(): Promise<T> {
    * @returns response object
    */
 export async function getUserTransactions<T>(): Promise<T> {
-  return instance.get('/user-transactions')
+  return (await instance.get<T>('/user-transactions')).data
 }
 
 /**Request for get all transactions (for admin).
@@ -92,7 +100,7 @@ export async function getUserTransactions<T>(): Promise<T> {
    * @returns response object
    */
 export async function getAllTransactions<T>(): Promise<T> {
-  return instance.get('/transactions')
+  return (await instance.get<T>('/transactions')).data
 }
   
 /**Request for post new product. This can be only used by admin

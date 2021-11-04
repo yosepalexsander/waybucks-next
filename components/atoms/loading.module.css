@@ -12,7 +12,8 @@
 }
 
 .loadingWrapper {
-  @apply flex h-screen items-center justify-center;
+  @apply flex items-center justify-center;
+  height: 45vw;
 }
 .loading div {
   position: absolute;

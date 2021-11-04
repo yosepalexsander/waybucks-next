@@ -27,7 +27,7 @@ footer {
 }
 
 .container {
-  @apply mx-auto mt-24 w-full md:w-11/12 lg:w-4/5 flex flex-col;
+  @apply container px-4 mx-auto sm:px-0 mt-24 flex flex-col;
 }
 
 .screen-center {
@@ -36,7 +36,6 @@ footer {
 
 .backdrop {
   @apply fixed top-0 left-0 bottom-0 right-0 bg-transparent;
-  z-index: -1;
 }
 
 .paper {
@@ -47,11 +46,13 @@ footer {
 
 /* app bar */
 .app-bar {
-  @apply fixed top-0 flex w-full bg-white z-50 px-12 items-center py-3 shadow;
+  @apply fixed top-0 flex justify-between md:justify-start w-full bg-white
+  px-5 py-3 items-center shadow z-50 sm:px-12;
 }
 .app-bar .app-bar-brand {
-  @apply flex-grow md:flex-none md:mr-5;
-  height: 60px;
+  @apply relative md:flex-none md:mr-5;
+  height: 45px;
+  width: 45px;
 }
 .app-bar .btn-menu {
   @apply block md:hidden;
@@ -60,7 +61,7 @@ footer {
   @apply flex-none md:flex-grow;
 }
 .app-bar-menu > * {
-  @apply p-3 transition duration-300 hover:bg-primary hover:text-white;
+  @apply px-4 py-2 transition duration-300 rounded-md hover:bg-primary hover:text-white;
 }
 .app-bar-menu,
 .app-bar-btn {
@@ -70,7 +71,7 @@ footer {
 
 /* button */
 .btn {
-  @apply relative overflow-hidden rounded-md px-4 py-2 text-center;
+  @apply relative overflow-hidden rounded-md px-2 py-2 text-center;
 }
 .btn-primary {
   @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
@@ -220,6 +221,7 @@ input[class="female"]:checked + .icon,
 input[class="female"]:focus + .icon {
   @apply fill-pink;
 }
+
 .input-search {
   @apply border border-gray-500 text-base outline-none pl-10 p-2 rounded-md bg-gray-100 
   bg-no-repeat w-full max-w-md;

@@ -10,7 +10,7 @@ export default function Layout({children}: LayoutProps) {
     <div>
       <Head>
         <meta name="description" content="Waybucks Signup" key="description"/>
-        <title>Waysbucks: Signup</title>
+        <title>Signup | Waysbucks Coffee</title>
       </Head>
       <main className="screen-center">
         {children}

@@ -24,21 +24,21 @@ export default function Header({user}: HeaderProps) {
     <header className="app-bar">
       <Link href="/">
         <a className="app-bar-brand">
-          <Image alt="brand" src={Logo} width={60} height={60}/>
+          <Image alt="brand" src={Logo} layout="fill"/>
         </a>
       </Link>
       <button id="menuButton" className="btn-menu" 
         aria-label="open drawer" tabIndex={0} onClick={handleDrawer}>
         <span></span>
-        <MenuIcon className="text-primary w-11 h-11"/>
+        <MenuIcon className="text-primary w-9 h-9"/>
       </button>
       <ul className="app-bar-menu">
-        <li className="m-2">
-          <Link href="/products">
+        <li className="mx-2">
+          <Link href="/product">
             <a>MENU</a>
           </Link>
         </li>
-        <li className="m-2">
+        <li className="mx-2">
           <Link href="/about">
             <a>ABOUT US</a>
           </Link>
@@ -54,8 +54,8 @@ export default function Header({user}: HeaderProps) {
               aria-haspopup="true"
               src={user.image}
               aria-expanded={openDropdown ? 'true' : undefined} 
-              width={50}
-              height={50}
+              width={45}
+              height={45}
               onClick={() => setOpenDropdown(true)}
             >{user.name.match(/\b(\w)/g)?.join('').toUpperCase()}</Avatar>
             <Dropdown 
@@ -69,10 +69,10 @@ export default function Header({user}: HeaderProps) {
         ) : (
           <>
             <Link href="/signin">
-              <a className="btn btn-primary-outline m-2">Sign in</a>
+              <a className="btn btn-primary-outline mx-2">Sign in</a>
             </Link>
             <Link href="/signup">
-              <a className="btn btn-primary m-2">Sign up</a>
+              <a className="btn btn-primary ml-2">Sign up</a>
             </Link>
           </>
         )}

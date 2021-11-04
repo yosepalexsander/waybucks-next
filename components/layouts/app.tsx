@@ -5,15 +5,20 @@ import Footer from '@/components/organism/footer';
 import { User } from 'interfaces/object';
 
 type LayoutProps = {
-  children: ReactNode,
-  user: User | null | undefined,
+  children: ReactNode
+  user: User | null | undefined
   route: string
+  head: {
+    title?: string
+    description?: string
+  }
 }
-export default function Layout({ children, user, route }: LayoutProps) {
+export default function Layout({ children, user, route, head }: LayoutProps) {
   return (
     <>
       <Head>
-        <title>Waysbucks: Coffee For Everytime</title>
+        <title>{head.title}</title>
+        <meta name="description" content={head.description} key="description"/>
       </Head>
       <Header user={user}/>
       <main className="container">

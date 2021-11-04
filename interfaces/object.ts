@@ -17,3 +17,11 @@ export interface Product {
   createdAt: Date,
   updatedAt: Date
 }
+
+export interface Topping {
+  id: number,
+  name: string,
+  image: string,
+  price: number,
+  is_available: boolean
+}

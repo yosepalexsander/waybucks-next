@@ -1,6 +1,9 @@
+import type { GetServerSideProps, GetServerSidePropsResult } from 'next'
 import { useState, FocusEvent } from 'react'
 import Link from 'next/link'
+import cookies from 'next-cookies'
 import useSWR from 'swr'
+
 import { createAxiosRequestConfig, getProducts, getUser } from 'utils/api'
 import { Product, User } from 'interfaces/object'
 import { GetProductsResponse, GetUserResponse } from 'interfaces/api'
@@ -8,8 +11,6 @@ import { GetProductsResponse, GetUserResponse } from 'interfaces/api'
 import Layout from '@/components/layouts/app'
 import Card from '@/components/moleculs/card'
 import InputSearch from '@/components/moleculs/inputSearch'
-import { GetServerSideProps, GetServerSidePropsResult } from 'next'
-import cookies from 'next-cookies'
 import Loading from '@/components/atoms/loading'
 
 type ProductsProps = {
@@ -29,31 +30,37 @@ export default function Products({user}: ProductsProps) {
   }
   const filteredProducts = filterProducts(productData?.payload, searchQuery)
 
-  if (!productData && !productError) {
-    return <Loading />
-  }
-
   return (
-    <Layout user={user} route="product">
-      <div className="text-center mt-4">
-        <InputSearch onChange={handleSearch}/>
-      </div>
-      {filteredProducts?.length != 0 ? (
-        <div className="flex justify-around flex-wrap mt-4 md:justify-start w-full mx-auto">
-          <>
-            {filteredProducts?.map(product => (
-              <Link key={product.id} href={`/product/${product.id}`}>
-                <a className="p-3 w-2/5 md:w-1/3 md:max-w-xs">
-                  <Card item={product}/>
-                </a>
-              </Link>
-            ))}
-          </>
-        </div>
+    <Layout
+      head={{
+        title: 'Products | Waysbucks Coffee'
+      }}
+      user={user} route="product">
+      {!productData && !productError ? (
+        <Loading />
       ): (
-        <div>
-          <p className="h3 text-center mt-12">No Matching Result</p>
-        </div>
+        <>
+          <div className="text-center mt-4">
+            <InputSearch onChange={handleSearch}/>
+          </div>
+          {filteredProducts?.length != 0 ? (
+            <div className="flex justify-around flex-wrap mt-4 md:justify-start w-full mx-auto">
+              <>
+                {filteredProducts?.map(product => (
+                  <Link key={product.id} href={{pathname: `/product/${product.id}`}}>
+                    <a className="p-3 w-full sm:w-2/5 md:w-1/3 md:max-w-xs">
+                      <Card item={product}/>
+                    </a>
+                  </Link>
+                ))}
+              </>
+            </div>
+          ): (
+            <div>
+              <p className="h3 text-center mt-12">No Matching Result</p>
+            </div>
+          )}
+        </>
       )}
     </Layout>
   );
@@ -64,17 +71,19 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async (ctx)
   const config = createAxiosRequestConfig({
     Authorization: `Bearer ${token}`
   })
-  const {data, ...response} = await getUser<GetUserResponse>(id, config)
-  if (response.status !== 200) {
+
+  const data = await getUser<GetUserResponse>(id, config)
+
+  if(data.payload) {
     return {
       props: {
-        user: null
+        user: data.payload
       }
     }
   }
   return {
     props: {
-      user: data.payload
+      user: null
     }
   }
 }

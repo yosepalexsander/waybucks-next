@@ -1,4 +1,4 @@
-import { Product, User } from './object';
+import { Product, Topping, User } from './object';
 
 export interface CommonResponse {
   message: string
@@ -26,4 +26,12 @@ export interface GetUserResponse extends CommonResponse {
 
 export interface GetProductsResponse extends CommonResponse {
   payload: Product[]
+}
+
+export interface GetProductResponse extends CommonResponse {
+  payload: Product
+}
+
+export interface GetToppingsResponse extends CommonResponse {
+  payload: Topping[]
 }
