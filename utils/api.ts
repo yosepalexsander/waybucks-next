@@ -13,6 +13,12 @@ const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL
 });
   
+instance.interceptors.request.use(request => {
+  const token = Cookies.get('token') || ''
+  if(request.headers && !request.headers.Authorization) request.headers.Authorization = `Bearer ${token}`
+
+  return request
+})
 instance.interceptors.response.use(response => {
   return response
 }, error => {
@@ -50,6 +56,8 @@ export async function login<T>(data: Record<string, any>, config: AxiosRequestCo
    * @returns response object
    */
 export async function getUser<T>(id: string | undefined, config?: AxiosRequestConfig): Promise<T> {
+  if (!id) id = Cookies.get('id')
+  
   return (await instance.get<T>(`/users/${id}`, config)).data
 }
 
@@ -119,8 +127,8 @@ export async function postProduct<T>(data: Record<string, string>, config: Axios
    * @param config axios request config
    * @returns response object
    */
-export async function postCart<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<T> {
-  return instance.post('/carts', data,  config)
+export async function postCart<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.post<T>('/carts', data,  config)
 }
 
 /**Request for post new transaction by user

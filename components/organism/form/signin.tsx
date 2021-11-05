@@ -58,7 +58,7 @@ export default function SigninForm() {
   return (
     <>
       {error.isError && (
-        <Alert severity="error" open={showAlert} onClose={() => setShowAlert(false)}>{error.message}</Alert>
+        <Alert severity="error" open={showAlert} position={{top: 50}} onClose={() => setShowAlert(false)}>{error.message}</Alert>
       )}
       <div className="form">
         <Formik

@@ -3,7 +3,7 @@
 }
 
 .product .product-img {
-  @apply relative w-full m-0 h-56 sm:w-2/5 sm:h-auto sm:mt-4;
+  @apply relative w-full m-0 h-56 sm:w-2/5 sm:h-auto  sm:mt-4;
 }
 
 .product .product-info {
@@ -11,23 +11,27 @@
   flex: 50%;
 }
 
-.product .product-info > *:not(:last-child) {
+.product > .product-info > *:not(:last-child) {
   @apply mb-4;
 }
 
-.product .product-info .name {
+.product > .product-info .name {
   @apply text-4xl font-bold text-primary;
 }
 
-.product .product-info .desc {
+.product > .product-info .desc {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
 }
 
-.product .product-info .price {
+.product > .product-info .price {
   @apply text-lg text-secondary;
+}
+
+.product > .product-info  .total {
+  @apply font-bold text-lg md:text-2xl; 
 }
 
 /* Topping input checkbox */
@@ -36,7 +40,7 @@
 }
 
 .topping-list .input-checkbox {
-  @apply rounded-full w-36 h-28 relative text-center mb-2;
+  @apply w-36 h-28 relative text-center mb-2;
 }
 
 .topping-list .input-checkbox > .topping-name {
@@ -72,3 +76,39 @@
   @apply scale-90 z-0;
 }
 /*  */
+
+/* topping checkbox skeleton */
+
+.input-checkbox.skeleton {
+  @apply flex justify-center items-center flex-col;
+}
+.input-checkbox.skeleton > .topping-img {
+  @apply bg-gray-300 rounded-full w-20 h-20 mb-2;
+}
+
+.input-checkbox.skeleton > .topping-name {
+  @apply bg-gray-300 w-11/12 rounded-sm;
+}
+
+.input-checkbox.skeleton > span {
+  @apply block h-5 px-2;
+}
+
+.input-checkbox.skeleton > *::before {
+  content: "\00a0";
+}
+
+.skeleton-wave {
+  @apply overflow-hidden relative;
+}
+
+.skeleton-wave::after{
+  content: "";
+  @apply top-0 left-0 right-0 bottom-0 absolute -translate-x-full;
+  animation: wave 1s linear 0.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(250, 250, 250, 0.239), transparent);
+}
+
+@keyframes wave {
+  to  {transform: translateX(100%)}
+}

@@ -3,7 +3,7 @@
   @apply flex items-center px-3 py-2 rounded-md shadow-none;
 }
 .paper {
-  @apply z-10 absolute top-12;
+  @apply z-50 absolute;
 }
 .alert > svg {
   @apply mr-2;
@@ -52,5 +52,5 @@
   @apply opacity-100;
 }
 .alertExitActive {
-  @apply transition duration-500 opacity-0 transform scale-90 -translate-y-56;
+  @apply transition duration-500 opacity-0 transform scale-90;
 }

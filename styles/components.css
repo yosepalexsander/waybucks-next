@@ -27,7 +27,7 @@ footer {
 }
 
 .container {
-  @apply container px-4 mx-auto sm:px-0 mt-24 flex flex-col;
+  @apply container px-4 mx-auto md:px-2 mt-24 flex flex-col;
 }
 
 .screen-center {
@@ -36,6 +36,7 @@ footer {
 
 .backdrop {
   @apply fixed top-0 left-0 bottom-0 right-0 bg-transparent;
+  z-index: -1;
 }
 
 .paper {
@@ -61,7 +62,7 @@ footer {
   @apply flex-none md:flex-grow;
 }
 .app-bar-menu > * {
-  @apply px-4 py-2 transition duration-300 rounded-md hover:bg-primary hover:text-white;
+  @apply px-4 py-2 transition duration-300 rounded-md hover:bg-primary hover:text-white cursor-pointer;
 }
 .app-bar-menu,
 .app-bar-btn {

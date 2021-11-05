@@ -12,22 +12,33 @@ type ToppingsProps = {
 
 export default function Toppings(props: ToppingsProps) {
   const {data, error} = useSWRImmutable<GetToppingsResponse, Error>('toppings', getToppings)
-  if (!data && !error) {
-    return <Loading />
-  }
+  const skeleton = [1,2,3,4,5]
   return (
     <div className="topping-list">
-      {data?.payload.map(item => (
-        <div key={item.id} className="input-checkbox">
-          <input type="checkbox" name={item.name} id={`${item.id}`} value={item.price} onChange={props.onChange}/>
-          <label htmlFor={`${item.id}`} className="input-label">
-            <div>
-              <Image src={item.image} alt={item.name} width={50} height={50} layout="responsive"/>
+      {!data && !error ? (
+        <>
+          {skeleton.map((index) => (
+            <div key={index} className="input-checkbox skeleton skeleton-wave">
+              <span className="topping-img"></span>
+              <span className="topping-name"></span>
             </div>
-          </label>
-          <span className="topping-name">{item.name}</span>
-        </div>
-      ))}
+          ))}
+        </>
+      ): (
+        <>
+          {data?.payload.map(item => (
+            <div key={item.id} className="input-checkbox">
+              <input type="checkbox" name={item.name} id={`${item.id}`} value={item.price} onChange={props.onChange}/>
+              <label htmlFor={`${item.id}`} className="input-label">
+                <div>
+                  <Image src={item.image} alt={item.name} width={50} height={50} layout="responsive"/>
+                </div>
+              </label>
+              <span className="topping-name">{item.name}</span>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   )
 }

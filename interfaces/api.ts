@@ -35,3 +35,10 @@ export interface GetProductResponse extends CommonResponse {
 export interface GetToppingsResponse extends CommonResponse {
   payload: Topping[]
 }
+
+export interface PostCartRequest {
+  product_id: number
+  topping_id: number[]
+  qty: number
+  price: number
+}

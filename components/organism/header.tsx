@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from 'public/assets/icons/logo.svg';
@@ -32,18 +31,14 @@ export default function Header({user}: HeaderProps) {
         <span></span>
         <MenuIcon className="text-primary w-9 h-9"/>
       </button>
-      <ul className="app-bar-menu">
-        <li className="mx-2">
-          <Link href="/product">
-            <a>MENU</a>
-          </Link>
-        </li>
-        <li className="mx-2">
-          <Link href="/about">
-            <a>ABOUT US</a>
-          </Link>
-        </li>
-      </ul>
+      <nav className="app-bar-menu">
+        <Link href="/product">
+          <a className="mx-2">MENU</a>
+        </Link>
+        <Link href="/about">
+          <a className="mx-2">ABOUT US</a>
+        </Link>
+      </nav>
       <div className="app-bar-btn">
         {user ? (
           <div>

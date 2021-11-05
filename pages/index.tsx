@@ -32,17 +32,20 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (ctx): Pr
   const config = createAxiosRequestConfig({
     Authorization: `Bearer ${token}`
   })
-  const data = await getUser<GetUserResponse>(id, config)
-  if (!data.payload) {
-    return {
-      props: {
-        user: null
+  
+  if (id && token) {
+    const data = await getUser<GetUserResponse>(id, config)
+    if (data.payload) {
+      return {
+        props: {
+          user: data.payload
+        }
       }
     }
   }
   return {
     props: {
-      user: data.payload
+      user: null
     }
   }
 }

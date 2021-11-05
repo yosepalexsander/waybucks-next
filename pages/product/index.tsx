@@ -40,7 +40,7 @@ export default function Products({user}: ProductsProps) {
         <Loading />
       ): (
         <>
-          <div className="text-center mt-4">
+          <div className="text-center mt-4 p-3">
             <InputSearch onChange={handleSearch}/>
           </div>
           {filteredProducts?.length != 0 ? (
@@ -72,12 +72,13 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async (ctx)
     Authorization: `Bearer ${token}`
   })
 
-  const data = await getUser<GetUserResponse>(id, config)
-
-  if(data.payload) {
-    return {
-      props: {
-        user: data.payload
+  if (id && token) {
+    const data = await getUser<GetUserResponse>(id, config)
+    if (data.payload) {
+      return {
+        props: {
+          user: data.payload
+        }
       }
     }
   }

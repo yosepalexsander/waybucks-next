@@ -9,7 +9,13 @@ import styles from '@/components/atoms/alert.module.css'
 type AlertProps = HTMLAttributes<HTMLElement> &  {
   severity: 'error' | 'success' | 'warning' | 'info',
   onClose: () => void,
-  open?: boolean
+  open?: boolean,
+  position?: {
+    top?: number,
+    left?: number,
+    right?: number,
+    bottom?: number
+  }
 };
 
 export default class Alert extends PureComponent<AlertProps> {
@@ -37,7 +43,12 @@ export default class Alert extends PureComponent<AlertProps> {
           unmountOnExit
           nodeRef={this.nodeRef}
         >
-          <div className={styles.paper} ref={this.nodeRef}>
+          <div className={styles.paper} ref={this.nodeRef} style={{
+            top: props.position?.top,
+            right: props.position?.right,
+            bottom: props.position?.bottom,
+            left: props.position?.left
+          }}>
             <div className="backdrop" onClick={props.onClose}></div>
             {severity === 'success' ? (
               <div className={styles.alert + ' ' + styles.alertSuccess}>
