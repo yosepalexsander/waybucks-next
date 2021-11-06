@@ -1,10 +1,9 @@
 import { FocusEvent } from 'react'
 import Image from 'next/image'
 import useSWRImmutable from 'swr/immutable'
-import Loading from '@/components/atoms/loading'
 
-import { GetToppingsResponse } from 'interfaces/api'
 import { getToppings } from 'utils/api'
+import { GetToppingsResponse } from 'interfaces/api'
 
 type ToppingsProps = {
   onChange: (e: FocusEvent<HTMLInputElement>) => void
@@ -13,6 +12,8 @@ type ToppingsProps = {
 export default function Toppings(props: ToppingsProps) {
   const {data, error} = useSWRImmutable<GetToppingsResponse, Error>('toppings', getToppings)
   const skeleton = [1,2,3,4,5]
+  const currencyFormatter = Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
+
   return (
     <div className="topping-list">
       {!data && !error ? (
@@ -34,7 +35,8 @@ export default function Toppings(props: ToppingsProps) {
                   <Image src={item.image} alt={item.name} width={50} height={50} layout="responsive"/>
                 </div>
               </label>
-              <span className="topping-name">{item.name}</span>
+              <p className="topping-name">{item.name}</p>
+              <p className="text-xs topping-price">{currencyFormatter.format(item.price)}</p>
             </div>
           ))}
         </>

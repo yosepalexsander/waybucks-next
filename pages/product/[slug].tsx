@@ -6,13 +6,12 @@ import { useRouter } from 'next/router'
 import useSWRImmutable from 'swr/immutable'
 
 import Layout from '@/components/layouts/app'
-import Toppings from '@/components/organism/toppings'
+import Toppings from '@/components/organism/product/toppings'
 import Loading from '@/components/atoms/loading'
-
-import { createAxiosRequestConfig, getProduct, getUser, postCart } from 'utils/api'
 import Button from '@/components/atoms/button'
 import Alert from '@/components/atoms/alert'
 
+import { createAxiosRequestConfig, getProduct, getUser, postCart } from 'utils/api'
 import { CommonResponse, GetProductResponse, GetUserResponse } from 'interfaces/api'
 import { User } from 'interfaces/object'
 

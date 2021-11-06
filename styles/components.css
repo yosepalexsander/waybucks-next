@@ -236,3 +236,20 @@ input[class="female"]:focus + .icon {
   @apply flex items-center justify-center rounded-full bg-yellow-400 text-2xl 
   font-bold border border-primary cursor-pointer;
 }
+
+/* skeleton animation */
+
+.skeleton-wave {
+  @apply overflow-hidden relative;
+}
+
+.skeleton-wave::after{
+  content: "";
+  @apply top-0 left-0 right-0 bottom-0 absolute -translate-x-full;
+  animation: wave 1s linear 0.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(250, 250, 250, 0.239), transparent);
+}
+
+@keyframes wave {
+  to  {transform: translateX(100%)}
+}

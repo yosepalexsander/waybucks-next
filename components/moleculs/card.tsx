@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react';
-import { Product } from 'interfaces/object';
+import { Product } from 'interfaces/object'
 
-import Paper from '@/components/atoms/paper';
-import CardContent from '@/components/atoms/card/content';
-import CardMedia from '@/components/atoms/card/media';
+import Paper from '@/components/atoms/paper'
+import CardContent from '@/components/atoms/card/content'
+import CardMedia from '@/components/atoms/card/media'
 
 import style from '@/components/moleculs/card.module.css'
+
 type CardProps = {
   width?: string | number | undefined
   item: Product,

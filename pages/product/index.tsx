@@ -4,14 +4,15 @@ import Link from 'next/link'
 import cookies from 'next-cookies'
 import useSWR from 'swr'
 
-import { createAxiosRequestConfig, getProducts, getUser } from 'utils/api'
-import { Product, User } from 'interfaces/object'
-import { GetProductsResponse, GetUserResponse } from 'interfaces/api'
-
 import Layout from '@/components/layouts/app'
 import Card from '@/components/moleculs/card'
 import InputSearch from '@/components/moleculs/inputSearch'
 import Loading from '@/components/atoms/loading'
+
+import { createAxiosRequestConfig, getProducts, getUser } from 'utils/api'
+import { Product, User } from 'interfaces/object'
+import { GetProductsResponse, GetUserResponse } from 'interfaces/api'
+
 
 type ProductsProps = {
   user: User | null
@@ -36,24 +37,30 @@ export default function Products({user}: ProductsProps) {
         title: 'Products | Waysbucks Coffee'
       }}
       user={user} route="product">
+      <div className="text-center mt-4 p-3">
+        <InputSearch onChange={handleSearch}/>
+      </div>
       {!productData && !productError ? (
-        <Loading />
+        <div className="product-container">
+          {[1,2,3,4].map((index) => (
+            <div key={index} className="card skeleton skeleton-wave">
+              <span className="card-image"></span>
+              <span className="card-content"></span>
+              <span className="card-content"></span>
+            </div>
+          ))}
+        </div>
       ): (
         <>
-          <div className="text-center mt-4 p-3">
-            <InputSearch onChange={handleSearch}/>
-          </div>
           {filteredProducts?.length != 0 ? (
-            <div className="flex justify-around flex-wrap mt-4 md:justify-start w-full mx-auto">
-              <>
-                {filteredProducts?.map(product => (
-                  <Link key={product.id} href={{pathname: `/product/${product.id}`}}>
-                    <a className="p-3 w-full sm:w-2/5 md:w-1/3 md:max-w-xs">
-                      <Card item={product}/>
-                    </a>
-                  </Link>
-                ))}
-              </>
+            <div className="product-container">
+              {filteredProducts?.map(product => (
+                <Link key={product.id} href={{pathname: `/product/${product.id}`}}>
+                  <a className="p-3 w-4/5 sm:max-w-xs md:w-1/3">
+                    <Card item={product}/>
+                  </a>
+                </Link>
+              ))}
             </div>
           ): (
             <div>
