@@ -1,0 +1,24 @@
+.badge {
+  @apply relative mr-5 inline-flex cursor-pointer align-middle;
+} 
+
+.badge svg {
+  @apply select-none fill-current text-primary;
+}
+
+.badgeContent {
+  @apply absolute top-0 right-0 text-sm rounded-full h-4 w-4 flex origin-bottom-left
+  items-center justify-center text-white transition scale-100 -translate-y-2/4 translate-x-2/4;
+}
+
+.badgeContent:empty {
+  @apply scale-0;
+}
+
+.primary {
+  @apply bg-primary;
+}
+
+.secondary {
+  @apply bg-secondary;
+}

@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Logo from 'public/assets/icons/logo.svg';
-import { MenuIcon } from 'icons';
-import Drawer from '../moleculs/drawer';
-import Dropdown from '../moleculs/dropdown';
+import useSWR from 'swr';
 
 import { User } from 'interfaces/object';
-import Avatar from '../atoms/avatar';
+import { GetCartsResponse } from 'interfaces/api';
+import { getCarts } from 'utils/api';
+import { authLogout } from 'utils/auth';
+
+import Drawer from '@/components/moleculs/drawer';
+import Dropdown from '@/components/moleculs/dropdown';
+import Avatar from '@/components/atoms/avatar';
+import Badge from '@/components/atoms/badge';
+
+import Logo from 'public/assets/icons/logo.svg';
+import { AccountIcon, CartIcon, LogoutIcon, MenuIcon } from 'icons';
+import MenuList from '../atoms/menu/menuList';
+import MenuItem from '../atoms/menu/menuItem';
+
+
 
 type HeaderProps = {
-  user: User | null | undefined
+  user: User | null | undefined,
 }
 export default function Header({user}: HeaderProps) {
-  const [open, setOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(false);
+  //get user carts, first parameter is not used in request
+  const {data: cartData, error} = useSWR<GetCartsResponse, Error>(user ? '/carts': null, getCarts, {
+    revalidateOnFocus: false
+  })
+
+  const [open, setOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState(false)
 
   const handleDrawer = () => {
     setOpen(!open)
@@ -41,26 +57,36 @@ export default function Header({user}: HeaderProps) {
       </nav>
       <div className="app-bar-btn">
         {user ? (
-          <div>
-            <Avatar 
-              id="dropdown-button" 
-              alt="avatar"
-              aria-controls="dropdown-menu"
-              aria-haspopup="true"
-              src={user.image}
-              aria-expanded={openDropdown ? 'true' : undefined} 
-              width={45}
-              height={45}
-              onClick={() => setOpenDropdown(true)}
-            >{user.name.match(/\b(\w)/g)?.join('').toUpperCase()}</Avatar>
-            <Dropdown 
-              id="dropdown-menu" 
-              aria-labelledby="dropdown-button" 
-              userId={user.id} 
-              open={openDropdown} 
-              handleClose={() =>   setOpenDropdown(false)}
-            />
-          </div>
+          <>
+            <Link href="/cart">
+              <a>
+                <Badge badgeContent={cartData?.payload.length} color="secondary">
+                  <CartIcon size={24}/>
+                </Badge>
+              </a>
+            </Link>
+            <div>
+              <Avatar 
+                id="dropdown-button" 
+                alt="avatar"
+                aria-controls="dropdown-menu"
+                aria-haspopup="true"
+                src={user.image}
+                aria-expanded={openDropdown ? 'true' : undefined} 
+                width={45}
+                height={45}
+                onClick={() => setOpenDropdown(true)}
+              >{user.name.match(/\b(\w)/g)?.join('').toUpperCase()}</Avatar>
+              <Dropdown 
+                id="dropdown-menu" 
+                aria-labelledby="dropdown-button" 
+                userId={user.id} 
+                open={openDropdown} 
+                handleClose={() =>   setOpenDropdown(false)}
+                onClick={authLogout}
+              />
+            </div>
+          </>
         ) : (
           <>
             <Link href="/signin">
@@ -74,7 +100,53 @@ export default function Header({user}: HeaderProps) {
       </div>
       <Drawer open={open} onClick={handleDrawer}>
         {user ? (
-          <></>
+          <>
+            <MenuList>
+              <div className="flex flex-col items-center justify-center px-2 py-4">
+                <Avatar 
+                  id="dropdown-button" 
+                  alt="avatar"
+                  aria-controls="dropdown-menu"
+                  aria-haspopup="true"
+                  src={user.image}
+                  aria-expanded={openDropdown ? 'true' : undefined} 
+                  width={65}
+                  height={65}
+                  onClick={() => setOpenDropdown(true)}
+              
+                >{user.name.match(/\b(\w)/g)?.join('').toUpperCase()}</Avatar>
+                <p className="h3 ml-3">{user.name}</p>
+              </div>
+              <MenuItem>
+                <Link href={`/profile/${user.id}`}>
+                  <a>
+                    <div>
+                      <AccountIcon size={24} className="text-primary"/>
+                    </div>
+                    <span>Account</span>
+                  </a>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link href="/cart">
+                  <a>
+                    <div>
+                      <Badge badgeContent={cartData?.payload.length} color="secondary">
+                        <CartIcon size={24}/>
+                      </Badge>
+                    </div>
+                    <span>Cart</span> 
+                  </a>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <div>
+                  <LogoutIcon size={24} className="text-primary"/>
+                </div>
+                <a onClick={authLogout}>Logout</a>
+              </MenuItem>
+            </MenuList>
+          </>
         ): (
           <>
             <ul className="my-4">

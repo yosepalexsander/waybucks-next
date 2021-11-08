@@ -1,4 +1,4 @@
-import React, { PureComponent, FocusEvent } from 'react'
+import React, { PureComponent, FocusEvent } from 'react';
 
 type InputSearchProps = {
   onChange: (e: FocusEvent<HTMLInputElement>) => void

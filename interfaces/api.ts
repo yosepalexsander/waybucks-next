@@ -1,4 +1,4 @@
-import { Product, Topping, User } from './object';
+import { Cart, Product, Topping, User } from './object';
 
 export interface CommonResponse {
   message: string
@@ -41,4 +41,8 @@ export interface PostCartRequest {
   topping_id: number[]
   qty: number
   price: number
+}
+
+export interface GetCartsResponse extends CommonResponse {
+  payload: Cart[]
 }

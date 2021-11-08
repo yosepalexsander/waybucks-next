@@ -17,8 +17,8 @@ export const authSSR = async (ctx: GetServerSidePropsContext): Promise<User | nu
     Authorization: `Bearer ${token}`
   })
   const response = await getUser<GetUserResponse>(id, config)
-  const user = response.data.payload
-  if (response.status === 200) {
+  const user = response.payload
+  if (user) {
     return user
   } else {
     if (typeof window === 'undefined') {
@@ -51,8 +51,8 @@ export const authCSR =  async (): Promise<GetUserResponse | null> => {
   
   const response = await getUser<GetUserResponse>(id, config)
   
-  if (response.status === 200) {
-    return response.data
+  if (response.payload) {
+    return response
   }
   const error = new Error('Authentication failed')
   throw error

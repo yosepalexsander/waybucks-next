@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import React, { Component, ImgHTMLAttributes } from 'react'
+import Image from 'next/image';
+import React, { Component, ImgHTMLAttributes } from 'react';
 
 export default class CardMedia extends Component<ImgHTMLAttributes<HTMLImageElement>> {
   render() {

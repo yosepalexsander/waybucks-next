@@ -14,14 +14,22 @@ export interface Product {
   description: string
   image: string
   price: number
-  createdAt: Date,
+  createdAt: Date
   updatedAt: Date
 }
 
 export interface Topping {
-  id: number,
-  name: string,
-  image: string,
-  price: number,
+  id: number
+  name: string
+  image: string
+  price: number
   is_available: boolean
+}
+
+export interface Cart {
+  id: number
+  price: number
+  qty: number
+  product: Product
+  toppings: Topping[]
 }

@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react'
-import style from '@/components/atoms/loading.module.css'
+import React, { PureComponent } from 'react';
+import style from '@/components/atoms/loading.module.css';
 
 export default class Loading extends PureComponent {
   render() {

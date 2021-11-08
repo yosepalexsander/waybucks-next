@@ -27,7 +27,7 @@ footer {
 }
 
 .container {
-  @apply container px-4 mx-auto md:px-2 mt-24 flex flex-col;
+  @apply container px-4 mx-auto pb-2 md:px-2 mt-24 flex flex-col;
 }
 
 .screen-center {
@@ -233,7 +233,7 @@ input[class="female"]:focus + .icon {
 
 /* Avatar */
 .avatar {
-  @apply flex items-center justify-center rounded-full bg-yellow-400 text-2xl 
+  @apply flex items-center justify-center rounded-full bg-secondary text-white text-2xl 
   font-bold border border-primary cursor-pointer;
 }
 
@@ -252,4 +252,9 @@ input[class="female"]:focus + .icon {
 
 @keyframes wave {
   to  {transform: translateX(100%)}
+}
+
+/* divider */
+.divider {
+  @apply bg-red-200 h-0.5;
 }

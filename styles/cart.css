@@ -1,0 +1,41 @@
+.cart-container {
+  @apply flex;
+}
+
+.cart-list {
+  @apply flex flex-col flex-1 pr-3 h-64 overflow-y-auto;
+}
+
+.cart-list > .cart-item {
+  @apply flex justify-between;
+}
+
+.cart-item > * {
+  @apply p-2;
+}
+
+.cart-item > .cart-info {
+  @apply flex flex-col justify-evenly;
+}
+
+.cart-item > .cart-info > .qty {
+  @apply inline-flex items-center;
+}
+
+.qty > .counter {
+  @apply bg-red-200 rounded-md cursor-pointer;
+} 
+.qty > svg {
+  @apply fill-current text-primary;
+}
+.cart-img {
+  max-width: 8rem;
+}
+
+.cart-subtotal {
+  @apply flex justify-end h-40 max-h-40;
+}
+
+.cart-subtotal > div {
+  @apply flex flex-col justify-between w-1/2 p-2;
+}

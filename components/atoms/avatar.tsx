@@ -1,6 +1,5 @@
-import Image from 'next/image'
-import React, { PureComponent } from 'react'
-import type { ImgHTMLAttributes } from 'react'
+import Image from 'next/image';
+import React, { PureComponent, ImgHTMLAttributes } from 'react';
 
 export default class Avatar extends PureComponent<ImgHTMLAttributes<HTMLImageElement>> {
   render() {

@@ -1,9 +1,9 @@
-import { FocusEvent } from 'react'
-import Image from 'next/image'
-import useSWRImmutable from 'swr/immutable'
+import { FocusEvent } from 'react';
+import Image from 'next/image';
+import useSWRImmutable from 'swr/immutable';
 
-import { getToppings } from 'utils/api'
-import { GetToppingsResponse } from 'interfaces/api'
+import { getToppings } from 'utils/api';
+import { GetToppingsResponse } from 'interfaces/api';
 
 type ToppingsProps = {
   onChange: (e: FocusEvent<HTMLInputElement>) => void

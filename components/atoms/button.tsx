@@ -1,5 +1,4 @@
-import type {  ButtonHTMLAttributes } from 'react'
-import React, { PureComponent } from 'react'
+import React, { PureComponent, ButtonHTMLAttributes } from 'react';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &  {
   variant: 'contained' | 'outlined',

@@ -1,10 +1,9 @@
-import type { HTMLAttributes } from 'react'
-import React, { PureComponent } from 'react'
-import { CSSTransition } from 'react-transition-group'
+import React, { PureComponent, HTMLAttributes } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
-import { CheckIcon, CloseIcon, ErrorIcon, WarningIcon } from 'icons'
+import { CheckIcon, CloseIcon, ErrorIcon, WarningIcon } from 'icons';
 
-import styles from '@/components/atoms/alert.module.css'
+import styles from '@/components/atoms/alert.module.css';
 
 type AlertProps = HTMLAttributes<HTMLElement> &  {
   severity: 'error' | 'success' | 'warning' | 'info',

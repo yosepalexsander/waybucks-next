@@ -1,17 +1,16 @@
-import type { GetServerSideProps, GetServerSidePropsResult } from 'next'
-import { useState, FocusEvent } from 'react'
-import Link from 'next/link'
-import cookies from 'next-cookies'
-import useSWR from 'swr'
+import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import { useState, FocusEvent } from 'react';
+import Link from 'next/link';
+import cookies from 'next-cookies';
+import useSWR from 'swr';
 
-import Layout from '@/components/layouts/app'
-import Card from '@/components/moleculs/card'
-import InputSearch from '@/components/moleculs/inputSearch'
-import Loading from '@/components/atoms/loading'
+import Layout from '@/components/layouts/app';
+import Card from '@/components/moleculs/card';
+import InputSearch from '@/components/moleculs/inputSearch';
 
-import { createAxiosRequestConfig, getProducts, getUser } from 'utils/api'
-import { Product, User } from 'interfaces/object'
-import { GetProductsResponse, GetUserResponse } from 'interfaces/api'
+import { createAxiosRequestConfig, getProducts, getUser } from 'utils/api';
+import { Product, User } from 'interfaces/object';
+import { GetProductsResponse, GetUserResponse } from 'interfaces/api';
 
 
 type ProductsProps = {

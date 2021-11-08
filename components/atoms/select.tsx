@@ -1,5 +1,5 @@
-import type { InputHTMLAttributes } from 'react'
-import React, { PureComponent } from 'react'
+import type { InputHTMLAttributes } from 'react';
+import React, { PureComponent } from 'react';
 
 type SelectProps = InputHTMLAttributes<HTMLSelectElement> &  {
   labelId: 'string'

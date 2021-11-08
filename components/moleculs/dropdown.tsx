@@ -1,13 +1,13 @@
-import React, { HTMLAttributes, PureComponent } from 'react'
-import Link from 'next/link'
-import { CSSTransition } from 'react-transition-group'
-import Paper from '@/components/atoms/paper'
-import MenuList from '@/components/atoms/menu/menuList'
-import MenuItem from '@/components/atoms/menu/menuItem'
-import { AccountIcon, LogoutIcon } from 'icons'
-import { authLogout } from 'utils/auth'
+import React, { HTMLAttributes, PureComponent } from 'react';
+import Link from 'next/link';
+import { CSSTransition } from 'react-transition-group';
+import Paper from '@/components/atoms/paper';
+import MenuList from '@/components/atoms/menu/menuList';
+import MenuItem from '@/components/atoms/menu/menuItem';
+import { AccountIcon, LogoutIcon } from 'icons';
+import { authLogout } from 'utils/auth';
 
-import styles from '@/components/moleculs/dropdown.module.css'
+import styles from '@/components/moleculs/dropdown.module.css';
 
 type DropdownProps = HTMLAttributes<HTMLElement> & {
   userId: number,
@@ -23,7 +23,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
   }
   
   render() {
-    const {userId, open, handleClose, ...props} = this.props
+    const {userId, open, handleClose, onClick, ...props} = this.props
     return (
       <CSSTransition
         in={open}
@@ -56,7 +56,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                 <div>
                   <LogoutIcon size={24} className="text-primary"/>
                 </div>
-                <a onClick={authLogout}>Logout</a>
+                <a onClick={onClick}>Logout</a>
               </MenuItem>
             </MenuList>
           </Paper>

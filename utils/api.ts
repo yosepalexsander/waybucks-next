@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import { Cart } from 'interfaces/object';
 import Cookies from 'js-cookie';
 
 
@@ -117,8 +118,8 @@ export async function getAllTransactions<T>(): Promise<T> {
    * @param config axios request config
    * @returns response object
    */
-export async function postProduct<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<T> {
-  return instance.post('/products', data,  config)
+export async function postProduct<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.post<T>('/products', data,  config)
 }
 
 /**Request for post new cart by user
@@ -137,8 +138,8 @@ export async function postCart<T>(data: Record<string, string>, config: AxiosReq
    * @param config axios request config
    * @returns response object
    */
-export async function postTransaction<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<T> {
-  return instance.post('/transactions', data, config)
+export async function postTransaction<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.post<T>('/transactions', data, config)
 }
 
 /**Request for update product by admin
@@ -148,8 +149,8 @@ export async function postTransaction<T>(data: Record<string, string>, config: A
    * @param config axios request config
    * @returns response object
    */
-export async function updateProduct<T>(id: string, data: Record<string, string>, config: AxiosRequestConfig): Promise<T> {
-  return instance.put(`/products/${id}`, data, config)
+export async function updateProduct<T>(id: number, data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.put<T>(`/products/${id}`, data, config)
 }
   
 /**Request for update cart by user
@@ -159,8 +160,8 @@ export async function updateProduct<T>(id: string, data: Record<string, string>,
    * @param config axios request config
    * @returns response object
    */
-export async function updateCart<T>(id: string, data: Record<string, string>, config: AxiosRequestConfig): Promise<T> {
-  return instance.put(`/carts/${id}`, data, config)
+export async function updateCart<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.put<T>(`/carts/${id}`, data, config)
 }
 
 /**Request for update transaction by user
@@ -170,6 +171,16 @@ export async function updateCart<T>(id: string, data: Record<string, string>, co
    * @param config axios request config
    * @returns response object
    */
-export async function updateTransaction<T>(id: string, data: Record<string, string>, config: AxiosRequestConfig): Promise<T> {
-  return instance.put(`/transactions/${id}`, data, config)
+export async function updateTransaction<T>(id: string, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.put<T>(`/transactions/${id}`, data, config)
 }
+
+/**Request for delete user cart
+ * 
+ * @param id cart to be deleted
+ * @returns response object
+ */
+export async function deleteCart<T>(id: number): Promise<AxiosResponse<T>> {
+  return instance.delete<T>(`/carts/${id}`)
+}
+
