@@ -64,21 +64,29 @@
 }
 
 .topping-list .input-checkbox {
-  @apply w-36 h-28 relative text-center mb-2;
+  @apply w-36 h-28 text-center mb-2;
 }
 
 .topping-list .input-checkbox > .topping-name {
   @apply text-sm text-primary;
+}
+
+.topping-list .input-checkbox > input ~ .input-label {
+  @apply flex justify-center;
+}
+
+.input-checkbox {
+  @apply relative;
 }
 .input-checkbox input {
   @apply hidden;
 }
 
 .input-checkbox input ~ .input-label {
-  @apply cursor-pointer flex  justify-center;
+  @apply cursor-pointer;
 }
 
-.input-checkbox input ~ .input-label > div {
+.input-checkbox input ~ .input-label > .topping-img {
   @apply w-20;
 }
 .input-checkbox input ~ .input-label img {
@@ -120,4 +128,5 @@
 
 .skeleton > *::before {
   content: "\00a0";
+  @apply h-0;
 }

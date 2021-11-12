@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
-import { validateEmail, validatePassword } from 'utils/validation';
+import { SigninSchema } from 'utils/validation';
 
 import Input from '@/components/atoms/input';
 import Button from '@/components/atoms/button';
@@ -63,6 +63,7 @@ export default function SigninForm() {
       <div className="form">
         <Formik
           initialValues={initialValues} 
+          validationSchema={SigninSchema}
           onSubmit={handleSubmit}>{({ errors, touched, isValid, values }) => (
             <Form>
               <div className="form-group">
@@ -73,7 +74,7 @@ export default function SigninForm() {
                   type="email" 
                   onFocus={handleFocus}
                   className={values.email ? 'not-empty': ''}
-                  validate={validateEmail} as={Input} 
+                  as={Input} 
                 />
                 {(!!didFocus && values.email.trim().length > 2) || touched.email ? (
                   <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">
@@ -91,7 +92,7 @@ export default function SigninForm() {
                   type="password"
                   onFocus={handleFocus}
                   className={values.password ? 'not-empty': ''}
-                  validate={validatePassword} as={Input}
+                  as={Input}
                 />
                 {(!!didFocus && values.password.trim().length > 2) || touched.password ? (
                   <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">

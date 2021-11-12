@@ -25,8 +25,11 @@ type HeaderProps = {
 }
 export default function Header({user}: HeaderProps) {
   //get user carts, first parameter is not used in request
-  const {data: cartData, error} = useSWR<GetCartsResponse, Error>(user ? '/carts': null, getCarts, {
-    revalidateOnFocus: false
+  const {data: cartData, error} = useSWR<GetCartsResponse, Record<string, any>>(user ? '/carts': null, getCarts, {
+    revalidateOnFocus: false,
+    onErrorRetry: (error) => {
+      if (error?.status === 404) return
+    }
   })
 
   const [open, setOpen] = useState(false)
@@ -60,7 +63,7 @@ export default function Header({user}: HeaderProps) {
           <>
             <Link href="/cart">
               <a>
-                <Badge badgeContent={cartData?.payload.length} color="secondary">
+                <Badge badgeContent={cartData?.payload?.length} color="secondary">
                   <CartIcon size={24}/>
                 </Badge>
               </a>
@@ -131,7 +134,7 @@ export default function Header({user}: HeaderProps) {
                 <Link href="/cart">
                   <a>
                     <div>
-                      <Badge badgeContent={cartData?.payload.length} color="secondary">
+                      <Badge badgeContent={cartData?.payload?.length} color="secondary">
                         <CartIcon size={24}/>
                       </Badge>
                     </div>

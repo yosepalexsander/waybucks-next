@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import { Cart } from 'interfaces/object';
+import { TransactionRequest } from 'interfaces/api';
 import Cookies from 'js-cookie';
 
 
@@ -62,6 +62,16 @@ export async function getUser<T>(id: string | undefined, config?: AxiosRequestCo
   return (await instance.get<T>(`/users/${id}`, config)).data
 }
 
+/**Request for get address data with corresponding user id
+   * 
+   * @param id user id
+   * @returns response object
+   */
+export async function getUserAddress<T>(config?: AxiosRequestConfig): Promise<T> {
+  
+  return (await instance.get<T>('/address', config)).data
+}
+
 /**Request for get all products
    * 
    * @returns response object
@@ -93,7 +103,16 @@ export async function getToppings<T>(): Promise<T> {
    * @returns response object
    */
 export async function getCarts<T>(): Promise<T> {
-  return (await instance.get<T>('/carts')).data
+  const res =  (await instance.get<T>('/carts'))
+  if (res.status !== 200) {
+    const error: Record<string, any> = {
+      msg: new Error('An error occurred while fetching the data.'),
+      status: res.status
+    }
+    throw error
+  } else {
+    return res.data
+  }
 }
 
 /**Request for get user transactions.
@@ -112,13 +131,22 @@ export async function getAllTransactions<T>(): Promise<T> {
   return (await instance.get<T>('/transactions')).data
 }
   
+/**Request for post new user address
+   * 
+   * @param data request body
+   * @param config axios request config
+   * @returns response object
+   */
+export async function postAddress<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.post<T>('/address', data,  config)
+}
 /**Request for post new product. This can be only used by admin
    * 
    * @param data request body
    * @param config axios request config
    * @returns response object
    */
-export async function postProduct<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postProduct<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/products', data,  config)
 }
 
@@ -128,7 +156,7 @@ export async function postProduct<T>(data: Record<string, string>, config: Axios
    * @param config axios request config
    * @returns response object
    */
-export async function postCart<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postCart<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/carts', data,  config)
 }
 
@@ -138,7 +166,7 @@ export async function postCart<T>(data: Record<string, string>, config: AxiosReq
    * @param config axios request config
    * @returns response object
    */
-export async function postTransaction<T>(data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postTransaction<T>(data: TransactionRequest, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/transactions', data, config)
 }
 
@@ -149,7 +177,7 @@ export async function postTransaction<T>(data: Record<string, string>, config: A
    * @param config axios request config
    * @returns response object
    */
-export async function updateProduct<T>(id: number, data: Record<string, string>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function updateProduct<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/products/${id}`, data, config)
 }
   

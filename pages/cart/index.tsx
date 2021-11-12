@@ -1,43 +1,38 @@
-import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
-
-import { User } from 'interfaces/object';
-import { authSSR } from 'utils/auth';
+import { authCSR } from 'utils/auth';
 
 import Layout from '@/components/layouts/app';
-import Carts from '@/components/organism/cart/list';
+import Carts from '@/components/organism/cart/root';
+import useSWRImmutable from 'swr/immutable';
+import { GetUserResponse } from 'interfaces/api';
+import Loading from '@/components/atoms/loading';
 
-type CartProps = {
-  user: User | null
-}
 
-export default function CartPage({user}: CartProps) {
+export default function CartPage() {
+  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>('/users', authCSR)
+  
+  if (!data && !error) {
+    <Loading />
+  }
   return (
     <Layout
       head={{
         title: 'Cart | Waysbucks Coffee',
-        description: 'Waysbucks user cart'
+        description: 'Waysbucks user cart',
+        extScript:<script async type="text/javascript"
+          src="https://app.sandbox.midtrans.com/snap/snap.js"
+          data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY} />
       }}
-      user={user} route="cart"
+      user={data?.payload} route="cart"
     >
       <p className="h2 mb-5">My Cart</p>
-      <Carts />
+      <Carts user={data?.payload}/>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+              console.log('Console message');
+            `,
+        }}
+      />
     </Layout>
   );
-}
-
-export const getServerSideProps: GetServerSideProps<CartProps> = async (ctx): Promise<GetServerSidePropsResult<CartProps>> => {
-  const user = await authSSR(ctx)
-  if (user) {
-    return {
-      props: {
-        user: user
-      }
-    }
-  }
-
-  return {
-    props: {
-      user: null
-    }
-  }
 }

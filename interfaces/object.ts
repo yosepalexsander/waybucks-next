@@ -8,6 +8,15 @@ export interface User {
   is_admin: boolean
 }
 
+export interface Address {
+  id: number
+  name: string
+  address: string
+  phone: string
+  postal_code: number
+  city: string
+}
+
 export interface Product {
 	id: number
   name: string

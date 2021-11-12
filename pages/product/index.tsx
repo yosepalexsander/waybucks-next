@@ -74,6 +74,7 @@ export default function Products({user}: ProductsProps) {
 
 export const getServerSideProps: GetServerSideProps<ProductsProps> = async (ctx): Promise<GetServerSidePropsResult<ProductsProps>> => {
   const { id, token } = cookies(ctx)
+  
   const config = createAxiosRequestConfig({
     Authorization: `Bearer ${token}`
   })
@@ -88,6 +89,7 @@ export const getServerSideProps: GetServerSideProps<ProductsProps> = async (ctx)
       }
     }
   }
+  
   return {
     props: {
       user: null

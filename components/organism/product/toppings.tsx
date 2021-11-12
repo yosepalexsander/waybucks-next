@@ -31,7 +31,7 @@ export default function Toppings(props: ToppingsProps) {
             <div key={item.id} className="input-checkbox">
               <input type="checkbox" name={item.name} id={`${item.id}`} value={item.price} onChange={props.onChange}/>
               <label htmlFor={`${item.id}`} className="input-label">
-                <div>
+                <div className="topping-img">
                   <Image src={item.image} alt={item.name} width={50} height={50} layout="responsive"/>
                 </div>
               </label>

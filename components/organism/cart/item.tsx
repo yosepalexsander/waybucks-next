@@ -21,7 +21,7 @@ export default function CartItem({item, onDecreaseQty, onIncreaseQty, onDeleteCa
       </div>
       <div className="cart-info flex-1">
         <p className="h4">{item.product.name}</p>
-        <p className="text-sm">Topping: {toppings}</p>
+        <p className="topping">Topping: {toppings}</p>
       </div>
       <div className="cart-info items-end">
         <p>{currencyFormatter.format(item.price)}</p>

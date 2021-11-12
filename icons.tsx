@@ -6,6 +6,7 @@ export { FaCheckCircle as CheckIcon } from 'react-icons/fa';
 export { FaExclamationCircle as ErrorIcon } from 'react-icons/fa';
 export { FaExclamationTriangle as WarningIcon } from 'react-icons/fa';
 export { FaShoppingCart as CartIcon } from 'react-icons/fa';
+export { FaCoffee as  CoffeeIcon} from 'react-icons/fa';
 
 export {IoFemale as FemaleIcon } from 'react-icons/io5';
 export {IoMale as MaleIcon } from 'react-icons/io5';
@@ -15,5 +16,6 @@ export { MdAccountCircle as AccountIcon } from 'react-icons/md';
 export { MdAdd as PlusIcon } from 'react-icons/md';
 export { MdRemove as  MinusIcon} from 'react-icons/md';
 export { MdDelete as  DeleteIcon} from 'react-icons/md';
+
 
 export { RiLogoutBoxRLine as LogoutIcon } from 'react-icons/ri';
