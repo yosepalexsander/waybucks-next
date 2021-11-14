@@ -10,12 +10,11 @@ export default class Avatar extends PureComponent<ImgHTMLAttributes<HTMLImageEle
           {src ? (
             <Image src={src} alt={alt}
               layout="fill" 
-              width={width} 
-              height={height} 
+              objectFit="cover"
               className="rounded-full"
             />
           ) : (
-            <>{children}</>
+            <p>{children}</p>
           )}
         </div>
       </>

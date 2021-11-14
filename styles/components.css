@@ -3,7 +3,7 @@ body {
   @apply text-gray-700;
 }
 svg {
-  display: inline-block;
+  @apply inline-block cursor-pointer select-none;
 }
 
 footer {
@@ -35,13 +35,21 @@ footer {
 }
 
 .backdrop {
-  @apply fixed top-0 left-0 bottom-0 right-0 bg-transparent;
+  @apply inset-0 fixed flex items-center justify-center;
   z-index: -1;
 }
 
 .paper {
   @apply rounded-md shadow-md bg-white;
   z-index: 100;
+}
+
+.flex-container {
+  @apply -mt-4 -ml-4;
+}
+
+.flex-item {
+  @apply pt-4 pl-4;
 }
 /*  */
 
@@ -77,7 +85,7 @@ footer {
 .btn-primary {
   @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
 }
-.btn-primary-outline {
+.btn-primary-outlined {
   @apply border-primary border-2 text-primary bg-transparent disabled:bg-gray-400 disabled:text-white;
 }
 .cta {
@@ -233,8 +241,12 @@ input[class="female"]:focus + .icon {
 
 /* Avatar */
 .avatar {
-  @apply flex items-center justify-center rounded-full bg-secondary text-white text-2xl 
-  font-bold border border-primary cursor-pointer;
+  @apply relative rounded-full border border-primary cursor-pointer;
+}
+
+.avatar > p {
+  @apply bg-secondary text-white text-2xl font-bold rounded-full h-full w-full
+  flex items-center justify-center;
 }
 
 /* skeleton animation */
@@ -257,4 +269,35 @@ input[class="female"]:focus + .icon {
 /* divider */
 .divider {
   @apply bg-red-200 h-0.5;
+}
+
+/* modal */
+.modal {
+  @apply fixed top-0 left-0 bottom-0 right-0;
+  z-index: 200;
+}
+.modal .backdrop {
+  @apply bg-gray-500 bg-opacity-50;
+}
+.modal-enter .backdrop {
+  @apply opacity-0;
+}
+.modal-enter .paper {
+  @apply opacity-0 transform scale-90;
+}
+.modal-enter-active .backdrop {
+  @apply transition duration-300 opacity-100;
+}
+.modal-enter-active .paper {
+  @apply transition duration-300 opacity-100 transform scale-100 translate-y-0;
+}
+.modal-exit .paper,
+.modal-exit .backdrop {
+  @apply opacity-100;
+}
+.modal-exit-active .paper  {
+  @apply transition duration-300 opacity-0 transform scale-90;
+}
+.modal-exit-active .backdrop {
+  @apply transition opacity-0;
 }

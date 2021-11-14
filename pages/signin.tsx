@@ -5,7 +5,7 @@ import Logo from 'public/assets/icons/logo.svg';
 import Layout from '@/components/layouts/signin';
 import SigninForm from '@/components/organism/form/signin';
 
-export default function Signin() {
+export default function SigninPage() {
   return (
     <Layout>
       <div className="mb-6 text-center">

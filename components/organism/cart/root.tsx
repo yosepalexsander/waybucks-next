@@ -203,7 +203,7 @@ export default function Carts({user}: CartProps) {
     }
   }
 
-  if (!cartData) return <CartSkeleton />
+  if (!cartData && !error) return <CartSkeleton />
   
   return (
     <div>
@@ -211,8 +211,8 @@ export default function Carts({user}: CartProps) {
         <CartEmpty/>
       ): (
         <>
-          <div className="cart-container">
-            <div>
+          <div className="cart-container flex-container">
+            <div className="flex-item">
               {status.status === 'success' && (
                 <Alert open={alert} severity="success" onClose={() => setAlert(false)}
                   position={{
@@ -241,6 +241,7 @@ export default function Carts({user}: CartProps) {
                 </Alert>
               )}
               <div className="cart-list">
+                <hr className="divider" />
                 {cartData?.payload?.map(cart => (
                   <CartItem key={cart.id} item={cart}  
                     onDeleteCart={handleDeleteCart} 
@@ -260,7 +261,7 @@ export default function Carts({user}: CartProps) {
                 <p>loading address...</p>
               </div>
             ): (
-              <div>
+              <div className="flex-item">
                 <ListAddress items={addressData?.payload || []} onChange={onClickAddress}/>
               </div>
             )}

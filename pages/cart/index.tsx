@@ -1,18 +1,17 @@
+import useSWRImmutable from 'swr/immutable';
+
 import { authCSR } from 'utils/auth';
+import { GetUserResponse } from 'interfaces/api';
 
 import Layout from '@/components/layouts/app';
 import Carts from '@/components/organism/cart/root';
-import useSWRImmutable from 'swr/immutable';
-import { GetUserResponse } from 'interfaces/api';
 import Loading from '@/components/atoms/loading';
 
 
 export default function CartPage() {
   const {data, error} = useSWRImmutable<GetUserResponse | null, Error>('/users', authCSR)
   
-  if (!data && !error) {
-    <Loading />
-  }
+  if (!data && !error) return <Loading />
   return (
     <Layout
       head={{
@@ -25,6 +24,7 @@ export default function CartPage() {
       user={data?.payload} route="cart"
     >
       <p className="h2 mb-5">My Cart</p>
+      <p className="text-primary">Review Your Order</p>
       <Carts user={data?.payload}/>
       <script
         dangerouslySetInnerHTML={{

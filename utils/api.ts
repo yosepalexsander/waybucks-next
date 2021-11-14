@@ -170,6 +170,28 @@ export async function postTransaction<T>(data: TransactionRequest, config: Axios
   return instance.post<T>('/transactions', data, config)
 }
 
+/**Request for update user 
+   * 
+   * @param id product to be udpated
+   * @param data request body
+   * @param config axios request config
+   * @returns response object
+   */
+export async function updateUser<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.put<T>(`/users/${id}`, data, config)
+}
+
+/**Request for update userAddress 
+   * 
+   * @param id product to be udpated
+   * @param data request body
+   * @param config axios request config
+   * @returns response object
+   */
+export async function updateAddress<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.put<T>(`/address/${id}`, data, config)
+}
+
 /**Request for update product by admin
    * 
    * @param id product to be udpated
@@ -201,6 +223,15 @@ export async function updateCart<T>(id: number, data: Record<string, any>, confi
    */
 export async function updateTransaction<T>(id: string, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/transactions/${id}`, data, config)
+}
+
+/**Request for delete user address
+ * 
+ * @param id address to be deleted
+ * @returns response object
+ */
+export async function deleteAddress<T>(id: number): Promise<AxiosResponse<T>> {
+  return instance.delete<T>(`/address/${id}`)
 }
 
 /**Request for delete user cart

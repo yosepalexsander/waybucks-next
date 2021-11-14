@@ -5,14 +5,14 @@ import Paper from '@/components/atoms/paper';
 import MenuList from '@/components/atoms/menu/menuList';
 import MenuItem from '@/components/atoms/menu/menuItem';
 import { AccountIcon, LogoutIcon } from 'icons';
-import { authLogout } from 'utils/auth';
 
 import styles from '@/components/moleculs/dropdown.module.css';
 
 type DropdownProps = HTMLAttributes<HTMLElement> & {
-  userId: number,
-  open: boolean,
+  userId: number
+  open: boolean
   handleClose: () => void
+  handleLogout: () => void
 }
 
 export default class Dropdown extends PureComponent<DropdownProps> {
@@ -21,9 +21,8 @@ export default class Dropdown extends PureComponent<DropdownProps> {
     super(props)
     this.nodeRef = React.createRef();
   }
-  
   render() {
-    const {userId, open, handleClose, onClick, ...props} = this.props
+    const {userId, open, handleClose, handleLogout, ...props} = this.props
     return (
       <CSSTransition
         in={open}
@@ -43,8 +42,8 @@ export default class Dropdown extends PureComponent<DropdownProps> {
           <Paper width={150} maxWidth="100%">
             <MenuList>
               <MenuItem>
-                <Link href={`/profile/${userId}`}>
-                  <a>
+                <Link href="/profile" passHref={true}>
+                  <a className="w-full">
                     <div>
                       <AccountIcon size={24} className="text-primary"/>
                     </div>
@@ -53,10 +52,12 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                 </Link>
               </MenuItem>
               <MenuItem>
-                <div>
-                  <LogoutIcon size={24} className="text-primary"/>
-                </div>
-                <a onClick={onClick}>Logout</a>
+                <button onClick={handleLogout} className="w-full">
+                  <div>
+                    <LogoutIcon size={24} className="text-primary"/>
+                  </div>
+                  <p>Logout</p>
+                </button>
               </MenuItem>
             </MenuList>
           </Paper>

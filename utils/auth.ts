@@ -67,10 +67,13 @@ export const authLogout = () => {
 };
 
 export const authLogin = ({id, token, redirect}: {id: string, token: string, redirect: string}) => {
-  cookie.set('id', id, {expires: 1})
+  cookie.set('id', id, {
+    expires: 1
+  })
   cookie.set('token', token, {
-    domain: process.env.NODE_ENV === 'production' ? 'waysbucks.vercel.app': undefined, 
-    expires: 1})
+    domain: process.env.NODE_ENV !== 'development' ? 'waysbucks.vercel.app': undefined, 
+    expires: 1
+  })
   
   Router.push(redirect) 
 }

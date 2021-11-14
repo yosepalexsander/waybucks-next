@@ -86,14 +86,14 @@ export default function Header({user}: HeaderProps) {
                 userId={user.id} 
                 open={openDropdown} 
                 handleClose={() =>   setOpenDropdown(false)}
-                onClick={authLogout}
+                handleLogout={authLogout}
               />
             </div>
           </>
         ) : (
           <>
             <Link href="/signin">
-              <a className="btn btn-primary-outline mx-2">Sign in</a>
+              <a className="btn btn-primary-outlined mx-2">Sign in</a>
             </Link>
             <Link href="/signup">
               <a className="btn btn-primary ml-2">Sign up</a>

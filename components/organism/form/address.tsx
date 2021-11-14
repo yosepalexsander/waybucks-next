@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
+
 
 import Input from '@/components/atoms/input';
 import Button from '@/components/atoms/button';
 import Alert from '@/components/atoms/alert';
 
 import { AddressSchema } from 'utils/validation';
-import { createAxiosRequestConfig, postAddress } from 'utils/api';
+import { createAxiosRequestConfig, postAddress, updateAddress } from 'utils/api';
 import { CommonResponse } from 'interfaces/api';
+import { Address } from 'interfaces/object';
 
 type AddressValues = {
   name: string
@@ -16,13 +18,20 @@ type AddressValues = {
   postal_code: number
   city: string
 }
-export default function AddressForm() {
+
+type AddressProps = {
+  oldAddress?: Address,
+  isUpdate?: boolean,
+  onSubmitSuccess: () => void
+} // reusable for update addres form
+export default function AddressForm({oldAddress, isUpdate, onSubmitSuccess}: AddressProps) {
+  
   const initialValues: AddressValues = {
-    name: '',
-    address: '',
-    phone: '',
-    postal_code: 0,
-    city: '',
+    name: oldAddress?.name || '',
+    address: oldAddress?.address || '',
+    phone: oldAddress?.phone || '',
+    postal_code: oldAddress?.postal_code || 0,
+    city: oldAddress?.city || '',
   }
   
   // for handle notify error post address 
@@ -39,17 +48,25 @@ export default function AddressForm() {
   const handleFocus = () => setDidFocus(true);
 
   const handleSubmit = async (values: AddressValues, formikHelpers: FormikHelpers<AddressValues>): Promise<any> => {
-    const config = createAxiosRequestConfig({'Content-Type': 'application/json'})
+    const config = createAxiosRequestConfig({
+      'Content-Type': 'application/json'
+    })
     const body: Record<string, any> = { ...values }
     try {
-      const { data, ...response } = await postAddress<CommonResponse>(body, config) 
+      const { data, ...response } = isUpdate 
+        ?  await updateAddress<CommonResponse>(oldAddress?.id as number, body, config) 
+        : await postAddress<CommonResponse>(body, config) 
       if (response.status !== 200) {
         setShowAlert(true)
         setError({
           isError: true,
           message: data.message
         })
+        return
       }
+      onSubmitSuccess()
+      
+
     } catch (error) {
       console.log(error)
     }
@@ -62,6 +79,7 @@ export default function AddressForm() {
       )}
       <div className="form">
         <Formik
+          enableReinitialize={true}
           initialValues={initialValues} 
           validationSchema={AddressSchema}
           onSubmit={handleSubmit}>{({ errors, touched, isValid, values }) => (
@@ -106,6 +124,7 @@ export default function AddressForm() {
                   id="postal_code"
                   name="postal_code" 
                   label="Postal Code"
+                  type="number"
                   onFocus={handleFocus}
                   className={values.postal_code ? 'not-empty': ''}
                   as={Input}

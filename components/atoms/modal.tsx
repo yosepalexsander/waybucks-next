@@ -20,19 +20,13 @@ export default class Modal extends PureComponent<ModalProps> {
     return (
       <CSSTransition
         in={open}
-        timeout={500}
-        classNames={{
-          appear: style.modal,
-          enter: style.modalEnter,
-          enterActive: style.modalEnterActive,
-          exit: style.modalExit,
-          exitActive: style.modalExitActive
-        }}
+        timeout={300}
+        classNames="modal"
         unmountOnExit
         nodeRef={this.nodeRef}
       >
         <div className="modal" ref={this.nodeRef}>
-          <div className="backdrop bg-gray-300 opacity-50" onClick={props.onClose}></div>
+          <span className="backdrop" onClick={props.onClose}></span>
           {children}
         </div>
       </CSSTransition>

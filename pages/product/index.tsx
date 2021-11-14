@@ -16,7 +16,7 @@ import { GetProductsResponse, GetUserResponse } from 'interfaces/api';
 type ProductsProps = {
   user: User | null
 }
-export default function Products({user}: ProductsProps) {
+export default function ProductPage({user}: ProductsProps) {
   const {data: productData, error: productError} = useSWR<GetProductsResponse, Error>('products', getProducts)
   const [searchQuery, setSearchQuery] = useState('')
   const handleSearch = (e: FocusEvent<HTMLInputElement>) => setSearchQuery(e.target.value)

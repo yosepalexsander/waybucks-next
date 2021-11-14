@@ -13,7 +13,7 @@ type HomeProps = {
   user: User | null
 }
 
-export default function Home({user}: HomeProps) {
+export default function HomePage({user}: HomeProps) {
   return (
     <Layout 
       user={user} 

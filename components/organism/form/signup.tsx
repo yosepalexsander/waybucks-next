@@ -74,6 +74,7 @@ export default function SignupForm() {
         <Alert
           severity="success"
           open={showAlert}
+          position={{top: 50}}
           onClose={() => {
             setShowAlert(false);
             router.push('/signin');

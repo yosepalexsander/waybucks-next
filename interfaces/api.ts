@@ -51,6 +51,10 @@ export interface GetCartsResponse extends CommonResponse {
   payload: Cart[]
 }
 
+export interface GetUserAddressResponse extends CommonResponse {
+  payload: Address[]
+}
+
 export interface OrderRequest {
   product_id: number
   topping_id: number[]
