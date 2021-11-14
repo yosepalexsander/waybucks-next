@@ -45,11 +45,11 @@ footer {
 }
 
 .flex-container {
-  @apply -mt-4 -ml-4;
+  @apply -mt-2 -ml-2;
 }
 
 .flex-item {
-  @apply pt-4 pl-4;
+  @apply pt-2 pl-2 pr-1;
 }
 /*  */
 
@@ -80,13 +80,20 @@ footer {
 
 /* button */
 .btn {
-  @apply relative overflow-hidden rounded-md px-2 py-2 text-center;
+  @apply relative overflow-hidden rounded-md px-2 py-2 text-center outline-none select-none;
 }
 .btn-primary {
   @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
 }
 .btn-primary-outlined {
   @apply border-primary border-2 text-primary bg-transparent disabled:bg-gray-400 disabled:text-white;
+}
+
+.btn-secondary {
+  @apply text-white bg-secondary border-2 border-transparent disabled:bg-gray-400;
+}
+.btn-secondary-outlined {
+  @apply border-secondary border-2 text-secondary bg-transparent disabled:bg-gray-400 disabled:text-white;
 }
 .cta {
   @apply text-gray-900 text-lg border-2 border-transparent inline-block font-bold bg-yellow-400;
@@ -276,7 +283,7 @@ input[class="female"]:focus + .icon {
   @apply fixed top-0 left-0 bottom-0 right-0;
   z-index: 200;
 }
-.modal .backdrop {
+.modal > .backdrop {
   @apply bg-gray-500 bg-opacity-50;
 }
 .modal-enter .backdrop {

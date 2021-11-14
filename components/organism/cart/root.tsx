@@ -25,14 +25,14 @@ export default function Carts({user}: CartProps) {
   })
 
   const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
-  const {data: cartData, error, mutate} = useSWRImmutable<GetCartsResponse>('/carts', getCarts, {
+  const {data: cartData, error, mutate} = useSWRImmutable<GetCartsResponse>(`/carts/${user?.id}`, getCarts, {
     onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
       if (error?.status === 404) return
       if (retryCount >= 5) return
       setTimeout(() => revalidate({ retryCount }), 5000)
     }
   })
-  const { data: addressData, error: addressError} = useSWRImmutable<GetAddressResponse, Record<string, any>>('/address', getUserAddress, {
+  const { data: addressData, error: addressError} = useSWRImmutable<GetAddressResponse, Record<string, any>>(`/address/${user?.id}`, getUserAddress, {
     onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
       if (error?.status === 404) return
     }
@@ -240,8 +240,9 @@ export default function Carts({user}: CartProps) {
                   {status.msg}
                 </Alert>
               )}
+              <p className="h5">Review Your Order</p>
+              <hr className="divider" />
               <div className="cart-list">
-                <hr className="divider" />
                 {cartData?.payload?.map(cart => (
                   <CartItem key={cart.id} item={cart}  
                     onDeleteCart={handleDeleteCart} 
@@ -262,6 +263,7 @@ export default function Carts({user}: CartProps) {
               </div>
             ): (
               <div className="flex-item">
+                <p className="h5">Where will the products be sent to?</p>
                 <ListAddress items={addressData?.payload || []} onChange={onClickAddress}/>
               </div>
             )}

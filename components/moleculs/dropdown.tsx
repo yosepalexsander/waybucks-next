@@ -1,12 +1,14 @@
 import React, { HTMLAttributes, PureComponent } from 'react';
 import Link from 'next/link';
 import { CSSTransition } from 'react-transition-group';
+
 import Paper from '@/components/atoms/paper';
 import MenuList from '@/components/atoms/menu/menuList';
 import MenuItem from '@/components/atoms/menu/menuItem';
+import styles from '@/components/moleculs/dropdown.module.css';
+
 import { AccountIcon, LogoutIcon } from 'icons';
 
-import styles from '@/components/moleculs/dropdown.module.css';
 
 type DropdownProps = HTMLAttributes<HTMLElement> & {
   userId: number
@@ -42,8 +44,8 @@ export default class Dropdown extends PureComponent<DropdownProps> {
           <Paper width={150} maxWidth="100%">
             <MenuList>
               <MenuItem>
-                <Link href="/profile" passHref={true}>
-                  <a className="w-full">
+                <Link href={{pathname: '/profile', query: {id: userId}}}>
+                  <a>
                     <div>
                       <AccountIcon size={24} className="text-primary"/>
                     </div>
@@ -52,7 +54,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                 </Link>
               </MenuItem>
               <MenuItem>
-                <button onClick={handleLogout} className="w-full">
+                <button onClick={handleLogout}>
                   <div>
                     <LogoutIcon size={24} className="text-primary"/>
                   </div>

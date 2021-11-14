@@ -37,7 +37,6 @@ export default function DetailProduct({user} : ProductProps) {
   })
 
   const currencyFormatter = Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
-  const price = currencyFormatter.format(product?.payload.price as number)
   
   const onToppingChecked = (e: FocusEvent<HTMLInputElement>) => {
     if(e.target.checked) {
@@ -75,6 +74,7 @@ export default function DetailProduct({user} : ProductProps) {
       setShowAlert(true) 
     }
   }
+  
   return (
     <Layout 
       user={user}
@@ -108,7 +108,7 @@ export default function DetailProduct({user} : ProductProps) {
           <div className="product-info">
             <p className="name">{product?.payload.name}</p>
             <p className="desc">{product?.payload.description}</p>
-            <p className="price">Price: {price}</p>
+            <p className="price">Price: {currencyFormatter.format(product?.payload.price as number)}</p>
             <p className="text-2xl font-bold">Topping</p>
             <Toppings onChange={onToppingChecked}/>
             <div className="flex justify-between">

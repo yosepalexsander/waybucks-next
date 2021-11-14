@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSWRConfig } from 'swr';
 
 import { deleteAddress } from 'utils/api';
 import { Address } from 'interfaces/object';
@@ -14,40 +13,56 @@ import Modal from '@/components/atoms/modal';
 import { DeleteIcon } from 'icons';
 
 type UserAddressProps = {
-  address: Address[] | undefined
+  address: Address[] | undefined,
+  mutator: any
 }
 
-export default function UserAddress({address}: UserAddressProps) {
-  const {mutate} = useSWRConfig()
+export default function UserAddress({address, mutator}: UserAddressProps) {
   const [show, setShowModal] = useState(false)
   const [selectedAddress, setSelectedAddress] = useState<Address>()
+  
+  // show modal, set old address, pass to form input 
   const onClickUpdate = (item: Address) => {
     setShowModal(true)
     setSelectedAddress(item)
   }
+
+  const onClickAdd = () => {
+    setShowModal(true)
+  }
+
+  // always reset state on close modal
+  const onCloseModal = () => {
+    setShowModal(false)
+    setSelectedAddress(undefined)
+  }
   
+  // refetch after submitting address data
   const onUpdateAddress = () => {
     setShowModal(false)
-    mutate('/address')
+    mutator()
   }
 
   const onDeleteAddress = async (id: number) => {
     try {
       await deleteAddress<CommonResponse>(id)
-      await mutate('/address')
+      await mutator()
     } catch (error) {
       console.error(error)
     }
   }
   return (
-    <section id="address" className="w-full">
-      <h1 className="h2 mb-4">My Address</h1>
+    <section id="user-address">
+      <span>
+        <h1 className="h2">My Address</h1>
+        <Button onClick={onClickAdd} variant="contained" color="secondary" className="py-1">Add New</Button>
+      </span>
       <div className="address-list flex-container">
         {address?.map(item => (
           <div key={item.id} className="flex-item">
             <Paper>
               <AddressCard item={item} />
-              <div className="flex items-center justify-between p-2">
+              <div className="address-action">
                 <Button variant="outlined" color="primary" className="w-4/5" onClick={() => onClickUpdate(item)}>Change Address</Button>
                 <DeleteIcon size="2rem" className="text-primary" onClick={() => onDeleteAddress(item.id)}/>
               </div>
@@ -55,10 +70,11 @@ export default function UserAddress({address}: UserAddressProps) {
           </div>
         ))}
       </div>
-      <Modal open={show} onClose={() => setShowModal(false)}>
-        <Paper width="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" padding={16} position="absolute">
-          <p className="text-3xl mb-4 text-center text-primary">Update Address</p>
-          <AddressForm oldAddress={selectedAddress} isUpdate={true} onSubmitSuccess={onUpdateAddress}/>
+      <Modal open={show} onClose={onCloseModal}>
+        <Paper width="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
+          padding={16} position="absolute" display="flex" flexDirection="column" alignItems="center">
+          <p className="text-3xl mb-4 text-center text-primary">{selectedAddress ? 'Update': 'New'} Address</p>
+          <AddressForm oldAddress={selectedAddress} isUpdate={selectedAddress ? true : false} onSubmitSuccess={onUpdateAddress}/>
         </Paper>
       </Modal>
     </section>

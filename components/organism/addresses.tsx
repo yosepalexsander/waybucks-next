@@ -12,7 +12,7 @@ type ListAddressProps = {
 
 export default function ListAddress({items, ...props}: ListAddressProps) {
   return (
-    <div className="address-list flex-container">
+    <div id="cart" className="address-list flex-container">
       {items.map(item => (
         <div key={item.id} className="input-checkbox flex-item">
           <input type="radio" name="address[]" id={`${item.id}`} onChange={(e) => props.onChange(e, item)}/>

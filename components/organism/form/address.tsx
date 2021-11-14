@@ -51,6 +51,7 @@ export default function AddressForm({oldAddress, isUpdate, onSubmitSuccess}: Add
     const config = createAxiosRequestConfig({
       'Content-Type': 'application/json'
     })
+    
     const body: Record<string, any> = { ...values }
     try {
       const { data, ...response } = isUpdate 
@@ -89,7 +90,6 @@ export default function AddressForm({oldAddress, isUpdate, onSubmitSuccess}: Add
                   id="name" 
                   name="name" 
                   label="Name"
-                  type="name" 
                   onFocus={handleFocus}
                   className={values.name ? 'not-empty': ''}
                   as={Input} 
@@ -126,7 +126,7 @@ export default function AddressForm({oldAddress, isUpdate, onSubmitSuccess}: Add
                   label="Postal Code"
                   type="number"
                   onFocus={handleFocus}
-                  className={values.postal_code ? 'not-empty': ''}
+                  className={values.postal_code >= 0 ? 'not-empty': ''}
                   as={Input}
                 />
                 {!!didFocus && touched.postal_code ? (

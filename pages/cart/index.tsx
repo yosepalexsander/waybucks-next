@@ -1,4 +1,5 @@
 import useSWRImmutable from 'swr/immutable';
+import { useRouter } from 'next/router';
 
 import { authCSR } from 'utils/auth';
 import { GetUserResponse } from 'interfaces/api';
@@ -9,7 +10,9 @@ import Loading from '@/components/atoms/loading';
 
 
 export default function CartPage() {
-  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>('/users', authCSR)
+  const router = useRouter()
+  const {id} =router.query
+  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>(router.isReady ? `/users/${id}`: null, authCSR)
   
   if (!data && !error) return <Loading />
   return (
@@ -24,15 +27,7 @@ export default function CartPage() {
       user={data?.payload} route="cart"
     >
       <p className="h2 mb-5">My Cart</p>
-      <p className="text-primary">Review Your Order</p>
       <Carts user={data?.payload}/>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-              console.log('Console message');
-            `,
-        }}
-      />
     </Layout>
   );
 }

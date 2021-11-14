@@ -1,4 +1,5 @@
 import useSWRImmutable from 'swr/immutable';
+import { useRouter } from 'next/router';
 
 import { GetUserAddressResponse, GetUserResponse } from 'interfaces/api';
 import { authCSR } from 'utils/auth';
@@ -10,10 +11,12 @@ import UserAddress from '@/components/organism/profile/userAddress';
 import Loading from '@/components/atoms/loading';
 
 export default function ProfilePage() {
-  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>('/users', authCSR)
-  const {data: address, error: addressError} = useSWRImmutable<GetUserAddressResponse | null, Error>('/address', getUserAddress)
-  
-  if (!data?.payload && !error) {
+  const router = useRouter()
+  const {id} = router.query
+  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>(router.isReady ? `/users/${id}`: null, authCSR)
+  const {data: address, error: addressError, mutate} = useSWRImmutable<GetUserAddressResponse, Error>(id ? `/address/${id}`: null, getUserAddress)
+
+  if (!data && !error) {
     return <Loading />
   }
   return (
@@ -24,9 +27,9 @@ export default function ProfilePage() {
       }}
       user={data?.payload} route="cart"
     >
-      <div className="flex flex-col items-center lg:flex-row md:justify-around md:items-start">
+      <div className="profile-container">
         <DetailProfile user={data?.payload}/>
-        <UserAddress address={address?.payload}/>
+        <UserAddress mutator={mutate} address={address?.payload}/>
       </div>
     </Layout>
   )

@@ -12,11 +12,11 @@ import Drawer from '@/components/moleculs/drawer';
 import Dropdown from '@/components/moleculs/dropdown';
 import Avatar from '@/components/atoms/avatar';
 import Badge from '@/components/atoms/badge';
+import MenuList from '@/components/atoms/menu/menuList';
+import MenuItem from '@/components/atoms/menu/menuItem';
 
 import Logo from 'public/assets/icons/logo.svg';
 import { AccountIcon, CartIcon, LogoutIcon, MenuIcon } from 'icons';
-import MenuList from '../atoms/menu/menuList';
-import MenuItem from '../atoms/menu/menuItem';
 
 
 
@@ -25,7 +25,7 @@ type HeaderProps = {
 }
 export default function Header({user}: HeaderProps) {
   //get user carts, first parameter is not used in request
-  const {data: cartData, error} = useSWR<GetCartsResponse, Record<string, any>>(user ? '/carts': null, getCarts, {
+  const {data: cartData, error} = useSWR<GetCartsResponse, Record<string, any>>(user ? `/carts/${user.id}`: null, getCarts, {
     revalidateOnFocus: false,
     onErrorRetry: (error) => {
       if (error?.status === 404) return
@@ -61,7 +61,7 @@ export default function Header({user}: HeaderProps) {
       <div className="app-bar-btn">
         {user ? (
           <>
-            <Link href="/cart">
+            <Link href={{pathname: '/cart', query: {id: user.id}}}>
               <a>
                 <Badge badgeContent={cartData?.payload?.length} color="secondary">
                   <CartIcon size={24}/>
@@ -79,7 +79,7 @@ export default function Header({user}: HeaderProps) {
                 width={45}
                 height={45}
                 onClick={() => setOpenDropdown(true)}
-              >{user.name.match(/\b(\w)/g)?.join('').toUpperCase()}</Avatar>
+              >{user.name.substr(0,2).toUpperCase()}</Avatar>
               <Dropdown 
                 id="dropdown-menu" 
                 aria-labelledby="dropdown-button" 
@@ -117,11 +117,11 @@ export default function Header({user}: HeaderProps) {
                   height={65}
                   onClick={() => setOpenDropdown(true)}
               
-                >{user.name.match(/\b(\w)/g)?.join('').toUpperCase()}</Avatar>
-                <p className="h3 ml-3">{user.name}</p>
+                >{user.name.substr(0,2).toUpperCase()}</Avatar>
+                <p className="h3">{user.name}</p>
               </div>
               <MenuItem>
-                <Link href={`/profile/${user.id}`}>
+                <Link href={{pathname: '/profile', query: {id: user.id}}}>
                   <a>
                     <div>
                       <AccountIcon size={24} className="text-primary"/>
@@ -131,7 +131,7 @@ export default function Header({user}: HeaderProps) {
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link href="/cart">
+                <Link href={{pathname: '/cart', query: {id: user.id}}}>
                   <a>
                     <div>
                       <Badge badgeContent={cartData?.payload?.length} color="secondary">

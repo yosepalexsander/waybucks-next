@@ -1,0 +1,27 @@
+.profile-container {
+  @apply flex flex-col items-center lg:flex-row md:justify-around md:items-start;
+}
+
+.profile-container > section {
+  @apply w-full mb-4;
+}
+
+#profile .profile-img {
+  @apply w-32 h-32 sm:w-64 sm:h-64;
+}
+
+#profile .profile-img-placeholder {
+  @apply h-full bg-secondary text-white flex items-center justify-center text-4xl sm:text-8xl rounded-md;
+}
+
+#profile .profile-info {
+  @apply flex flex-col justify-between;
+}
+
+#user-address > span {
+  @apply mb-4 flex justify-between;
+}
+
+#user-address .address-action {
+  @apply flex items-center justify-between p-2;
+}
