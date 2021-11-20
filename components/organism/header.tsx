@@ -16,7 +16,7 @@ import MenuList from '@/components/atoms/menu/menuList';
 import MenuItem from '@/components/atoms/menu/menuItem';
 
 import Logo from 'public/assets/icons/logo.svg';
-import { AccountIcon, CartIcon, LogoutIcon, MenuIcon } from 'icons';
+import { AccountIcon, CartIcon, DashboardIcon, LogoutIcon, MenuIcon } from 'icons';
 
 
 
@@ -25,7 +25,7 @@ type HeaderProps = {
 }
 export default function Header({user}: HeaderProps) {
   //get user carts, first parameter is not used in request
-  const {data: cartData, error} = useSWR<GetCartsResponse, Record<string, any>>(user ? `/carts/${user.id}`: null, getCarts, {
+  const {data: cartData, error} = useSWR<GetCartsResponse, Record<string, any>>(user && !user.is_admin ? `/carts/${user.id}`: null, getCarts, {
     revalidateOnFocus: false,
     onErrorRetry: (error) => {
       if (error?.status === 404) return
@@ -61,13 +61,15 @@ export default function Header({user}: HeaderProps) {
       <div className="app-bar-btn">
         {user ? (
           <>
-            <Link href={{pathname: '/cart', query: {id: user.id}}}>
-              <a>
-                <Badge badgeContent={cartData?.payload?.length} color="secondary">
-                  <CartIcon size={24}/>
-                </Badge>
-              </a>
-            </Link>
+            {!user.is_admin && (
+              <Link href={{pathname: '/cart', query: {id: user.id}}}>
+                <a>
+                  <Badge badgeContent={cartData?.payload?.length} color="secondary">
+                    <CartIcon size={24}/>
+                  </Badge>
+                </a>
+              </Link>
+            )}
             <div>
               <Avatar 
                 id="dropdown-button" 
@@ -84,6 +86,7 @@ export default function Header({user}: HeaderProps) {
                 id="dropdown-menu" 
                 aria-labelledby="dropdown-button" 
                 userId={user.id} 
+                is_admin={user.is_admin}
                 open={openDropdown} 
                 handleClose={() =>   setOpenDropdown(false)}
                 handleLogout={authLogout}
@@ -116,7 +119,6 @@ export default function Header({user}: HeaderProps) {
                   width={65}
                   height={65}
                   onClick={() => setOpenDropdown(true)}
-              
                 >{user.name.substr(0,2).toUpperCase()}</Avatar>
                 <p className="h3">{user.name}</p>
               </div>
@@ -130,23 +132,39 @@ export default function Header({user}: HeaderProps) {
                   </a>
                 </Link>
               </MenuItem>
+              {user.is_admin && (
+                <MenuItem>
+                  <Link href={{ pathname: '/admin/product' }}>
+                    <a>
+                      <div>
+                        <DashboardIcon size={24} className="text-primary"/>
+                      </div>
+                      <span>Content</span> 
+                    </a>
+                  </Link>
+                </MenuItem>
+              )}
+              {!user.is_admin && (
+                <MenuItem>
+                  <Link href={{pathname: '/cart', query: {id: user.id}}}>
+                    <a>
+                      <div>
+                        <Badge badgeContent={cartData?.payload?.length} color="secondary">
+                          <CartIcon size={24}/>
+                        </Badge>
+                      </div>
+                      <span>Cart</span> 
+                    </a>
+                  </Link>
+                </MenuItem>
+              )}
               <MenuItem>
-                <Link href={{pathname: '/cart', query: {id: user.id}}}>
-                  <a>
-                    <div>
-                      <Badge badgeContent={cartData?.payload?.length} color="secondary">
-                        <CartIcon size={24}/>
-                      </Badge>
-                    </div>
-                    <span>Cart</span> 
-                  </a>
-                </Link>
-              </MenuItem>
-              <MenuItem>
-                <div>
-                  <LogoutIcon size={24} className="text-primary"/>
-                </div>
-                <a onClick={authLogout}>Logout</a>
+                <a onClick={authLogout} className="w-full">
+                  <div>
+                    <LogoutIcon size={24} className="text-primary"/>
+                  </div>
+                  <span>Logout</span>
+                </a>
               </MenuItem>
             </MenuList>
           </>
@@ -164,7 +182,7 @@ export default function Header({user}: HeaderProps) {
                 </Link>
               </li>
             </ul><Link href="/signin">
-              <a className="btn btn-primary-outline m-2">Sign in</a>
+              <a className="btn btn-primary-outlined m-2">Sign in</a>
             </Link><Link href="/signup">
               <a className="btn btn-primary m-2">Sign up</a>
             </Link>

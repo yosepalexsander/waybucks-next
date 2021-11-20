@@ -130,3 +130,11 @@
   content: "\00a0";
   @apply h-0;
 }
+
+input[type="file"] ~ .label {
+  @apply inline-block bg-secondary text-gray-50 p-2 rounded-md cursor-pointer;
+}
+
+input[type="file"] ~ .label > span {
+  @apply ml-4 text-gray-50;
+}

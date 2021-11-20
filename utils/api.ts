@@ -137,7 +137,7 @@ export async function getAllTransactions<T>(): Promise<T> {
    * @param config axios request config
    * @returns response object
    */
-export async function postAddress<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postAddress<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/address', data,  config)
 }
 /**Request for post new product. This can be only used by admin
@@ -146,7 +146,7 @@ export async function postAddress<T>(data: Record<string, any>, config: AxiosReq
    * @param config axios request config
    * @returns response object
    */
-export async function postProduct<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postProduct<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/products', data,  config)
 }
 
@@ -156,7 +156,7 @@ export async function postProduct<T>(data: Record<string, any>, config: AxiosReq
    * @param config axios request config
    * @returns response object
    */
-export async function postCart<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postCart<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/carts', data,  config)
 }
 
@@ -166,7 +166,7 @@ export async function postCart<T>(data: Record<string, any>, config: AxiosReques
    * @param config axios request config
    * @returns response object
    */
-export async function postTransaction<T>(data: TransactionRequest, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function postTransaction<T>(data: TransactionRequest, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.post<T>('/transactions', data, config)
 }
 
@@ -177,7 +177,7 @@ export async function postTransaction<T>(data: TransactionRequest, config: Axios
    * @param config axios request config
    * @returns response object
    */
-export async function updateUser<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function updateUser<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/users/${id}`, data, config)
 }
 
@@ -188,7 +188,7 @@ export async function updateUser<T>(id: number, data: Record<string, any>, confi
    * @param config axios request config
    * @returns response object
    */
-export async function updateAddress<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function updateAddress<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/address/${id}`, data, config)
 }
 
@@ -199,8 +199,19 @@ export async function updateAddress<T>(id: number, data: Record<string, any>, co
    * @param config axios request config
    * @returns response object
    */
-export async function updateProduct<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function updateProduct<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/products/${id}`, data, config)
+}
+
+/**Request for update topping by admin
+   * 
+   * @param id product to be udpated
+   * @param data request body
+   * @param config axios request config
+   * @returns response object
+   */
+export async function updateTopping<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.put<T>(`/toppings/${id}`, data, config)
 }
   
 /**Request for update cart by user
@@ -210,7 +221,7 @@ export async function updateProduct<T>(id: number, data: Record<string, any>, co
    * @param config axios request config
    * @returns response object
    */
-export async function updateCart<T>(id: number, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function updateCart<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/carts/${id}`, data, config)
 }
 
@@ -221,7 +232,7 @@ export async function updateCart<T>(id: number, data: Record<string, any>, confi
    * @param config axios request config
    * @returns response object
    */
-export async function updateTransaction<T>(id: string, data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function updateTransaction<T>(id: string, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return instance.put<T>(`/transactions/${id}`, data, config)
 }
 
@@ -241,5 +252,22 @@ export async function deleteAddress<T>(id: number): Promise<AxiosResponse<T>> {
  */
 export async function deleteCart<T>(id: number): Promise<AxiosResponse<T>> {
   return instance.delete<T>(`/carts/${id}`)
+}
+
+/**Request for delete product
+ * 
+ * @param id product to be deleted
+ * @returns response object
+ */
+export async function deleteProduct<T>(id: number): Promise<AxiosResponse<T>> {
+  return await instance.delete<T>(`/products/${id}`)
+}
+/**Request for delete topping
+ * 
+ * @param id topping to be deleted
+ * @returns response object
+ */
+export async function deleteTopping<T>(id: number): Promise<AxiosResponse<T>> {
+  return await instance.delete<T>(`/toppings/${id}`)
 }
 

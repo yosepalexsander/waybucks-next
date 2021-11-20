@@ -25,6 +25,7 @@ export interface Product {
   price: number
   createdAt: Date
   updatedAt: Date
+  is_available: boolean
 }
 
 export interface Topping {

@@ -41,10 +41,11 @@ export default function SigninForm() {
     try {
       const {data, ...response} = await login<SigninResponse>(values, config) 
       if (response.status === 200) {
+        
         authLogin({
           id: data.payload.id, 
           token: data.payload.token,
-          redirect: '/'
+          redirect: data.payload.name === 'admin' ? '/admin/product' : '/'
         })
         return
       }

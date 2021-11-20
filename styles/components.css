@@ -1,6 +1,6 @@
 /* General */
 body {
-  @apply text-gray-700;
+  @apply text-gray-700 antialiased;
 }
 svg {
   @apply inline-block cursor-pointer select-none;
@@ -80,21 +80,34 @@ footer {
 
 /* button */
 .btn {
-  @apply relative overflow-hidden rounded-md px-2 py-2 text-center outline-none select-none;
+  @apply relative overflow-hidden rounded-md px-2 py-2 
+  font-bold text-center outline-none select-none disabled:bg-gray-400 disabled:text-white;
 }
 .btn-primary {
-  @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
+  @apply text-white bg-primary border-2 border-transparent;
 }
 .btn-primary-outlined {
-  @apply border-primary border-2 text-primary bg-transparent disabled:bg-gray-400 disabled:text-white;
+  @apply border-primary border-2 text-primary bg-transparent;
 }
-
 .btn-secondary {
-  @apply text-white bg-secondary border-2 border-transparent disabled:bg-gray-400;
+  @apply text-white bg-secondary border-2 border-transparent;
 }
 .btn-secondary-outlined {
-  @apply border-secondary border-2 text-secondary bg-transparent disabled:bg-gray-400 disabled:text-white;
+  @apply border-secondary border-2 text-secondary bg-transparent;
 }
+.btn-warning {
+  @apply text-white bg-yellow-500 border-2 border-transparent;
+}
+.btn-warning-outlined {
+  @apply border-yellow-500 border-2 text-yellow-600 bg-transparent;
+}
+.btn-danger {
+  @apply text-white bg-red-600 border-2 border-transparent;
+}
+.btn-danger-outlined {
+  @apply border-red-600 border-2 text-red-600 bg-transparent;
+}
+
 .cta {
   @apply text-gray-900 text-lg border-2 border-transparent inline-block font-bold bg-yellow-400;
 }
@@ -189,7 +202,7 @@ footer {
   @apply mb-3 relative pt-3;
 }
 .form-control-root {
-  @apply relative h-10;
+  @apply relative;
 }
 
 .form-label {
@@ -206,6 +219,10 @@ footer {
 .form-control-input {
   @apply absolute bottom-0 h-full border-none rounded-t-lg px-2 py-2 bg-red-50 w-full outline-none 
   transition duration-500 ease-out focus:bg-transparent;
+}
+
+textarea.form-control-input {
+  resize: vertical;
 }
 
 .form-control-input:focus ~ .form-label,
@@ -307,4 +324,49 @@ input[class="female"]:focus + .icon {
 }
 .modal-exit-active .backdrop {
   @apply transition opacity-0;
+}
+
+/* Tabs */
+.tabs {
+  @apply relative flex h-full border-gray-300 lg:flex-col;
+}
+
+.tabs .tab {
+  @apply w-1/2 py-3 px-4 transition duration-300 lg:w-full;
+}
+.tabs .tab:nth-child(1).tab-active ~ .slider {
+  @apply translate-x-0 scale-x-50 lg:scale-y-50;
+}
+.tabs .tab:nth-child(2).tab-active ~ .slider {
+  @apply translate-x-1/2 scale-x-50 lg:translate-y-1/2 lg:translate-x-0 lg:scale-y-50;
+}
+.tab.tab-active {
+  @apply transition duration-300 transform font-bold text-primary;
+}
+.tabs .slider {
+  @apply absolute bottom-0 left-0 right-full top-full lg:left-full lg:bottom-full lg:top-0 lg:right-0 w-full
+  h-1 lg:h-full lg:w-1 bg-primary transition duration-200 origin-left lg:origin-top;
+}
+
+/* Table */
+table {
+  @apply w-full mx-auto table-auto rounded-t-md overflow-hidden;
+}
+table * {
+  @apply p-2 text-center;
+}
+table thead {
+  @apply border border-primary bg-primary rounded-t-md;
+}
+table tbody {
+  @apply border border-gray-500;
+}
+th {
+  @apply text-white;
+}
+td {
+  @apply border border-gray-300;
+}
+td:nth-child(2) {
+  @apply text-left;
 }

@@ -7,11 +7,13 @@ import MenuList from '@/components/atoms/menu/menuList';
 import MenuItem from '@/components/atoms/menu/menuItem';
 import styles from '@/components/moleculs/dropdown.module.css';
 
-import { AccountIcon, LogoutIcon } from 'icons';
+import { AccountIcon, DashboardIcon, LogoutIcon } from 'icons';
+import Badge from '../atoms/badge';
 
 
 type DropdownProps = HTMLAttributes<HTMLElement> & {
   userId: number
+  is_admin?: boolean
   open: boolean
   handleClose: () => void
   handleLogout: () => void
@@ -24,7 +26,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
     this.nodeRef = React.createRef();
   }
   render() {
-    const {userId, open, handleClose, handleLogout, ...props} = this.props
+    const {userId, is_admin, open, handleClose, handleLogout, ...props} = this.props
     return (
       <CSSTransition
         in={open}
@@ -53,6 +55,18 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                   </a>
                 </Link>
               </MenuItem>
+              {is_admin && (
+                <MenuItem>
+                  <Link href={{ pathname: '/admin/product' }}>
+                    <a>
+                      <div>
+                        <DashboardIcon size={24} className="text-primary"/>
+                      </div>
+                      <span>Content</span> 
+                    </a>
+                  </Link>
+                </MenuItem>
+              )}
               <MenuItem>
                 <button onClick={handleLogout}>
                   <div>
