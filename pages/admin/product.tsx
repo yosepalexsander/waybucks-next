@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import cookies from 'next-cookies';
 import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 
 import Layout from '@/components/layouts/app';
@@ -9,9 +8,8 @@ import TabPanel from '@/components/atoms/tabs/tabpanel';
 import TableProduct from '@/components/organism/table/products';
 import TableTopping from '@/components/organism/table/toppings';
 
-import { createAxiosRequestConfig, getUser } from 'utils/api';
-import { GetUserResponse } from 'interfaces/api';
 import { User } from 'interfaces/object';
+import { authSSR } from 'utils/auth';
 
 function a11yPropsTab(index: number) {
   return {
@@ -61,18 +59,12 @@ export default function ProductPage({user}: AdminProductProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<AdminProductProps> = async (ctx): Promise<GetServerSidePropsResult<AdminProductProps>> => {
-  const { id, token } = cookies(ctx)
-  const config = createAxiosRequestConfig({
-    Authorization: `Bearer ${token}`
-  })
   
-  if (id && token) {
-    const data = await getUser<GetUserResponse>(id, config)
-    if (data.payload && data.payload.is_admin) {
-      return {
-        props: {
-          user: data.payload
-        }
+  const user = await authSSR(ctx)
+  if (user && user.is_admin) {
+    return {
+      props: {
+        user
       }
     }
   }

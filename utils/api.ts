@@ -150,6 +150,16 @@ export async function postProduct<T>(data: Record<string, any>, config?: AxiosRe
   return instance.post<T>('/products', data,  config)
 }
 
+/**Request for post new topping. This can be only used by admin
+   * 
+   * @param data request body
+   * @param config axios request config
+   * @returns response object
+   */
+export async function postTopping<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return instance.post<T>('/toppings', data,  config)
+}
+
 /**Request for post new cart by user
    * 
    * @param data request body

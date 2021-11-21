@@ -6,8 +6,8 @@ import Input from '@/components/atoms/input';
 import Button from '@/components/atoms/button';
 import Alert from '@/components/atoms/alert';
 
-import { AddressSchema } from 'utils/validation';
-import { createAxiosRequestConfig, postProduct, updateProduct } from 'utils/api';
+import { ToppingSchema } from 'utils/validation';
+import { createAxiosRequestConfig, postTopping, updateTopping } from 'utils/api';
 import { CommonResponse } from 'interfaces/api';
 import { Topping } from 'interfaces/object';
 import { AttachmentIcon } from 'icons';
@@ -78,18 +78,16 @@ export default function ToppingForm({oldProduct, isUpdate, formTopping, onSubmit
         body.set('price', `${values.price}`)
         body.set('image', image, image.name)
         const { data, ...response } = isUpdate 
-          ? await updateProduct<CommonResponse>(oldProduct?.id as number, body) 
-          : await postProduct<CommonResponse>(body) 
+          ? await updateTopping<CommonResponse>(oldProduct?.id as number, body) 
+          : await postTopping<CommonResponse>(body) 
         onResponse(response.status)
       } else {
-        
         const body: Record<string, any> = { ...values }
         const { data, ...response } = isUpdate 
-          ? await updateProduct<CommonResponse>(oldProduct?.id as number, body, config) 
-          : await postProduct<CommonResponse>(body, config) 
+          ? await updateTopping<CommonResponse>(oldProduct?.id as number, body, config) 
+          : await postTopping<CommonResponse>(body, config) 
         onResponse(response.status)
       }
-      onSubmitSuccess()
     } catch (error) {
       console.log(error)
     }
@@ -104,7 +102,7 @@ export default function ToppingForm({oldProduct, isUpdate, formTopping, onSubmit
         <Formik
           enableReinitialize={true}
           initialValues={initialValues} 
-          validationSchema={AddressSchema}
+          validationSchema={ToppingSchema}
           onSubmit={handleSubmit}>{({ errors, touched, isValid, values }) => (
             <Form>
               <div className="form-group">
@@ -154,10 +152,10 @@ export default function ToppingForm({oldProduct, isUpdate, formTopping, onSubmit
                   Attachment <span id="file-chosen"><AttachmentIcon size="24"/></span>
                 </label>
                 {preview ? (
-                  <img aria-live="polite" alt="preview" src={preview as string} className="h-10" />
+                  <img aria-live="polite" alt="preview" src={preview as string} width={100} height={100} className="mt-5"/>
                 ) : (
-                  <div className="h-10">
-                    {oldProduct?.image && (<img alt="previous image" src={oldProduct.image} className="h-full" />)}
+                  <div className="h-15 w-15">
+                    {oldProduct?.image && (<img alt="previous image" src={oldProduct.image} width={100} height={100} className="mt-5" />)}
                   </div>
                 )}
               </div>

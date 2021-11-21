@@ -17,11 +17,15 @@ type CartProps = {
   user?: User | null
 }
 
+type StatusState = {
+  msg: string
+  status: 'success' | 'warning' | 'error'
+}
 export default function Carts({user}: CartProps) {
   const [alert, setAlert] = useState(false)
-  const [status, setStatus] = useState({
+  const [status, setStatus] = useState<StatusState>({
     msg: '',
-    status: '',
+    status: 'success',
   })
 
   const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
@@ -213,33 +217,13 @@ export default function Carts({user}: CartProps) {
         <>
           <div className="cart-container flex-container">
             <div className="flex-item">
-              {status.status === 'success' && (
-                <Alert open={alert} severity="success" onClose={() => setAlert(false)}
-                  position={{
-                    bottom: 35,
-                    left: 35,
-                  }}>
-                  {status.msg}
-                </Alert>
-              )}
-              {status.status === 'warning' && (
-                <Alert open={alert} severity="warning" onClose={() => setAlert(false)}
-                  position={{
-                    bottom: 35,
-                    left: 35,
-                  }}>
-                  {status.msg}
-                </Alert>
-              )}
-              {status.status === 'error' && (
-                <Alert open={alert} severity="error" onClose={() => setAlert(false)}
-                  position={{
-                    bottom: 35,
-                    left: 35,
-                  }}>
-                  {status.msg}
-                </Alert>
-              )}
+              <Alert open={alert} severity={status.status} onClose={() => setAlert(false)}
+                position={{
+                  bottom: 35,
+                  left: 35,
+                }}>
+                {status.msg}
+              </Alert>
               <p className="h5">Review Your Order</p>
               <hr className="divider" />
               <div className="cart-list">
