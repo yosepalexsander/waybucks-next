@@ -2,19 +2,21 @@ import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
 import useSWRImmutable from 'swr/immutable';
 
-import { CommonResponse, GetProductsResponse } from 'interfaces/api';
-import { Product } from 'interfaces/object';
-import { createAxiosRequestConfig, deleteProduct, getProducts, updateProduct } from 'utils/api';
-
 import Button from '@/components/atoms/button';
 import Modal from '@/components/atoms/modal';
 import Paper from '@/components/atoms/paper';
-import ProductForm from '../form/product';
+import ProductForm from '@/components/organism/form/product';
+import TableSkeleton from '@/components/organism/table/skeleton';
+
+import { CommonResponse, GetProductsResponse } from 'interfaces/api';
+import { Product } from 'interfaces/object';
+import { createAxiosRequestConfig, deleteProduct, getProducts, updateProduct } from 'utils/api';
 
 export default function TableProduct() {
   const [show, setShowModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product>()
   const { data, error, mutate } = useSWRImmutable<GetProductsResponse, Error>('/products', getProducts)
+  const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
 
   const onMutationUpdate = async (product: Product) => {
     const filteredData = data?.payload.filter(item => item.id != product.id) || []
@@ -91,35 +93,41 @@ export default function TableProduct() {
             </tr>
           </thead>
           <tbody>
-            {data?.payload.map((item, index) => (
-              <tr key={item.id}>
-                <td>{index}</td>
-                <td>{item.name}</td>
-                <td  className="w-12">
-                  <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"/>
-                </td>
-                <td>{item.price}</td>
-                <td>
-                  <input type="checkbox" name={item.name} 
-                    id={`${item.id}`} checked={item.is_available} 
-                    onChange={(e) => onUpdateAvailability(e, item)}/>
-                </td>
-                <td>
-                  <Button id={`update-${item.id}`} 
-                    variant="contained" color="secondary" 
-                    onClick={() => onClickUpdate(item)} 
-                    className="m-1 w-20"
-                    style={{padding: '0.25rem'}}
-                  >Update</Button>
-                  <Button id={`delete-${item.id}`} 
-                    variant="outlined" color="danger" 
-                    onClick={() => onDeleteproduct(item.id)}
-                    className="m-1 w-20"
-                    style={{padding: '0.25rem'}}
-                  >Delete</Button>
-                </td>
-              </tr>
-            ))}
+            {data?.payload ? (
+              <>
+                {data?.payload.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index}</td>
+                    <td className="table-name">{item.name}</td>
+                    <td className="table-img">
+                      <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"/>
+                    </td>
+                    <td className="table-price">{currencyFormatter.format(item.price)}</td>
+                    <td>
+                      <input type="checkbox" name={item.name} 
+                        id={`${item.id}`} checked={item.is_available} 
+                        onChange={(e) => onUpdateAvailability(e, item)}/>
+                    </td>
+                    <td>
+                      <Button id={`update-${item.id}`} 
+                        variant="contained" color="secondary" 
+                        onClick={() => onClickUpdate(item)} 
+                        className="m-1 w-20"
+                        style={{padding: '0.25rem'}}
+                      >Update</Button>
+                      <Button id={`delete-${item.id}`} 
+                        variant="outlined" color="danger" 
+                        onClick={() => onDeleteproduct(item.id)}
+                        className="m-1 w-20"
+                        style={{padding: '0.25rem'}}
+                      >Delete</Button>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            ) : (
+              <TableSkeleton/>
+            )}
           </tbody>
         </table>
       </div>

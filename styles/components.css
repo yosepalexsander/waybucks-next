@@ -87,25 +87,25 @@ footer {
   @apply text-white bg-primary border-2 border-transparent;
 }
 .btn-primary-outlined {
-  @apply border-primary border-2 text-primary bg-transparent;
+  @apply border-primary border-2 text-primary bg-transparent disabled:border-gray-400;
 }
 .btn-secondary {
   @apply text-white bg-secondary border-2 border-transparent;
 }
 .btn-secondary-outlined {
-  @apply border-secondary border-2 text-secondary bg-transparent;
+  @apply border-secondary border-2 text-secondary bg-transparent disabled:border-gray-400;
 }
 .btn-warning {
   @apply text-white bg-yellow-500 border-2 border-transparent;
 }
 .btn-warning-outlined {
-  @apply border-yellow-500 border-2 text-yellow-600 bg-transparent;
+  @apply border-yellow-500 border-2 text-yellow-600 bg-transparent disabled:border-gray-400;
 }
 .btn-danger {
   @apply text-white bg-red-600 border-2 border-transparent;
 }
 .btn-danger-outlined {
-  @apply border-red-600 border-2 text-red-600 bg-transparent;
+  @apply border-red-600 border-2 text-red-600 bg-transparent disabled:border-gray-400;
 }
 
 .cta {
@@ -255,6 +255,9 @@ input[class="female"]:focus + .icon {
   @apply fill-pink;
 }
 
+input[type="file"] ~ label {
+  @apply inline-flex p-2 text-primary bg-red-200 border border-primary rounded-md;
+}
 .input-search {
   @apply border border-gray-500 text-base outline-none pl-10 p-2 rounded-md bg-gray-100 
   bg-no-repeat w-full max-w-md;
@@ -273,8 +276,11 @@ input[class="female"]:focus + .icon {
   flex items-center justify-center;
 }
 
+/* skeleton */
+.skeleton span {
+  @apply bg-gray-200;
+}
 /* skeleton animation */
-
 .skeleton-wave {
   @apply overflow-hidden relative;
 }
@@ -356,17 +362,28 @@ table * {
   @apply p-2 text-center;
 }
 table thead {
-  @apply border border-primary bg-primary rounded-t-md;
-}
-table tbody {
-  @apply border border-gray-500;
+  @apply bg-primary;
 }
 th {
-  @apply text-white;
+  @apply text-white border border-primary;
 }
 td {
   @apply border border-gray-300;
 }
-td:nth-child(2) {
-  @apply text-left;
+td.table-name {
+  @apply text-left font-bold w-48 lg:w-64;
+}
+td.table-image {
+  @apply w-20 h-20 lg:w-28 lg:h-28;
+}
+td.table-price {
+  @apply w-24 lg:w-52;
+}
+
+/* Table skeleton */
+tr.skeleton span {
+  @apply mx-auto block rounded-md 
+}
+tr.skeleton span.left {
+  @apply mx-0;
 }

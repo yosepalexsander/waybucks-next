@@ -126,7 +126,7 @@
   @apply block h-5 px-2;
 }
 
-.skeleton > *::before {
+.skeleton span::before {
   content: "\00a0";
   @apply h-0;
 }

@@ -10,12 +10,14 @@ import Paper from '@/components/atoms/paper';
 import { CommonResponse, GetToppingsResponse } from 'interfaces/api';
 import { Topping } from 'interfaces/object';
 import { createAxiosRequestConfig, deleteTopping, getToppings, updateTopping } from 'utils/api';
+import TableSkeleton from './skeleton';
 
 export default function TableTopping() {
   const [show, setShowModal] = useState(false)
   const [selectedTopping, setSelectedTopping] = useState<Topping>()
   const { data, error, mutate } = useSWRImmutable<GetToppingsResponse, Error>('/toppings', getToppings)
-  
+  const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
+
   const onClickUpdate = (item: Topping) => {
     setShowModal(true)
     setSelectedTopping(item)
@@ -26,8 +28,8 @@ export default function TableTopping() {
     const newToppingData: GetToppingsResponse = {
       message: data?.message as string,
       payload: [
-        ...filteredData,
         topping,
+        ...filteredData,
       ].sort((a, b) => b.id - a.id)
     }
     await mutate(newToppingData, false)
@@ -91,34 +93,40 @@ export default function TableTopping() {
             </tr>
           </thead>
           <tbody>
-            {data?.payload.map((item, index) => (
-              <tr key={item.id}>
-                <td>{index}</td>
-                <td>{item.name}</td>
-                <td className="w-12">
-                  <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"/>
-                </td>
-                <td>{item.price}</td>
-                <td><input type="checkbox" id={`${item.id}`} name={item.name}  
-                  checked={item.is_available} 
-                  onChange={(e) => onUpdateAvailability(e, item)}/>
-                </td>
-                <td>
-                  <Button id={`update-${item.id}`} 
-                    variant="contained" color="secondary" 
-                    onClick={() => onClickUpdate(item)} 
-                    className="py-1 m-1 w-20"
-                    style={{padding: '0.25rem'}}
-                  >Update</Button>
-                  <Button id={`delete-${item.id}`} 
-                    variant="outlined" color="danger" 
-                    onClick={() => onDeleteTopping(item.id)}
-                    className="py-1 m-1 w-20"
-                    style={{padding: '0.25rem'}}
-                  >Delete</Button>
-                </td>
-              </tr>
-            ))}
+            {data?.payload ? (
+              <>
+                {data?.payload.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index}</td>
+                    <td className="table-name">{item.name}</td>
+                    <td className="table-img">
+                      <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"/>
+                    </td>
+                    <td className="table-price">{currencyFormatter.format(item.price)}</td>
+                    <td><input type="checkbox" id={`${item.id}`} name={item.name}  
+                      checked={item.is_available} 
+                      onChange={(e) => onUpdateAvailability(e, item)}/>
+                    </td>
+                    <td>
+                      <Button id={`update-${item.id}`} 
+                        variant="contained" color="secondary" 
+                        onClick={() => onClickUpdate(item)} 
+                        className="py-1 m-1 w-20"
+                        style={{padding: '0.25rem'}}
+                      >Update</Button>
+                      <Button id={`delete-${item.id}`} 
+                        variant="outlined" color="danger" 
+                        onClick={() => onDeleteTopping(item.id)}
+                        className="py-1 m-1 w-20"
+                        style={{padding: '0.25rem'}}
+                      >Delete</Button>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            ) : (
+              <TableSkeleton />
+            )}
           </tbody>
         </table>
       </div>
