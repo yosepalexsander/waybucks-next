@@ -1,9 +1,13 @@
 /* General */
 body {
-  @apply text-gray-700;
+  @apply text-gray-700 antialiased;
 }
 svg {
-  display: inline-block;
+  @apply inline-block cursor-pointer select-none;
+}
+
+footer {
+  @apply bottom-0
 }
 
 .h1 {
@@ -23,7 +27,7 @@ svg {
 }
 
 .container {
-  @apply mx-auto mt-24 w-11/12 md:w-10/12 lg:w-4/5;
+  @apply container px-4 mx-auto pb-2 md:px-2 mt-24 flex flex-col;
 }
 
 .screen-center {
@@ -31,7 +35,7 @@ svg {
 }
 
 .backdrop {
-  @apply fixed top-0 left-0 bottom-0 right-0 bg-transparent;
+  @apply inset-0 fixed flex items-center justify-center;
   z-index: -1;
 }
 
@@ -39,15 +43,25 @@ svg {
   @apply rounded-md shadow-md bg-white;
   z-index: 100;
 }
+
+.flex-container {
+  @apply -mt-2 -ml-2;
+}
+
+.flex-item {
+  @apply pt-2 pl-2 pr-1;
+}
 /*  */
 
 /* app bar */
 .app-bar {
-  @apply fixed top-0 flex w-full bg-white z-50 px-12 items-center py-3 shadow;
+  @apply fixed top-0 flex justify-between md:justify-start w-full bg-white
+  px-5 py-3 items-center shadow z-50 sm:px-12;
 }
 .app-bar .app-bar-brand {
-  @apply flex-grow md:flex-none md:mr-5;
-  height: 60px;
+  @apply relative md:flex-none md:mr-5;
+  height: 45px;
+  width: 45px;
 }
 .app-bar .btn-menu {
   @apply block md:hidden;
@@ -56,7 +70,7 @@ svg {
   @apply flex-none md:flex-grow;
 }
 .app-bar-menu > * {
-  @apply p-3 transition duration-300 hover:bg-primary hover:text-white;
+  @apply px-4 py-2 transition duration-300 rounded-md hover:bg-primary hover:text-white cursor-pointer;
 }
 .app-bar-menu,
 .app-bar-btn {
@@ -66,14 +80,34 @@ svg {
 
 /* button */
 .btn {
-  @apply relative overflow-hidden rounded-md px-4 py-2 text-center;
+  @apply relative overflow-hidden rounded-md px-2 py-2 
+  font-bold text-center outline-none select-none disabled:bg-gray-400 disabled:text-white;
 }
 .btn-primary {
-  @apply text-white bg-primary border-2 border-transparent disabled:bg-gray-400;
+  @apply text-white bg-primary border-2 border-transparent;
 }
-.btn-primary-outline {
-  @apply border-primary border-2 text-primary bg-transparent disabled:bg-gray-400 disabled:text-white;
+.btn-primary-outlined {
+  @apply border-primary border-2 text-primary bg-transparent disabled:border-gray-400;
 }
+.btn-secondary {
+  @apply text-white bg-secondary border-2 border-transparent;
+}
+.btn-secondary-outlined {
+  @apply border-secondary border-2 text-secondary bg-transparent disabled:border-gray-400;
+}
+.btn-warning {
+  @apply text-white bg-yellow-500 border-2 border-transparent;
+}
+.btn-warning-outlined {
+  @apply border-yellow-500 border-2 text-yellow-600 bg-transparent disabled:border-gray-400;
+}
+.btn-danger {
+  @apply text-white bg-red-600 border-2 border-transparent;
+}
+.btn-danger-outlined {
+  @apply border-red-600 border-2 text-red-600 bg-transparent disabled:border-gray-400;
+}
+
 .cta {
   @apply text-gray-900 text-lg border-2 border-transparent inline-block font-bold bg-yellow-400;
 }
@@ -168,7 +202,7 @@ svg {
   @apply mb-3 relative pt-3;
 }
 .form-control-root {
-  @apply relative h-10;
+  @apply relative;
 }
 
 .form-label {
@@ -185,6 +219,10 @@ svg {
 .form-control-input {
   @apply absolute bottom-0 h-full border-none rounded-t-lg px-2 py-2 bg-red-50 w-full outline-none 
   transition duration-500 ease-out focus:bg-transparent;
+}
+
+textarea.form-control-input {
+  resize: vertical;
 }
 
 .form-control-input:focus ~ .form-label,
@@ -217,8 +255,135 @@ input[class="female"]:focus + .icon {
   @apply fill-pink;
 }
 
+input[type="file"] ~ label {
+  @apply inline-flex p-2 text-primary bg-red-200 border border-primary rounded-md;
+}
+.input-search {
+  @apply border border-gray-500 text-base outline-none pl-10 p-2 rounded-md bg-gray-100 
+  bg-no-repeat w-full max-w-md;
+  background-image: url("/assets/icons/search.svg");
+  background-size: 25px;
+  background-position: 5px;
+}
+
 /* Avatar */
 .avatar {
-  @apply flex items-center justify-center rounded-full bg-yellow-400 text-2xl 
-  font-bold border border-primary cursor-pointer;
+  @apply relative rounded-full border border-primary cursor-pointer;
+}
+
+.avatar > p {
+  @apply bg-secondary text-white text-2xl font-bold rounded-full h-full w-full
+  flex items-center justify-center;
+}
+
+/* skeleton */
+.skeleton span {
+  @apply bg-gray-200;
+}
+/* skeleton animation */
+.skeleton-wave {
+  @apply overflow-hidden relative;
+}
+
+.skeleton-wave::after{
+  content: "";
+  @apply top-0 left-0 right-0 bottom-0 absolute -translate-x-full;
+  animation: wave 1s linear 0.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(250, 250, 250, 0.239), transparent);
+}
+
+@keyframes wave {
+  to  {transform: translateX(100%)}
+}
+
+/* divider */
+.divider {
+  @apply bg-red-200 h-0.5;
+}
+
+/* modal */
+.modal {
+  @apply fixed top-0 left-0 bottom-0 right-0;
+  z-index: 200;
+}
+.modal > .backdrop {
+  @apply bg-gray-500 bg-opacity-50;
+}
+.modal-enter .backdrop {
+  @apply opacity-0;
+}
+.modal-enter .paper {
+  @apply opacity-0 transform scale-90;
+}
+.modal-enter-active .backdrop {
+  @apply transition duration-300 opacity-100;
+}
+.modal-enter-active .paper {
+  @apply transition duration-300 opacity-100 transform scale-100 translate-y-0;
+}
+.modal-exit .paper,
+.modal-exit .backdrop {
+  @apply opacity-100;
+}
+.modal-exit-active .paper  {
+  @apply transition duration-300 opacity-0 transform scale-90;
+}
+.modal-exit-active .backdrop {
+  @apply transition opacity-0;
+}
+
+/* Tabs */
+.tabs {
+  @apply relative flex h-full border-gray-300 lg:flex-col;
+}
+
+.tabs .tab {
+  @apply w-1/2 py-3 px-4 transition duration-300 lg:w-full;
+}
+.tabs .tab:nth-child(1).tab-active ~ .slider {
+  @apply translate-x-0 scale-x-50 lg:scale-y-50;
+}
+.tabs .tab:nth-child(2).tab-active ~ .slider {
+  @apply translate-x-1/2 scale-x-50 lg:translate-y-1/2 lg:translate-x-0 lg:scale-y-50;
+}
+.tab.tab-active {
+  @apply transition duration-300 transform font-bold text-primary;
+}
+.tabs .slider {
+  @apply absolute bottom-0 left-0 right-full top-full lg:left-full lg:bottom-full lg:top-0 lg:right-0 w-full
+  h-1 lg:h-full lg:w-1 bg-primary transition duration-200 origin-left lg:origin-top;
+}
+
+/* Table */
+table {
+  @apply w-full mx-auto table-auto rounded-t-md overflow-hidden;
+}
+table * {
+  @apply p-2 text-center;
+}
+table thead {
+  @apply bg-primary;
+}
+th {
+  @apply text-white border border-primary;
+}
+td {
+  @apply border border-gray-300;
+}
+td.table-name {
+  @apply text-left font-bold w-48 lg:w-64;
+}
+td.table-image {
+  @apply w-20 h-20 lg:w-28 lg:h-28;
+}
+td.table-price {
+  @apply w-24 lg:w-52;
+}
+
+/* Table skeleton */
+tr.skeleton span {
+  @apply mx-auto block rounded-md 
+}
+tr.skeleton span.left {
+  @apply mx-0;
 }

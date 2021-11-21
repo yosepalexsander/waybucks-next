@@ -13,9 +13,12 @@ type HomeProps = {
   user: User | null
 }
 
-export default function Home({user}: HomeProps) {
+export default function HomePage({user}: HomeProps) {
   return (
-    <Layout user={user}>
+    <Layout 
+      user={user} 
+      route="landing" 
+      head={{title: 'Waysbucks | Coffee For Everytime'}}>
       <Hero />
       <Features />
       <Benefits />
@@ -29,17 +32,20 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (ctx): Pr
   const config = createAxiosRequestConfig({
     Authorization: `Bearer ${token}`
   })
-  const {data, ...response} = await getUser<GetUserResponse>(id, config)
-  if (response.status !== 200) {
-    return {
-      props: {
-        user: null
+  
+  if (id && token) {
+    const data = await getUser<GetUserResponse>(id, config)
+    if (data.payload) {
+      return {
+        props: {
+          user: data.payload
+        }
       }
     }
   }
   return {
     props: {
-      user: data.payload
+      user: null
     }
   }
 }

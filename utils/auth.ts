@@ -17,8 +17,8 @@ export const authSSR = async (ctx: GetServerSidePropsContext): Promise<User | nu
     Authorization: `Bearer ${token}`
   })
   const response = await getUser<GetUserResponse>(id, config)
-  const user = response.data.payload
-  if (response.status === 200) {
+  const user = response.payload
+  if (user) {
     return user
   } else {
     if (typeof window === 'undefined') {
@@ -41,26 +41,21 @@ export const authSSR = async (ctx: GetServerSidePropsContext): Promise<User | nu
  * @param
  * @returns User data
  */
-export const authSSG =  async (): Promise<User | null> => {
+export const authCSR =  async (): Promise<GetUserResponse | null> => {
   const id = cookie.get('id')
   const token = cookie.get('token')
   
   const config = createAxiosRequestConfig({
     Authorization: `Bearer ${token}`
   })
+  
   const response = await getUser<GetUserResponse>(id, config)
-  const user = response.data.payload
-  if (response.status === 200) {
-    return user
-  } else {
-    Router.push(
-      {
-        pathname: '/signin',
-      },
-      '/signin'
-    );
-    return null
+  
+  if (response.payload) {
+    return response
   }
+  const error = new Error('Authentication failed')
+  throw error
 }
 
 export const authLogout = () => {
@@ -72,8 +67,13 @@ export const authLogout = () => {
 };
 
 export const authLogin = ({id, token, redirect}: {id: string, token: string, redirect: string}) => {
-  cookie.set('id', id, {expires: 1})
-  cookie.set('token', token, {expires: 1})
+  cookie.set('id', id, {
+    expires: 1
+  })
+  cookie.set('token', token, {
+    domain: process.env.NODE_ENV !== 'development' ? 'waysbucks.vercel.app': undefined, 
+    expires: 1
+  })
   
   Router.push(redirect) 
 }

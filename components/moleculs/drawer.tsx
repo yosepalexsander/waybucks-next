@@ -1,5 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import {createPortal} from 'react-dom';
+import { ReactNode, useRef } from 'react';
 import {CSSTransition} from 'react-transition-group';
 
 type DrawerProps = {

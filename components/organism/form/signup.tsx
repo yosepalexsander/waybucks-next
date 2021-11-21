@@ -7,8 +7,8 @@ import Alert from '@/components/atoms/alert';
 
 import { FemaleIcon, MaleIcon } from 'icons';
 
-import { validateEmail, validateName, validatePassword, validateGender, validatePhone } from 'utils/validation';
-import API, { createAxiosRequestConfig } from 'utils/api';
+import { SignupSchema } from 'utils/validation';
+import { createAxiosRequestConfig, register } from 'utils/api';
 import { SignupResponse } from 'interfaces/api';
 
 
@@ -50,7 +50,7 @@ export default function SignupForm() {
     const config = createAxiosRequestConfig({ 'Content-Type': 'application/json' });
 
     try {
-      const response = await API().register<SignupResponse>(values, config);
+      const response = await register<SignupResponse>(values, config);
       if (response.status !== 200) {
         setError({
           isError: true,
@@ -74,6 +74,7 @@ export default function SignupForm() {
         <Alert
           severity="success"
           open={showAlert}
+          position={{top: 50}}
           onClose={() => {
             setShowAlert(false);
             router.push('/signin');
@@ -83,7 +84,7 @@ export default function SignupForm() {
         </Alert>
       )}
       <div className="form">
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={SignupSchema}>
           {({ errors, touched, isValid, values }) => (
             <Form>
               <div className="form-group">
@@ -93,7 +94,6 @@ export default function SignupForm() {
                   label="Username"
                   onFocus={handleFocus}
                   className={values.name ? 'not-empty' : ''}
-                  validate={validateName}
                   as={Input}
                 />
                 {(!!didFocus && values.name.trim().length > 2) || (touched.name && errors.name) ? (
@@ -112,7 +112,6 @@ export default function SignupForm() {
                   label="Email"
                   onFocus={handleFocus}
                   className={values.email ? 'not-empty' : ''}
-                  validate={validateEmail}
                   as={Input}
                 />
                 {(!!didFocus && values.email.trim().length > 2) || touched.email ? (
@@ -131,7 +130,6 @@ export default function SignupForm() {
                   label="Password"
                   onFocus={handleFocus}
                   className={values.password ? 'not-empty' : ''}
-                  validate={validatePassword}
                   as={Input}
                 />
                 {(!!didFocus && values.password.trim().length > 2) || touched.password ? (
@@ -145,7 +143,7 @@ export default function SignupForm() {
               <div className="form-group">
                 <span className="text-gray-700 pl-2 mr-5">{`I'm a... `}</span>
                 <label className="checkbox-label" htmlFor="male">
-                  <Field id="male" type="radio" name="gender" validate={validateGender} value="male" className="male" />
+                  <Field id="male" type="radio" name="gender" value="male" className="male" />
                   <MaleIcon className="icon" size={28} />
                 </label>
                 <label className="checkbox-label" htmlFor="female">
@@ -153,7 +151,6 @@ export default function SignupForm() {
                     id="female"
                     type="radio"
                     name="gender"
-                    validate={validateGender}
                     value="female"
                     className="female"
                   />
@@ -169,7 +166,6 @@ export default function SignupForm() {
                   type="tel"
                   as={Input}
                   className={values.phone ? 'not-empty' : ''}
-                  validate={validatePhone}
                 />
                 {(!!didFocus && values.phone.trim().length > 2) || touched.phone ? (
                   <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">

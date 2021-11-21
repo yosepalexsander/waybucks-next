@@ -1,55 +1,36 @@
+import * as Yup from 'yup';
 
+export const SignupSchema = Yup.object().shape({
+  name: Yup.string().matches(/\w{5,20}/, 'Your name at least 5 characters with no symbols') .not(['admin'], 'Nice try!').required('Name is required'),
+  email: Yup.string().email('Invalid Email').required('Email is required'),
+  password: Yup.string()
+    .min(8, 'Password should contain at least 8 characters').max(16, 'Password maximum 16 characters')
+    .matches(/[-@!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]+/, 'Your password should contain at least one symbol').required('Password is required'),
+  gender: Yup.string().oneOf(['male', 'female'], 'Gender must be male or female').required('Gender is required'),
+  phone: Yup.string().matches(/^(0|\+62)(\d{11,12})$/, 'Phone must be in Indonesia phone format').required('Phone is required')
+})
 
-export function validateName<T extends string>(value: T): string {
-  let error: string = '';
-  if (!value) {
-    error = `First name field is Required`
-  } else if(value === 'admin') {
-    error = 'Nice try!'
-  } else if (!value.match(/\w{5,}/)) {
-    error = 'Your name at least 5 characters with no symbols'
-  }
-  return error
-}
+export const SigninSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid Email').required('Email is required'),
+  password: Yup.string()
+    .min(8, 'Password should contain at least 8 characters')
+    .max(16, 'Password maximum 16 characters')
+    .required('Password is required')
+})
 
-export function validateEmail<T extends string>(value: T): string {
-  let error: string = '';
-  if (!value) {
-    error = `Email field is Required`
-  } else if(!value.match(/^([A-Z0-9._]+)@(\w+)\.[a-z]{3}$/i)) {
-    error = 'Email is invalid'
-  }
-  return error
-}
+export const AddressSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  address: Yup.string().required('Address is required'),
+  phone: Yup.string().matches(/^(0|\+62)(\d{11,12})$/, 'Phone must be in Indonesia phone format').required('Phone is required'),
+  postal_code: Yup.number().required('Postal code is required'),
+  city: Yup.string().required('City is required')
+})
 
-export function validatePassword<T extends string>(value: T): string {
-  let error: string = '';
-  if (!value) {
-    error = 'Password field is Required'
-  } else if(value.length < 8) {
-    error = 'Password should contain at least 8 characters'
-  } else if(!value.match(/[-@!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]+/)) {
-    error = 'Your password should contain at least one symbol'
-  }
-  return error
-}
+export const ToppingSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  price: Yup.number().min(1000).required('Postal code is required'),
+})
 
-export function validateGender<T extends string>(value: T): string {
-  let error: string = ''
-  if (!value) {
-    error = 'Gender field is Required'
-  } else if(!/^(male|female)$/.test(value)) {
-    error = 'Gender must be male or female'
-  }
-  return error
-}
-
-export function validatePhone<T extends string>(value: T): string {
-  let error: string = ''
-  if (!value) {
-    error = 'Phone field is Required'
-  } else if(!/^(0|\+62)(\d{11,12})$/.test(value)) {
-    error = 'Phone must be number with indonesia phone format'
-  }
-  return error
-}
+export const ProductSchema = ToppingSchema.shape({
+  description: Yup.string().required('Description is required'), 
+})

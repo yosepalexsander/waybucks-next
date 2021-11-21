@@ -5,7 +5,7 @@ import Logo from 'public/assets/icons/logo.svg';
 import Layout from '@/components/layouts/signup';
 import SignupForm from '@/components/organism/form/signup';
 
-export default function Signup() {
+export default function SignupPage() {
   return (
     <Layout>
       <div className="text-center mb-4">

@@ -1,0 +1,140 @@
+.product-container {
+  @apply flex justify-around sm:justify-between flex-wrap md:justify-start mt-4 w-full mx-auto;
+}
+
+
+/* skeleton */
+
+.card {
+  @apply w-full text-center rounded-md border m-2;
+  max-width: 18rem;
+}
+
+.card.skeleton { 
+  @apply flex items-center flex-col;
+}
+.card.skeleton > .card-image {
+  @apply bg-gray-300 w-full h-56 mb-2 rounded-md;
+}
+
+.card.skeleton > .card-content {
+  @apply block bg-gray-300 w-11/12 my-2 rounded-md;
+}
+
+
+.product {
+  @apply flex flex-col w-full flex-wrap sm:flex-row;
+}
+
+.product .product-img {
+  @apply relative w-full m-0 h-56 sm:w-2/5 sm:h-auto  sm:mt-4;
+}
+
+.product .product-info {
+  @apply flex flex-col mt-4 sm:ml-4;
+  flex: 50%;
+}
+
+.product > .product-info > *:not(:last-child) {
+  @apply mb-4;
+}
+
+.product > .product-info .name {
+  @apply text-4xl font-bold text-primary;
+}
+
+.product > .product-info .desc {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.product > .product-info .price {
+  @apply text-lg text-secondary;
+}
+
+.product > .product-info  .total {
+  @apply font-bold text-lg md:text-2xl; 
+}
+
+/* Topping input checkbox */
+.topping-list {
+  @apply flex flex-wrap h-60 justify-around md:justify-start md:h-64 overflow-y-auto;
+}
+
+.topping-list .input-checkbox {
+  @apply w-36 h-28 text-center mb-2;
+}
+
+.topping-list .input-checkbox > .topping-name {
+  @apply text-sm text-primary;
+}
+
+.topping-list .input-checkbox > input ~ .input-label {
+  @apply flex justify-center;
+}
+
+.input-checkbox {
+  @apply relative;
+}
+.input-checkbox input {
+  @apply hidden;
+}
+
+.input-checkbox input ~ .input-label {
+  @apply cursor-pointer;
+}
+
+.input-checkbox input ~ .input-label > .topping-img {
+  @apply w-20;
+}
+.input-checkbox input ~ .input-label img {
+  @apply transition duration-200;
+}
+
+.input-checkbox input ~ .input-label::before {
+  content: " ";
+  @apply flex items-center justify-center absolute top-2 right-7 rounded-full leading-7 transition duration-300 scale-0 w-5 h-5;
+  z-index: 2;
+}
+
+.input-checkbox input:checked ~ .input-label::before {
+  content: "✓";
+  @apply bg-green-500 scale-100 text-white;
+}
+
+.input-checkbox input:checked ~ .input-label img {
+  @apply scale-90 z-0;
+}
+/*  */
+
+/* topping checkbox skeleton */
+
+.input-checkbox.skeleton {
+  @apply flex justify-center items-center flex-col;
+}
+.input-checkbox.skeleton > .topping-img {
+  @apply bg-gray-300 rounded-full w-20 h-20 mb-2;
+}
+
+.input-checkbox.skeleton > .topping-name {
+  @apply bg-gray-300 w-11/12 rounded-sm;
+}
+
+.input-checkbox.skeleton > span {
+  @apply block h-5 px-2;
+}
+
+.skeleton span::before {
+  content: "\00a0";
+  @apply h-0;
+}
+
+input[type="file"] ~ .label {
+  @apply inline-block bg-secondary text-gray-50 p-2 rounded-md cursor-pointer;
+}
+
+input[type="file"] ~ .label > span {
+  @apply ml-4 text-gray-50;
+}

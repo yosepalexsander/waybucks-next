@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 
-import styles from './menu.module.css'
+import styles from './menu.module.css';
 
 export default class MenuList extends PureComponent {
   render() {

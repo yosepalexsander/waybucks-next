@@ -1,18 +1,22 @@
-import React, { HTMLAttributes, PureComponent } from 'react'
-import Link from 'next/link'
-import { CSSTransition } from 'react-transition-group'
-import Paper from '@/components/atoms/paper'
-import MenuList from '@/components/atoms/menu/menuList'
-import MenuItem from '@/components/atoms/menu/menuItem'
-import { AccountIcon, LogoutIcon } from 'icons'
-import { authLogout } from 'utils/auth'
+import React, { HTMLAttributes, PureComponent } from 'react';
+import Link from 'next/link';
+import { CSSTransition } from 'react-transition-group';
 
-import styles from '@/components/moleculs/dropdown.module.css'
+import Paper from '@/components/atoms/paper';
+import MenuList from '@/components/atoms/menu/menuList';
+import MenuItem from '@/components/atoms/menu/menuItem';
+import styles from '@/components/moleculs/dropdown.module.css';
+
+import { AccountIcon, DashboardIcon, LogoutIcon } from 'icons';
+import Badge from '../atoms/badge';
+
 
 type DropdownProps = HTMLAttributes<HTMLElement> & {
-  userId: number,
-  open: boolean,
+  userId: number
+  is_admin?: boolean
+  open: boolean
   handleClose: () => void
+  handleLogout: () => void
 }
 
 export default class Dropdown extends PureComponent<DropdownProps> {
@@ -21,9 +25,8 @@ export default class Dropdown extends PureComponent<DropdownProps> {
     super(props)
     this.nodeRef = React.createRef();
   }
-  
   render() {
-    const {userId, open, handleClose, ...props} = this.props
+    const {userId, is_admin, open, handleClose, handleLogout, ...props} = this.props
     return (
       <CSSTransition
         in={open}
@@ -43,7 +46,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
           <Paper width={150} maxWidth="100%">
             <MenuList>
               <MenuItem>
-                <Link href={`/profile/${userId}`}>
+                <Link href={{pathname: '/profile', query: {id: userId}}}>
                   <a>
                     <div>
                       <AccountIcon size={24} className="text-primary"/>
@@ -52,11 +55,25 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                   </a>
                 </Link>
               </MenuItem>
+              {is_admin && (
+                <MenuItem>
+                  <Link href={{ pathname: '/admin/product' }}>
+                    <a>
+                      <div>
+                        <DashboardIcon size={24} className="text-primary"/>
+                      </div>
+                      <span>Content</span> 
+                    </a>
+                  </Link>
+                </MenuItem>
+              )}
               <MenuItem>
-                <div>
-                  <LogoutIcon size={24} className="text-primary"/>
-                </div>
-                <a onClick={authLogout}>Logout</a>
+                <button onClick={handleLogout}>
+                  <div>
+                    <LogoutIcon size={24} className="text-primary"/>
+                  </div>
+                  <p>Logout</p>
+                </button>
               </MenuItem>
             </MenuList>
           </Paper>

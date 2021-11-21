@@ -9,7 +9,7 @@
 }
 
 .menuItem > * {
-  @apply flex;
+  @apply flex w-full;
 }
 
 .menuItem div {

@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { Formik, Field, Form, FormikHelpers } from 'formik'
-import { validateEmail, validatePassword } from 'utils/validation'
+import React, { useState } from 'react';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
+import { SigninSchema } from 'utils/validation';
 
-import Input from '@/components/atoms/input'
-import Button from '@/components/atoms/button'
-import Alert from '@/components/atoms/alert'
+import Input from '@/components/atoms/input';
+import Button from '@/components/atoms/button';
+import Alert from '@/components/atoms/alert';
 
-import {login, createAxiosRequestConfig } from 'utils/api'
-import { SigninResponse } from 'interfaces/api'
-import { authLogin } from 'utils/auth'
+import {login, createAxiosRequestConfig } from 'utils/api';
+import { SigninResponse } from 'interfaces/api';
+import { authLogin } from 'utils/auth';
 
 
 type SigninFormValues = {
@@ -41,10 +41,11 @@ export default function SigninForm() {
     try {
       const {data, ...response} = await login<SigninResponse>(values, config) 
       if (response.status === 200) {
+        
         authLogin({
           id: data.payload.id, 
           token: data.payload.token,
-          redirect: '/'
+          redirect: data.payload.name === 'admin' ? '/admin/product' : '/'
         })
         return
       }
@@ -58,11 +59,12 @@ export default function SigninForm() {
   return (
     <>
       {error.isError && (
-        <Alert severity="error" open={showAlert} onClose={() => setShowAlert(false)}>{error.message}</Alert>
+        <Alert severity="error" open={showAlert} position={{top: 50}} onClose={() => setShowAlert(false)}>{error.message}</Alert>
       )}
       <div className="form">
         <Formik
           initialValues={initialValues} 
+          validationSchema={SigninSchema}
           onSubmit={handleSubmit}>{({ errors, touched, isValid, values }) => (
             <Form>
               <div className="form-group">
@@ -73,7 +75,7 @@ export default function SigninForm() {
                   type="email" 
                   onFocus={handleFocus}
                   className={values.email ? 'not-empty': ''}
-                  validate={validateEmail} as={Input} 
+                  as={Input} 
                 />
                 {(!!didFocus && values.email.trim().length > 2) || touched.email ? (
                   <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">
@@ -91,7 +93,7 @@ export default function SigninForm() {
                   type="password"
                   onFocus={handleFocus}
                   className={values.password ? 'not-empty': ''}
-                  validate={validatePassword} as={Input}
+                  as={Input}
                 />
                 {(!!didFocus && values.password.trim().length > 2) || touched.password ? (
                   <div aria-live="polite" className="h-3 text-sm text-red-600 ml-1">

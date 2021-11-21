@@ -2,6 +2,7 @@ import Image from 'next/image';
 import benefitOne from 'public/assets/images/benefit-1.png'; 
 import benefitTwo from 'public/assets/images/benefit-2.png'; 
 import benefitThree from 'public/assets/images/benefit-3.png'; 
+
 export default function Benefit() {
   return (
     <section id="benefits">
