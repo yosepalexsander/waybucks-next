@@ -81,7 +81,7 @@ export default function DetailProduct({user} : ProductProps) {
       route="detail-product"
       head={{
         title: `Detail Product | Waysbucks Coffee`,
-        description: 'Detail product Waysbucks'
+        description: 'Waysbucks detail product coffee'
       }}>
       {!product && !productError ? (
         <Loading />

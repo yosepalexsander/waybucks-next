@@ -36,7 +36,7 @@ export default function Toppings(props: ToppingsProps) {
                 </div>
               </label>
               <p className="topping-name">{item.name}</p>
-              <p className="text-xs topping-price">{currencyFormatter.format(item.price)}</p>
+              <p className="topping-price">{currencyFormatter.format(item.price)}</p>
             </div>
           ))}
         </>

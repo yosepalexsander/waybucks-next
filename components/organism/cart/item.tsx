@@ -20,7 +20,7 @@ export default function CartItem({item, onDecreaseQty, onIncreaseQty, onDeleteCa
         <Image src={item.product.image} alt={item?.product.name} layout="responsive" width={50} height={50} objectFit="cover" className="rounded-md"/>
       </div>
       <div className="cart-info flex-1">
-        <p className="h4">{item.product.name}</p>
+        <p className="product-name">{item.product.name}</p>
         <p className="topping">Topping: {toppings}</p>
       </div>
       <div className="cart-info items-end">

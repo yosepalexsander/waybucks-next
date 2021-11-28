@@ -55,7 +55,7 @@ export default function UserAddress({address, mutator}: UserAddressProps) {
     <section id="user-address">
       <span>
         <h1 className="h2">My Address</h1>
-        <Button onClick={onClickAdd} variant="contained" color="secondary" className="py-1">Add New</Button>
+        <Button onClick={onClickAdd} variant="contained" color="warning" className="py-1">Add New</Button>
       </span>
       <div className="address-list flex-container">
         {address?.map(item => (

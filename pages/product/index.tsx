@@ -33,7 +33,8 @@ export default function ProductPage({user}: ProductsProps) {
   return (
     <Layout
       head={{
-        title: 'Products | Waysbucks Coffee'
+        title: 'Products | Waysbucks Coffee',
+        description: 'All product list in Waysbucks coffee'
       }}
       user={user} route="product">
       <div className="text-center mt-4 p-3">

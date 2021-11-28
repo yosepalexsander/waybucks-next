@@ -103,7 +103,8 @@ export default function SigninForm() {
                   <div className="h-3"></div>
                 )}
               </div>
-              <Button variant="contained" color="primary" type="submit" disabled={isValid ? false : true} className="w-full mt-2 mb-2">Submit</Button>
+              <Button variant="contained" color="primary" type="submit" disabled={isValid ? false : true} 
+                className="h-full w-full mt-4 mb-2">Submit</Button>
             </Form>
           )}
         </Formik>

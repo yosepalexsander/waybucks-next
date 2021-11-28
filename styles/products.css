@@ -51,7 +51,7 @@
 }
 
 .product > .product-info .price {
-  @apply text-lg text-secondary;
+  @apply w-max text-lg text-primary font-medium px-2 bg-red-100 rounded-md;
 }
 
 .product > .product-info  .total {
@@ -69,6 +69,9 @@
 
 .topping-list .input-checkbox > .topping-name {
   @apply text-sm text-primary;
+}
+.topping-list .input-checkbox > .topping-price {
+  @apply text-xs text-secondary;
 }
 
 .topping-list .input-checkbox > input ~ .input-label {

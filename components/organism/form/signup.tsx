@@ -145,6 +145,7 @@ export default function SignupForm() {
                 <label className="checkbox-label" htmlFor="male">
                   <Field id="male" type="radio" name="gender" value="male" className="male" />
                   <MaleIcon className="icon" size={28} />
+                  <span>Male</span>
                 </label>
                 <label className="checkbox-label" htmlFor="female">
                   <Field
@@ -155,6 +156,7 @@ export default function SignupForm() {
                     className="female"
                   />
                   <FemaleIcon className="icon" size={28} />
+                  <span>Female</span>
                 </label>
               </div>
               <div className="form-group">

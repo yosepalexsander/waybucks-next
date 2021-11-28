@@ -11,7 +11,7 @@
 }
 
 #profile .profile-img-placeholder {
-  @apply h-full bg-secondary text-white flex items-center justify-center text-4xl sm:text-8xl rounded-md;
+  @apply h-full bg-primary text-white flex items-center justify-center text-4xl sm:text-8xl rounded-md;
 }
 
 #profile .profile-info {

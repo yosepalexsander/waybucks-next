@@ -6,8 +6,8 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     colors: {
-      primary: '#BD0707',
-      secondary: '#6207BD',
+      primary: '#CD1818',
+      secondary: '#7318CD',
       red: colors.red,
       blue: colors.blue,
       pink: colors.pink,
@@ -22,6 +22,7 @@ module.exports = {
       'sm': '0.125rem',
       'md': '0.375rem',
       'lg': '0.5rem',
+      '3xl': '3rem',
       'full': '50%'
     },
     maxWidth: {
@@ -29,7 +30,8 @@ module.exports = {
       'sm': '20rem',
       'md': '24rem',
       'lg': '28rem',
-      'xl': '32rem'
+      'xl': '32rem',
+      'none': 'none'
     },
     extend: {
       flex: {

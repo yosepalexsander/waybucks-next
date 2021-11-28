@@ -19,7 +19,7 @@ export default function Layout({ children, user, route, head }: LayoutProps) {
     <>
       <Head>
         <title>{head.title}</title>
-        <meta name="description" content={head.description} key="description"/>
+        {head.description && (<meta name="description" content={head.description} key="description"/>)}
         {head.extScript}
       </Head>
       <Header user={user}/>

@@ -19,8 +19,8 @@ export default function CartSubtotal({subtotal, serviceFee, total}: CartSubtotal
       </div>
       <hr className="divider"/>
       <div className="list">
-        <p>Total</p>
-        <p>{total}</p>
+        <p className="text-xl">Total</p>
+        <p className="text-xl">{total}</p>
       </div>
     </div>
   )
