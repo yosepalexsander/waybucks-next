@@ -11,22 +11,22 @@ footer {
 }
 
 .h1 {
-  @apply text-4xl font-bold;
+  @apply text-3xl sm:text-4xl font-bold;
 }
 .h2 {
-  @apply text-3xl font-bold;
+  @apply text-2xl sm:text-3xl font-bold;
 }
 .h3 {
-  @apply text-2xl font-bold;
+  @apply text-xl sm:text-2xl font-bold;
 }
 .h4 {
-  @apply text-xl font-bold;
+  @apply text-lg sm:text-xl font-bold;
 }
 .h5 {
-  @apply text-lg font-bold;
+  @apply sm:text-lg font-bold;
 }
 
-.container {
+.app-container {
   @apply container px-4 mx-auto pb-2 md:px-2 mt-24 flex flex-col;
 }
 
@@ -70,7 +70,7 @@ footer {
   @apply flex-none md:flex-grow;
 }
 .app-bar-menu > * {
-  @apply px-4 py-2 transition duration-300 rounded-md hover:bg-primary hover:text-white cursor-pointer;
+  @apply px-4 py-2 transition duration-300 hover:text-primary cursor-pointer;
 }
 .app-bar-menu,
 .app-bar-btn {
@@ -81,7 +81,8 @@ footer {
 /* button */
 .btn {
   @apply relative overflow-hidden rounded-md px-2 py-2 
-  font-bold outline-none select-none disabled:bg-gray-400 disabled:text-white;
+  font-bold shadow-none select-none disabled:bg-gray-400 disabled:text-white;
+  outline: none;
 }
 .btn-primary {
   @apply text-white bg-primary border-2 border-transparent;
@@ -227,7 +228,7 @@ textarea.form-control-input {
 
 .form-control-input:focus ~ .form-label,
 .not-empty ~ .form-label {
-  @apply -top-5 left-0 text-gray-700 text-sm opacity-100;
+  @apply -top-3 left-0 text-gray-700 text-sm opacity-100;
 }
 
 .form-control-input:focus ~ .form-label::after {

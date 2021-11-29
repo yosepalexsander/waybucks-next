@@ -22,9 +22,11 @@ export default function HomePage({user}: HomeProps) {
         title: 'Waysbucks | Coffee For Everyone',
         description: 'Discover your best quality coffee in Waysbucks Coffee'  
       }}>
-      <Hero />
-      <Features />
-      <Benefits />
+      <article className="mt-16">
+        <Hero />
+        <Features />
+        <Benefits />
+      </article>
     </Layout>
   )
 };

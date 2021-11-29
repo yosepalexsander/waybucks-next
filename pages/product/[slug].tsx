@@ -1,5 +1,6 @@
-import { FocusEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import Error from 'next/error'
 import Image from 'next/image';
 import cookies from 'next-cookies';
 import { useRouter } from 'next/router';
@@ -12,8 +13,10 @@ import Button from '@/components/atoms/button';
 import Alert from '@/components/atoms/alert';
 
 import { createAxiosRequestConfig, getProduct, getUser, postCart } from 'utils/api';
-import { CommonResponse, GetProductResponse, GetUserResponse } from 'interfaces/api';
+import { RequestError, CommonResponse, GetProductResponse, GetUserResponse } from 'interfaces/api';
 import { User } from 'interfaces/object';
+
+import ProductPlaceholder from 'public/assets/images/product_placeholder.jpg';
 
 type ProductProps = {
   user: User | null
@@ -22,7 +25,7 @@ type ProductProps = {
 export default function DetailProduct({user} : ProductProps) {
   const router = useRouter()
   const {slug} = router.query 
-  const {data: product, error: productError} = useSWRImmutable<GetProductResponse, Error>(router.isReady ? `${slug}`: null,  getProduct)
+  const {data: product, error: productError} = useSWRImmutable<GetProductResponse, RequestError>(router.isReady ? `${slug}`: null,  getProduct)
   const [toppingIds, setToppingIds] = useState<number[]>([])
   const [toppingPrice, setToppingPrice] = useState<number[]>([])
 
@@ -38,7 +41,7 @@ export default function DetailProduct({user} : ProductProps) {
 
   const currencyFormatter = Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
   
-  const onToppingChecked = (e: FocusEvent<HTMLInputElement>) => {
+  const onToppingChecked = (e: ChangeEvent<HTMLInputElement>) => {
     if(e.target.checked) {
       setToppingIds(prev => [...prev, parseInt(e.target.id, 10)])
       setToppingPrice(prev => [...prev, parseInt(e.target.value, 10)])
@@ -50,7 +53,7 @@ export default function DetailProduct({user} : ProductProps) {
 
   const total = toppingPrice.reduce<number>((sum, curr) => {
     return sum += curr
-  }, product?.payload.price || 0)
+  }, product?.payload?.price || 0)
 
   const onAddToCart = async (id: number | undefined) => {
     const data: Record<string, any> = {
@@ -74,7 +77,8 @@ export default function DetailProduct({user} : ProductProps) {
       setShowAlert(true) 
     }
   }
-  
+
+  if (productError) return <Error statusCode={productError.status} title={productError.message}/>
   return (
     <Layout 
       user={user}
@@ -98,12 +102,22 @@ export default function DetailProduct({user} : ProductProps) {
               onClose={onCloseAlert}>{error.message}</Alert>
           )}
           <div className="product-img">
-            <Image 
-              src={product?.payload.image as string} 
-              alt={product?.payload.name} 
-              layout="fill" 
-              objectFit="cover" 
-              className="rounded-md"/>
+            {product?.payload.image && (
+              <Image 
+                src={product?.payload.image as string} 
+                alt={product?.payload.name} 
+                layout="fill" 
+                objectFit="cover" 
+                className="rounded-md"/>
+            )}
+            {!product?.payload.image && (
+              <Image 
+                src={ProductPlaceholder} 
+                alt={product?.payload.name} 
+                layout="fill" 
+                objectFit="cover" 
+                className="rounded-md"/>
+            )}
           </div>
           <div className="product-info">
             <p className="name">{product?.payload.name}</p>

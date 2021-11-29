@@ -49,7 +49,7 @@ export default function SigninForm() {
         })
         return
       }
-      setError({isError: true, message: 'Your Email/Password does\'nt match'})
+      setError({isError: true, message: 'Invalid Email or Password'})
       setShowAlert(true)
     } catch (error) {
       console.log(error)
@@ -59,7 +59,7 @@ export default function SigninForm() {
   return (
     <>
       {error.isError && (
-        <Alert severity="error" open={showAlert} position={{top: 50}} onClose={() => setShowAlert(false)}>{error.message}</Alert>
+        <Alert severity="error" open={showAlert} position={{bottom: 50, right: 50}} onClose={() => setShowAlert(false)}>{error.message}</Alert>
       )}
       <div className="form">
         <Formik

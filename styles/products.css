@@ -1,13 +1,11 @@
 .product-container {
-  @apply flex justify-around sm:justify-between flex-wrap md:justify-start mt-4 w-full mx-auto;
+  @apply flex justify-around flex-wrap md:justify-start mt-4 w-full mx-auto;
 }
 
 
 /* skeleton */
-
 .card {
-  @apply w-full text-center rounded-md border m-2;
-  max-width: 18rem;
+  @apply w-full text-center rounded-md border;
 }
 
 .card.skeleton { 
@@ -68,10 +66,10 @@
 }
 
 .topping-list .input-checkbox > .topping-name {
-  @apply text-sm text-primary;
+  @apply text-sm font-medium;
 }
 .topping-list .input-checkbox > .topping-price {
-  @apply text-xs text-secondary;
+  @apply text-sm text-primary;
 }
 
 .topping-list .input-checkbox > input ~ .input-label {

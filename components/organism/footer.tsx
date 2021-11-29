@@ -4,13 +4,13 @@ export default function Footer() {
   return (
     <footer>
       <div className="media-social">
-        <a href="https://www.instagram.com/yosep_htjlu" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.instagram.com/yosep_htjlu" target="_blank" rel="noopener noreferrer" aria-label="Find me on Instagram">
           <InstagramIcon className="icons"/>
         </a>
-        <a href="https://github.com/yosepalexsander" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/yosepalexsander" target="_blank" rel="noopener noreferrer" aria-label="Let's collaborate with Github">
           <GithubIcon className="icons"/>
         </a>
-        <a href="https://linkedin.com/in/yosep-alexsander" target="_blank" rel="noopener noreferrer">
+        <a href="https://linkedin.com/in/yosep-alexsander" target="_blank" rel="noopener noreferrer" aria-label="Find me on Linkedin">
           <LinkedinIcon className="icons"/>
         </a>
       </div>

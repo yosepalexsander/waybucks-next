@@ -10,8 +10,8 @@
 .cart-list > .cart-item {
   @apply flex justify-between h-32;
 }
-.cart-item:not(.skeleton) > * {
-  @apply p-2;
+.cart-item:not(.skeleton) > *:not(:last-child) {
+  @apply py-2 pr-2;
 }
 
 /* skeleton */
@@ -25,7 +25,7 @@
   @apply flex flex-col justify-evenly;
 }
 .cart-info > .product-name {
-  @apply font-bold text-lg md:text-2xl
+  @apply font-bold text-base md:text-lg
 }
 
 .cart-info > .topping {
@@ -51,7 +51,7 @@
   @apply flex justify-end h-40 font-medium;
 }
 .cart-subtotal > div {
-  @apply flex flex-col justify-between w-full p-2;
+  @apply flex flex-col justify-between w-full py-2;
 }
 .cart-subtotal .list {
   @apply flex justify-between;

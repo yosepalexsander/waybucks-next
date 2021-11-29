@@ -7,11 +7,11 @@
 }
 
 #profile .profile-img {
-  @apply w-32 h-32 sm:w-64 sm:h-64;
+  @apply w-32 sm:w-64;
 }
 
 #profile .profile-img-placeholder {
-  @apply h-full bg-primary text-white flex items-center justify-center text-4xl sm:text-8xl rounded-md;
+  @apply h-32 sm:h-64 bg-primary text-white flex items-center justify-center text-4xl sm:text-8xl rounded-md;
 }
 
 #profile .profile-info {

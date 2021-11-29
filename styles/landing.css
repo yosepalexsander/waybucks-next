@@ -1,9 +1,29 @@
 .hero {
-  @apply flex flex-col justify-center relative w-full mt-2 mb-5 p-10 sm:h-full md:h-80 md:min-h-0 md:h-96;
+  @apply flex justify-center items-center relative w-full mt-2 mb-5 p-10 md:h-80 md:min-h-0;
+}
+
+/* address list */
+@screen sm {
+  .hero {
+    @apply h-96;
+  }
+}
+
+@screen lg {
+  .hero {
+    height: 34rem;
+  }
+}
+
+.hero::before {
+  content: "";
+  @apply absolute top-0 left-0 mt-1 h-full w-full 
+  bg-gradient-to-b from-primary to-red-500;
+  z-index: -1;
 }
 
 .hero h1 {
-  @apply text-4xl text-white uppercase font-bold;
+  @apply text-4xl text-white uppercase font-bold pt-20;
 }
 
 .hero p {
@@ -15,15 +35,21 @@
 }
 
 .hero .hero-img {
-  @apply absolute hidden lg:block w-2/6 h-4/5 top-7 right-0;
+  @apply hidden md:block sm:w-1/2 md:w-2/6 right-10;
 }
 
 .hero .description {
-  @apply w-full lg:w-2/3;
+  @apply w-full md:w-3/5 lg:w-1/2; 
+}
+.hero .description h1 {
+  @apply lg:text-4xl; 
 }
 
+.hero .description p {
+  @apply lg:text-xl
+}
 section#benefits {
-  @apply flex flex-col items-center w-full mx-auto lg:w-4/5 mt-5; 
+  @apply flex flex-col items-center w-full mx-auto px-5 lg:w-4/5 mt-5; 
 }
 
 .section-title{
@@ -54,8 +80,8 @@ section#benefits #benefit-two .benefit-img {
 }
 
 section#features {
-  @apply flex flex-wrap justify-around items-center mb-5 
-  md:flex-row md:items-start lg:justify-between;
+  @apply flex flex-wrap justify-around items-center px-4 mb-5 
+  md:flex-row md:items-start lg:justify-evenly;
 }
 
 #feature-one,
@@ -84,7 +110,7 @@ footer .media-social {
 }
 
 footer .media-social .icons {
-  @apply w-8 h-8 text-primary mr-3;
+  @apply w-8 h-8 text-red-500 mr-3 cursor-pointer hover:text-primary;
 }
 footer .information {
   @apply flex flex-wrap flex-col w-full bg-red-200 px-12 py-3 md:flex-row md:items-start md:text-left;

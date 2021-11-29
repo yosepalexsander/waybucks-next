@@ -23,7 +23,7 @@ export default function Layout({ children, user, route, head }: LayoutProps) {
         {head.extScript}
       </Head>
       <Header user={user}/>
-      <main className="container">
+      <main id="main-content" className={route !== 'landing' ? 'app-container': undefined}>
         {children}
       </main>
       {route === 'landing' && (<Footer />)}

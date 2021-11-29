@@ -29,12 +29,12 @@ export default function UserAddress({address, mutator}: UserAddressProps) {
 
   const onClickAdd = () => {
     setShowModal(true)
+    setSelectedAddress(undefined)
   }
 
   // always reset state on close modal
   const onCloseModal = () => {
     setShowModal(false)
-    setSelectedAddress(undefined)
   }
   
   // refetch after submitting address data
