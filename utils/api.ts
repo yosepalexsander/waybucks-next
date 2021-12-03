@@ -34,7 +34,7 @@ instance.interceptors.request.use(request => {
 instance.interceptors.response.use(response => {
   return response
 }, error => {
-  if (error.response && error.response.status === 401) {
+  if (error.response.status === 401) {
     Cookies.remove('token')
     Cookies.remove('id')
   }
