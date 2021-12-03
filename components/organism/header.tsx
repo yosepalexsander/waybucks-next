@@ -62,7 +62,7 @@ export default function Header({user}: HeaderProps) {
         {user ? (
           <>
             {!user.is_admin && (
-              <Link href={{pathname: '/cart', query: {id: user.id}}}>
+              <Link href={{pathname: '/cart', query: {userId: user.id}}}>
                 <a>
                   <Badge badgeContent={cartData?.payload?.length} color="secondary">
                     <CartIcon size={24}/>

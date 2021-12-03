@@ -7,7 +7,7 @@ import Button from '@/components/atoms/button';
 import Modal from '@/components/atoms/modal';
 import Paper from '@/components/atoms/paper';
 
-import { CommonResponse, GetToppingsResponse, RequestError } from 'interfaces/api';
+import { CommonResponse, GetToppingsResponse } from 'interfaces/api';
 import { Topping } from 'interfaces/object';
 import { createAxiosRequestConfig, deleteTopping, getToppings, updateTopping } from 'utils/api';
 import TableSkeleton from './skeleton';
@@ -17,7 +17,13 @@ import NoData from 'public/assets/images/no_data.svg';
 export default function TableTopping() {
   const [show, setShowModal] = useState(false)
   const [selectedTopping, setSelectedTopping] = useState<Topping>()
-  const { data, error, mutate } = useSWRImmutable<GetToppingsResponse, RequestError>('/toppings', getToppings)
+  const { data, error, mutate } = useSWRImmutable<GetToppingsResponse>('/toppings', getToppings, {
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      if (error.status === 404) return
+      if (retryCount >= 5) return
+      setTimeout(() => revalidate({ retryCount }), 5000)
+    }
+  })
   const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
 
   const onClickUpdate = (item: Topping) => {

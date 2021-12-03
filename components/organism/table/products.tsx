@@ -8,7 +8,7 @@ import Paper from '@/components/atoms/paper';
 import ProductForm from '@/components/organism/form/product';
 import TableSkeleton from '@/components/organism/table/skeleton';
 
-import { CommonResponse, GetProductsResponse, RequestError } from 'interfaces/api';
+import { CommonResponse, GetProductsResponse } from 'interfaces/api';
 import { Product } from 'interfaces/object';
 import { createAxiosRequestConfig, deleteProduct, getProducts, updateProduct } from 'utils/api';
 
@@ -17,7 +17,13 @@ import NoData from 'public/assets/images/no_data.svg';
 export default function TableProduct() {
   const [show, setShowModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product>()
-  const { data, error, mutate } = useSWRImmutable<GetProductsResponse, RequestError>('/products', getProducts)
+  const { data, error, mutate } = useSWRImmutable<GetProductsResponse>('/products', getProducts, {
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      if (error?.status === 404) return
+      if (retryCount >= 5) return
+      setTimeout(() => revalidate({ retryCount }), 5000)
+    }
+  })
   const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
 
   const onMutationUpdate = async (product: Product) => {
@@ -37,7 +43,6 @@ export default function TableProduct() {
   }
 
   const onClickAdd = () => {
-    console.log('trigger')
     setShowModal(true)
     setSelectedProduct(undefined)
   }

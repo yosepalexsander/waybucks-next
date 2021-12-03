@@ -21,9 +21,6 @@ export default function Hero() {
       <div className="hero-img">
         <Image alt="hero" src={HeroImg} layout="responsive" objectFit="cover" className="shadow-md"/>
       </div>
-      {/* <div className="img-container hero-bg">
-        <Image alt="hero background" src={HeroBg} layout="responsive" className="rounded-md"/>
-      </div> */}
     </section>
   )
 }

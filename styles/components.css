@@ -142,8 +142,7 @@ footer {
   @apply fixed md:hidden inset-0 z-40;
 }
 .drawer .drawer-paper {
-  @apply fixed top-0 right-0 h-full flex flex-col overflow-y-auto z-30 bg-white;
-  width: 250px;
+  @apply fixed top-0 right-0 h-full flex flex-col overflow-y-auto z-30 bg-white w-full max-w-xs;
 }
 .drawer .backdrop {
   @apply inset-0 fixed flex items-center justify-center bg-gray-500 bg-opacity-50;
