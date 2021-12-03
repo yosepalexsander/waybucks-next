@@ -7,15 +7,17 @@ import Button from '@/components/atoms/button';
 import Modal from '@/components/atoms/modal';
 import Paper from '@/components/atoms/paper';
 
-import { CommonResponse, GetToppingsResponse } from 'interfaces/api';
+import { CommonResponse, GetToppingsResponse, RequestError } from 'interfaces/api';
 import { Topping } from 'interfaces/object';
 import { createAxiosRequestConfig, deleteTopping, getToppings, updateTopping } from 'utils/api';
 import TableSkeleton from './skeleton';
 
+import NoData from 'public/assets/images/no_data.svg';
+
 export default function TableTopping() {
   const [show, setShowModal] = useState(false)
   const [selectedTopping, setSelectedTopping] = useState<Topping>()
-  const { data, error, mutate } = useSWRImmutable<GetToppingsResponse, Error>('/toppings', getToppings)
+  const { data, error, mutate } = useSWRImmutable<GetToppingsResponse, RequestError>('/toppings', getToppings)
   const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
 
   const onClickUpdate = (item: Topping) => {
@@ -74,7 +76,24 @@ export default function TableTopping() {
       console.error(error)
     }
   }
-
+  if(error && error.status === 404) {
+    return (
+      <div className="flex flex-col justify-center items-center w-full">
+        <div className="img-container max-w-sm">
+          <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover"/>
+        </div>
+        <p>Looks like there is no product</p>
+        <button onClick={onClickAdd} className="mt-2 text-blue-600">Add New</button>
+        <Modal open={show} onClose={onCloseModal}>
+          <Paper width="100%" maxWidth="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
+            padding={16} position="absolute" display="flex" flexDirection="column" alignItems="center">
+            <p className="text-3xl mb-4 text-center text-primary">{selectedTopping ? 'Update': 'New'} Topping</p>
+            <ToppingForm oldProduct={selectedTopping} isUpdate={selectedTopping ? true : false} onSubmitSuccess={onUpdateTopping}/>
+          </Paper>
+        </Modal>
+      </div>
+    )
+  }
   return (
     <>
       <div className="flex justify-end">
