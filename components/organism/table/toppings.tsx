@@ -85,8 +85,8 @@ export default function TableTopping() {
   if(error && error.status === 404) {
     return (
       <div className="flex flex-col justify-center items-center w-full">
-        <div className="img-container max-w-sm">
-          <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover"/>
+        <div className="img-container max-w-sm mb-4">
+          <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover" quality={70}/>
         </div>
         <p>Looks like there is no product</p>
         <button onClick={onClickAdd} className="mt-2 text-blue-600">Add New</button>
