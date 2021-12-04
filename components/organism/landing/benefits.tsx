@@ -6,7 +6,7 @@ import benefitThree from 'public/assets/images/benefit-3.png';
 export default function Benefit() {
   return (
     <section id="benefits">
-      <h2 className="section-title">Why Waysbucks?</h2>
+      <h1 className="section-title">Why Waysbucks?</h1>
       <div id="benefit-one">
         <div className="img-container benefit-img">
           <Image src={benefitOne} alt="coffee beans" layout="responsive" objectFit="cover" className="rounded-md" width={150} height={150}/>
