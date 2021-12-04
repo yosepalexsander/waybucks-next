@@ -11,8 +11,8 @@ import Loading from '@/components/atoms/loading';
 
 export default function CartPage() {
   const router = useRouter()
-  const {id} =router.query
-  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>(router.isReady ? `/users/${id}`: null, authCSR)
+  const {userId} =router.query
+  const {data, error} = useSWRImmutable<GetUserResponse | null, Error>(router.isReady ? `/users/${userId}`: null, authCSR)
   
   if (!data && !error) return <Loading />
   return (

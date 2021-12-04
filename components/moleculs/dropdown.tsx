@@ -42,41 +42,43 @@ export default class Dropdown extends PureComponent<DropdownProps> {
         nodeRef={this.nodeRef}
       >
         <div className={styles.dropdown} ref={this.nodeRef} {...props}>
-          <div className="backdrop" onClick={handleClose}></div>
-          <Paper width={150} maxWidth="100%">
-            <MenuList>
-              <MenuItem>
-                <Link href={{pathname: '/profile', query: {id: userId}}}>
-                  <a>
-                    <div>
-                      <AccountIcon size={24} className="text-primary"/>
-                    </div>
-                    <span>Account</span>
-                  </a>
-                </Link>
-              </MenuItem>
-              {is_admin && (
+          <div aria-hidden="true" className="backdrop" onClick={handleClose} />
+          <div onMouseLeave={handleClose}>
+            <Paper width={150} maxWidth="100%" >
+              <MenuList>
                 <MenuItem>
-                  <Link href={{ pathname: '/admin/product' }}>
+                  <Link href={{pathname: '/profile', query: {id: userId}}}>
                     <a>
                       <div>
-                        <DashboardIcon size={24} className="text-primary"/>
+                        <AccountIcon size={24} className="text-primary"/>
                       </div>
-                      <span>Content</span> 
+                      <span>Account</span>
                     </a>
                   </Link>
                 </MenuItem>
-              )}
-              <MenuItem>
-                <button onClick={handleLogout}>
-                  <div>
-                    <LogoutIcon size={24} className="text-primary"/>
-                  </div>
-                  <p>Logout</p>
-                </button>
-              </MenuItem>
-            </MenuList>
-          </Paper>
+                {is_admin && (
+                  <MenuItem>
+                    <Link href={{ pathname: '/admin/product' }}>
+                      <a>
+                        <div>
+                          <DashboardIcon size={24} className="text-primary"/>
+                        </div>
+                        <span>Content</span> 
+                      </a>
+                    </Link>
+                  </MenuItem>
+                )}
+                <MenuItem>
+                  <button onClick={handleLogout}>
+                    <div>
+                      <LogoutIcon size={24} className="text-primary"/>
+                    </div>
+                    <p>Logout</p>
+                  </button>
+                </MenuItem>
+              </MenuList>
+            </Paper>
+          </div>
         </div>
       </CSSTransition>
     )

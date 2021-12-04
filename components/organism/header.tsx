@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useSWR from 'swr';
@@ -41,7 +41,7 @@ export default function Header({user}: HeaderProps) {
   return (
     <header className="app-bar">
       <Link href="/">
-        <a className="app-bar-brand">
+        <a className="app-bar-brand" aria-label="back to home">
           <Image alt="brand" src={Logo} layout="fill"/>
         </a>
       </Link>
@@ -62,7 +62,7 @@ export default function Header({user}: HeaderProps) {
         {user ? (
           <>
             {!user.is_admin && (
-              <Link href={{pathname: '/cart', query: {id: user.id}}}>
+              <Link href={{pathname: '/cart', query: {userId: user.id}}}>
                 <a>
                   <Badge badgeContent={cartData?.payload?.length} color="secondary">
                     <CartIcon size={24}/>
@@ -73,14 +73,15 @@ export default function Header({user}: HeaderProps) {
             <div>
               <Avatar 
                 id="dropdown-button" 
-                alt="avatar"
+                alt="user avatar"
                 aria-controls="dropdown-menu"
                 aria-haspopup="true"
                 src={user.image}
                 aria-expanded={openDropdown ? 'true' : undefined} 
                 width={45}
                 height={45}
-                onClick={() => setOpenDropdown(true)}
+                onMouseOver={() => setOpenDropdown(true)}
+                
               >{user.name.substr(0,2).toUpperCase()}</Avatar>
               <Dropdown 
                 id="dropdown-menu" 
@@ -88,7 +89,7 @@ export default function Header({user}: HeaderProps) {
                 userId={user.id} 
                 is_admin={user.is_admin}
                 open={openDropdown} 
-                handleClose={() =>   setOpenDropdown(false)}
+                handleClose={() =>   setOpenDropdown(!openDropdown)}
                 handleLogout={authLogout}
               />
             </div>
@@ -110,15 +111,11 @@ export default function Header({user}: HeaderProps) {
             <MenuList>
               <div className="flex flex-col items-center justify-center px-2 py-4">
                 <Avatar 
-                  id="dropdown-button" 
-                  alt="avatar"
-                  aria-controls="dropdown-menu"
-                  aria-haspopup="true"
+                  id="avatar" 
+                  alt="user avatar"
                   src={user.image}
-                  aria-expanded={openDropdown ? 'true' : undefined} 
                   width={65}
                   height={65}
-                  onClick={() => setOpenDropdown(true)}
                 >{user.name.substr(0,2).toUpperCase()}</Avatar>
                 <p className="h3">{user.name}</p>
               </div>
@@ -172,7 +169,7 @@ export default function Header({user}: HeaderProps) {
           <>
             <ul className="my-4">
               <li className="mt-4 mx-2">
-                <Link href="/products">
+                <Link href="/product">
                   <a>Products</a>
                 </Link>
               </li>

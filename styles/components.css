@@ -1,6 +1,6 @@
 /* General */
 body {
-  @apply text-gray-700 antialiased;
+  @apply text-gray-700 bg-gray-50 antialiased;
 }
 svg {
   @apply inline-block cursor-pointer select-none;
@@ -11,22 +11,22 @@ footer {
 }
 
 .h1 {
-  @apply text-4xl font-bold;
+  @apply text-3xl sm:text-4xl font-bold;
 }
 .h2 {
-  @apply text-3xl font-bold;
+  @apply text-2xl sm:text-3xl font-bold;
 }
 .h3 {
-  @apply text-2xl font-bold;
+  @apply text-xl sm:text-2xl font-bold;
 }
 .h4 {
-  @apply text-xl font-bold;
+  @apply text-lg sm:text-xl font-bold;
 }
 .h5 {
-  @apply text-lg font-bold;
+  @apply sm:text-lg font-bold;
 }
 
-.container {
+.app-container {
   @apply container px-4 mx-auto pb-2 md:px-2 mt-24 flex flex-col;
 }
 
@@ -56,7 +56,7 @@ footer {
 /* app bar */
 .app-bar {
   @apply fixed top-0 flex justify-between md:justify-start w-full bg-white
-  px-5 py-3 items-center shadow z-50 sm:px-12;
+  px-5 py-3 items-center z-50 sm:px-12;
 }
 .app-bar .app-bar-brand {
   @apply relative md:flex-none md:mr-5;
@@ -70,7 +70,7 @@ footer {
   @apply flex-none md:flex-grow;
 }
 .app-bar-menu > * {
-  @apply px-4 py-2 transition duration-300 rounded-md hover:bg-primary hover:text-white cursor-pointer;
+  @apply px-4 py-2 transition duration-300 hover:text-primary cursor-pointer;
 }
 .app-bar-menu,
 .app-bar-btn {
@@ -81,7 +81,8 @@ footer {
 /* button */
 .btn {
   @apply relative overflow-hidden rounded-md px-2 py-2 
-  font-bold text-center outline-none select-none disabled:bg-gray-400 disabled:text-white;
+  font-bold shadow-none select-none disabled:bg-gray-400 disabled:text-white;
+  outline: none;
 }
 .btn-primary {
   @apply text-white bg-primary border-2 border-transparent;
@@ -141,8 +142,7 @@ footer {
   @apply fixed md:hidden inset-0 z-40;
 }
 .drawer .drawer-paper {
-  @apply fixed top-0 right-0 h-full flex flex-col overflow-y-auto z-30 bg-white;
-  width: 250px;
+  @apply fixed top-0 right-0 h-full flex flex-col overflow-y-auto z-30 bg-white w-full max-w-xs;
 }
 .drawer .backdrop {
   @apply inset-0 fixed flex items-center justify-center bg-gray-500 bg-opacity-50;
@@ -195,18 +195,18 @@ footer {
 
 /* Form */
 .form {
-  @apply w-4/5 max-w-md mx-auto my-0 md:w-full;
+  @apply w-full max-w-md mx-auto my-0 md:w-full;
 }
 
 .form-group {
-  @apply mb-3 relative pt-3;
+  @apply pb-3 relative pt-3;
 }
 .form-control-root {
   @apply relative;
 }
 
 .form-label {
-  @apply absolute top-2 left-2 bottom-0 w-full m-0 text-base pointer-events-none opacity-80
+  @apply absolute top-2.5 left-2 bottom-0 w-full m-0 text-base pointer-events-none opacity-80
   transition-all duration-200 select-none	cursor-text;
 }
 
@@ -217,7 +217,7 @@ footer {
 }
 
 .form-control-input {
-  @apply absolute bottom-0 h-full border-none rounded-t-lg px-2 py-2 bg-red-50 w-full outline-none 
+  @apply absolute bottom-0 h-full border-none rounded-t-md px-2 py-2 bg-gray-100 w-full outline-none 
   transition duration-500 ease-out focus:bg-transparent;
 }
 
@@ -226,8 +226,8 @@ textarea.form-control-input {
 }
 
 .form-control-input:focus ~ .form-label,
-.not-empty ~ .form-label {
-  @apply -top-5 left-0 text-gray-700 text-sm opacity-100;
+.form-control-input.not-empty ~ .form-label {
+  @apply -top-4 left-0 text-gray-700 text-sm opacity-100;
 }
 
 .form-control-input:focus ~ .form-label::after {
@@ -386,4 +386,16 @@ tr.skeleton span {
 }
 tr.skeleton span.left {
   @apply mx-0;
+}
+
+/* Auth layout */
+section.auth {
+  @apply h-screen w-screen flex items-center justify-center lg:justify-between;
+}
+section.auth .auth-img {
+  @apply w-full relative hidden lg:block;
+}
+section.auth .form-container {
+  @apply flex flex-col justify-center bg-white rounded-md shadow-md px-10 py-5
+  lg:rounded-none lg:rounded-tl-3xl lg:rounded-bl-3xl lg:w-full lg:h-screen;
 }

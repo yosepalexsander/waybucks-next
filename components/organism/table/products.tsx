@@ -12,10 +12,18 @@ import { CommonResponse, GetProductsResponse } from 'interfaces/api';
 import { Product } from 'interfaces/object';
 import { createAxiosRequestConfig, deleteProduct, getProducts, updateProduct } from 'utils/api';
 
+import NoData from 'public/assets/images/no_data.svg';
+
 export default function TableProduct() {
   const [show, setShowModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product>()
-  const { data, error, mutate } = useSWRImmutable<GetProductsResponse, Error>('/products', getProducts)
+  const { data, error, mutate } = useSWRImmutable<GetProductsResponse>('/products', getProducts, {
+    onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+      if (error?.status === 404) return
+      if (retryCount >= 5) return
+      setTimeout(() => revalidate({ retryCount }), 5000)
+    }
+  })
   const currencyFormatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
 
   const onMutationUpdate = async (product: Product) => {
@@ -75,6 +83,24 @@ export default function TableProduct() {
     }
   }
 
+  if(error && error.status === 404) {
+    return (
+      <div className="flex flex-col justify-center items-center w-full">
+        <div className="img-container max-w-sm">
+          <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover"/>
+        </div>
+        <p>Looks like there is no product</p>
+        <button onClick={onClickAdd} className="mt-2 text-blue-600">Add New</button>
+        <Modal open={show} onClose={onCloseModal}>
+          <Paper width="100%" maxWidth="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
+            padding={16} position="absolute" display="flex" flexDirection="column" alignItems="center">
+            <p className="text-3xl mb-4 text-center text-primary">{selectedProduct ? 'Update': 'New'} Product</p>
+            <ProductForm oldProduct={selectedProduct} isUpdate={selectedProduct ? true : false} onSubmitSuccess={onUpdateProduct} />
+          </Paper>
+        </Modal>
+      </div>
+    )
+  }
   return (
     <>
       <div className="flex justify-end">

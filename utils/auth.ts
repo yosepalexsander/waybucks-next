@@ -71,7 +71,6 @@ export const authLogin = ({id, token, redirect}: {id: string, token: string, red
     expires: 1
   })
   cookie.set('token', token, {
-    domain: process.env.NODE_ENV !== 'development' ? 'waysbucks.vercel.app': undefined, 
     expires: 1
   })
   

@@ -1,13 +1,11 @@
 .product-container {
-  @apply flex justify-around sm:justify-between flex-wrap md:justify-start mt-4 w-full mx-auto;
+  @apply flex justify-around flex-wrap md:justify-start mt-4 w-full mx-auto;
 }
 
 
 /* skeleton */
-
 .card {
-  @apply w-full text-center rounded-md border m-2;
-  max-width: 18rem;
+  @apply w-full text-center rounded-md border;
 }
 
 .card.skeleton { 
@@ -51,7 +49,7 @@
 }
 
 .product > .product-info .price {
-  @apply text-lg text-secondary;
+  @apply w-max text-lg text-primary font-medium px-2 bg-red-100 rounded-md;
 }
 
 .product > .product-info  .total {
@@ -68,6 +66,9 @@
 }
 
 .topping-list .input-checkbox > .topping-name {
+  @apply text-sm font-medium;
+}
+.topping-list .input-checkbox > .topping-price {
   @apply text-sm text-primary;
 }
 

@@ -224,7 +224,7 @@ export default function Carts({user}: CartProps) {
                 }}>
                 {status.msg}
               </Alert>
-              <p className="h5">Review Your Order</p>
+              <p className="font-medium text-xl">Review Your Order</p>
               <hr className="divider" />
               <div className="cart-list">
                 {cartData?.payload?.map(cart => (
@@ -247,7 +247,8 @@ export default function Carts({user}: CartProps) {
               </div>
             ): (
               <div className="flex-item">
-                <p className="h5">Where will the products be sent to?</p>
+                <p className="font-medium text-xl">Where will the products be sent to?</p>
+                <hr className="divider mb-2" />
                 <ListAddress items={addressData?.payload || []} onChange={onClickAddress}/>
               </div>
             )}

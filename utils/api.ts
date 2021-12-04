@@ -1,7 +1,18 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import { TransactionRequest } from 'interfaces/api';
+import { TransactionRequest, RequestError } from 'interfaces/api';
 import Cookies from 'js-cookie';
 
+const checkStatusRes = (status: number, errMsg: string) => {
+  if (status != 200) {
+    const error: RequestError = {
+      name: 'API request',
+      status: status,
+      message: errMsg 
+    }
+
+    throw error
+  }
+}
 
 export const createAxiosRequestConfig = (headers: AxiosRequestHeaders): AxiosRequestConfig => {
   const newConfig: AxiosRequestConfig = {
@@ -68,8 +79,9 @@ export async function getUser<T>(id: string | undefined, config?: AxiosRequestCo
    * @returns response object
    */
 export async function getUserAddress<T>(config?: AxiosRequestConfig): Promise<T> {
-  
-  return (await instance.get<T>('/address', config)).data
+  const response = await instance.get<T>('/address', config)
+  checkStatusRes(response.status, response.status === 503 ? 'Third Party Service Unavailable': '')
+  return response.data
 }
 
 /**Request for get all products
@@ -77,7 +89,9 @@ export async function getUserAddress<T>(config?: AxiosRequestConfig): Promise<T>
    * @returns response object
    */
 export async function getProducts<T>(): Promise<T> {
-  return (await instance.get<T>('/products')).data
+  const response = await instance.get<T>('/products')
+  checkStatusRes(response.status, response.status === 503 ? 'Third Party Service Unavailable': '')
+  return response.data
 }
 
 /**Request for get product with corresponding id
@@ -86,7 +100,9 @@ export async function getProducts<T>(): Promise<T> {
    * @returns response object
    */
 export async function getProduct<T>(id: string): Promise<T> {
-  return (await instance.get<T>(`/products/${id}`)).data
+  const response = await instance.get<T>(`/products/${id}`)
+  checkStatusRes(response.status, response.status === 503 ? 'Third Party Service Unavailable': '')
+  return response.data
 }
 
 /**Request for get all toppings
@@ -94,7 +110,9 @@ export async function getProduct<T>(id: string): Promise<T> {
    * @returns response object
    */
 export async function getToppings<T>(): Promise<T> {
-  return (await instance.get<T>('/toppings')).data
+  const response = await instance.get<T>('/toppings')
+  checkStatusRes(response.status, response.status === 503 ? 'Third Party Service Unavailable': '')
+  return response.data
 }
 
 /**Request for get user carts.
@@ -103,16 +121,9 @@ export async function getToppings<T>(): Promise<T> {
    * @returns response object
    */
 export async function getCarts<T>(): Promise<T> {
-  const res =  (await instance.get<T>('/carts'))
-  if (res.status !== 200) {
-    const error: Record<string, any> = {
-      msg: new Error('An error occurred while fetching the data.'),
-      status: res.status
-    }
-    throw error
-  } else {
-    return res.data
-  }
+  const res =  await instance.get<T>('/carts')
+  checkStatusRes(res.status, res.status === 503 ? 'Third Party Service Unavailable': '')
+  return res.data
 }
 
 /**Request for get user transactions.

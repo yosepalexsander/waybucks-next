@@ -42,7 +42,7 @@ export default function ProductPage({user}: AdminProductProps) {
       }}
       user={user} route="admin/product"
     >
-      <div className="w-full flex flex-container flex-col lg:flex-row">
+      <div className="flex flex-container flex-col lg:flex-row">
         <Tabs value={value} onChange={handleChange} className="flex-item" aria-label="admin products tabs">
           <Tab label="Products" {...a11yPropsTab(0)} />
           <Tab label="Toppings" {...a11yPropsTab(1)} />

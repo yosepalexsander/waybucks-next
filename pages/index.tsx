@@ -18,10 +18,15 @@ export default function HomePage({user}: HomeProps) {
     <Layout 
       user={user} 
       route="landing" 
-      head={{title: 'Waysbucks | Coffee For Everytime'}}>
-      <Hero />
-      <Features />
-      <Benefits />
+      head={{
+        title: 'Waysbucks | Coffee For Everyone',
+        description: 'Discover your best quality coffee in Waysbucks Coffee'  
+      }}>
+      <article className="mt-16">
+        <Hero />
+        <Features />
+        <Benefits />
+      </article>
     </Layout>
   )
 };

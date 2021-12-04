@@ -23,17 +23,17 @@
   left: 52px;
 }
 .loading div:nth-child(1) {
-  background: #bd0707;
+  @apply bg-primary;
   animation: loading 1s linear infinite;
   animation-delay: -0.5s;
 }
 .loading div:nth-child(2) {
-  background: #6207bd;
+  @apply bg-secondary;
   animation: loading 1s linear infinite;
   animation-delay: 0s;
 }
 .loading div:nth-child(3) {
-  background: #bd0707;
+  @apply bg-primary;
   animation: loading-o 1s linear infinite;
   animation-delay: -0.5s;
 }

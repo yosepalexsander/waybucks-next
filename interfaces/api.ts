@@ -73,3 +73,7 @@ export interface TransactionRequest {
   service_fee: number
   orders: OrderRequest[]
 }
+
+export interface RequestError extends Error {
+  status: number
+}

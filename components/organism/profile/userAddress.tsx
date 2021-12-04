@@ -29,12 +29,12 @@ export default function UserAddress({address, mutator}: UserAddressProps) {
 
   const onClickAdd = () => {
     setShowModal(true)
+    setSelectedAddress(undefined)
   }
 
   // always reset state on close modal
   const onCloseModal = () => {
     setShowModal(false)
-    setSelectedAddress(undefined)
   }
   
   // refetch after submitting address data
@@ -55,7 +55,7 @@ export default function UserAddress({address, mutator}: UserAddressProps) {
     <section id="user-address">
       <span>
         <h1 className="h2">My Address</h1>
-        <Button onClick={onClickAdd} variant="contained" color="secondary" className="py-1">Add New</Button>
+        <Button onClick={onClickAdd} variant="contained" color="warning" className="py-1">Add New</Button>
       </span>
       <div className="address-list flex-container">
         {address?.map(item => (
@@ -71,7 +71,7 @@ export default function UserAddress({address, mutator}: UserAddressProps) {
         ))}
       </div>
       <Modal open={show} onClose={onCloseModal}>
-        <Paper width="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
+        <Paper width="100%" maxWidth="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
           padding={16} position="absolute" display="flex" flexDirection="column" alignItems="center">
           <p className="text-3xl mb-4 text-center text-primary">{selectedAddress ? 'Update': 'New'} Address</p>
           <AddressForm oldAddress={selectedAddress} isUpdate={selectedAddress ? true : false} onSubmitSuccess={onUpdateAddress}/>

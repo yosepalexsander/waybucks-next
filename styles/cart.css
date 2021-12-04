@@ -10,19 +10,22 @@
 .cart-list > .cart-item {
   @apply flex justify-between h-32;
 }
-.cart-item > * {
-  @apply p-2;
+.cart-item:not(.skeleton) > *:not(:last-child) {
+  @apply py-2 pr-2;
 }
 
 /* skeleton */
 .cart-item.skeleton * {
-  @apply bg-gray-300 m-2 rounded-md;
+  @apply m-2 rounded-md;
 }
 .cart-item.skeleton .qty > * {
   @apply m-0 p-1;
 }
 .cart-item > .cart-info {
-  @apply flex flex-col justify-evenly bg-white;
+  @apply flex flex-col justify-evenly;
+}
+.cart-info > .product-name {
+  @apply font-bold text-base md:text-lg
 }
 
 .cart-info > .topping {
@@ -33,7 +36,7 @@
 }
 
 .cart-item > .cart-info > .qty {
-  @apply inline-flex items-center justify-between w-full bg-white;
+  @apply inline-flex items-center justify-between w-full bg-transparent;
 }
 .qty > .counter {
   @apply bg-red-200 rounded-md cursor-pointer;
@@ -45,10 +48,10 @@
   @apply w-32 max-h-32;
 }
 .cart-subtotal {
-  @apply flex justify-end h-40;
+  @apply flex justify-end h-40 font-medium;
 }
 .cart-subtotal > div {
-  @apply flex flex-col justify-between w-full p-2;
+  @apply flex flex-col justify-between w-full py-2;
 }
 .cart-subtotal .list {
   @apply flex justify-between;
