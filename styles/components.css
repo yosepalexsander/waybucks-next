@@ -206,7 +206,7 @@ footer {
 }
 
 .form-label {
-  @apply absolute top-2 left-2 bottom-0 w-full m-0 text-base pointer-events-none opacity-80
+  @apply absolute top-2.5 left-2 bottom-0 w-full m-0 text-base pointer-events-none opacity-80
   transition-all duration-200 select-none	cursor-text;
 }
 
@@ -226,8 +226,8 @@ textarea.form-control-input {
 }
 
 .form-control-input:focus ~ .form-label,
-.not-empty ~ .form-label {
-  @apply -top-3 left-0 text-gray-700 text-sm opacity-100;
+.form-control-input.not-empty ~ .form-label {
+  @apply -top-4 left-0 text-gray-700 text-sm opacity-100;
 }
 
 .form-control-input:focus ~ .form-label::after {
