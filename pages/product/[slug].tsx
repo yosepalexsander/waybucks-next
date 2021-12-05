@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import type { GetServerSideProps, GetServerSidePropsResult } from 'next';
-import Error from 'next/error'
+import Link from 'next/link';
 import Image from 'next/image';
+import Error from 'next/error';
 import cookies from 'next-cookies';
 import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
@@ -17,6 +18,7 @@ import { RequestError, CommonResponse, GetProductResponse, GetUserResponse } fro
 import { User } from 'interfaces/object';
 
 import ProductPlaceholder from 'public/assets/images/product_placeholder.jpg';
+import NoData from 'public/assets/images/no_data.svg';
 
 type ProductProps = {
   user: User | null
@@ -78,7 +80,7 @@ export default function DetailProduct({user} : ProductProps) {
     }
   }
 
-  if (productError) return <Error statusCode={productError.status} title={productError.message}/>
+  if (productError && productError.status >= 500) return <Error statusCode={productError.status} title={productError.message}/>
   return (
     <Layout 
       user={user}
@@ -89,6 +91,16 @@ export default function DetailProduct({user} : ProductProps) {
       }}>
       {!product && !productError ? (
         <Loading />
+      ) : (productError && productError.status === 404) ? (
+        <div className="flex flex-col justify-center items-center w-full">
+          <div className="img-container max-w-md mb-4">
+            <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover" quality={70}/>
+          </div>
+          <p>Looks like there is no product here</p>
+          <Link href={{pathname: '/'}}>
+            <a className="text-blue-600">Back to Home</a>
+          </Link>
+        </div>
       ) : (
         <div className="product">
           {error.isError && (

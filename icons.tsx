@@ -7,9 +7,8 @@ export { FaExclamationCircle as ErrorIcon } from 'react-icons/fa';
 export { FaExclamationTriangle as WarningIcon } from 'react-icons/fa';
 export { FaShoppingCart as CartIcon } from 'react-icons/fa';
 export { FaCoffee as  CoffeeIcon} from 'react-icons/fa';
-
-export {IoFemale as FemaleIcon } from 'react-icons/io5';
-export {IoMale as MaleIcon } from 'react-icons/io5';
+export {FaFemale as FemaleIcon } from 'react-icons/fa';
+export {FaMale as MaleIcon } from 'react-icons/fa';
 
 export { MdClose as CloseIcon } from 'react-icons/md';
 export { MdAccountCircle as AccountIcon } from 'react-icons/md';
@@ -19,5 +18,4 @@ export { MdDelete as  DeleteIcon} from 'react-icons/md';
 export { MdAttachFile as  AttachmentIcon} from 'react-icons/md';
 export { MdDashboard as  DashboardIcon} from 'react-icons/md';
 
-
-export { RiLogoutBoxRLine as LogoutIcon } from 'react-icons/ri';
+export { GoSignOut as LogoutIcon } from 'react-icons/go';
