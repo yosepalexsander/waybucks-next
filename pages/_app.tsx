@@ -10,7 +10,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta httpEquiv="Content-Type" content="charset=UTF-8" key="content-type"/>
         <meta httpEquiv="X-UA-Compatible" content="IE=7" />
-        <meta name="google-site-verification" content="DPFcC_LCruDmfa6DbU6tRo715wFEJ-98n2dsxl0SSYA"/>
+        <meta name="google-site-verification" content="HgHV0mp7qKlzrzdPxcAlsa1OlgV532cobrphWZgnvrc"/>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover" 
           key="viewport"/>
         <meta name="description" content="Waysbucks: coffee to make your time more meaningful" key="description"/>

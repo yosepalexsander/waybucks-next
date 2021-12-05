@@ -71,24 +71,28 @@ export default function Header({user}: HeaderProps) {
               </Link>
             )}
             <div>
-              <Avatar 
+              <button 
                 id="dropdown-button" 
-                alt="user avatar"
+                tabIndex={0}
                 aria-controls="dropdown-menu"
                 aria-haspopup="true"
-                src={user.image}
                 aria-expanded={openDropdown ? 'true' : undefined} 
-                width={45}
-                height={45}
                 onMouseOver={() => setOpenDropdown(true)}
-                
-              >{user.name.substr(0,2).toUpperCase()}</Avatar>
+              >
+                <Avatar 
+                  alt="user avatar"
+                  src={user.image}
+                  width={45}
+                  height={45}
+                >{user.name.substr(0,2).toUpperCase()}</Avatar>
+              </button>
               <Dropdown 
                 id="dropdown-menu" 
                 aria-labelledby="dropdown-button" 
                 userId={user.id} 
                 is_admin={user.is_admin}
                 open={openDropdown} 
+                tabIndex={-1}
                 handleClose={() =>   setOpenDropdown(!openDropdown)}
                 handleLogout={authLogout}
               />
@@ -119,7 +123,7 @@ export default function Header({user}: HeaderProps) {
                 >{user.name.substr(0,2).toUpperCase()}</Avatar>
                 <p className="h3">{user.name}</p>
               </div>
-              <MenuItem>
+              <MenuItem tabIndex={0}>
                 <Link href={{pathname: '/profile', query: {id: user.id}}}>
                   <a>
                     <div>
@@ -130,7 +134,7 @@ export default function Header({user}: HeaderProps) {
                 </Link>
               </MenuItem>
               {user.is_admin && (
-                <MenuItem>
+                <MenuItem tabIndex={-1}>
                   <Link href={{ pathname: '/admin/product' }}>
                     <a>
                       <div>
@@ -142,7 +146,7 @@ export default function Header({user}: HeaderProps) {
                 </MenuItem>
               )}
               {!user.is_admin && (
-                <MenuItem>
+                <MenuItem tabIndex={-1}>
                   <Link href={{pathname: '/cart', query: {id: user.id}}}>
                     <a>
                       <div>
@@ -155,7 +159,7 @@ export default function Header({user}: HeaderProps) {
                   </Link>
                 </MenuItem>
               )}
-              <MenuItem>
+              <MenuItem tabIndex={-1}>
                 <a onClick={authLogout} className="w-full">
                   <div>
                     <LogoutIcon size={24} className="text-primary"/>
@@ -167,20 +171,22 @@ export default function Header({user}: HeaderProps) {
           </>
         ): (
           <>
-            <ul className="my-4">
-              <li className="mt-4 mx-2">
+            <MenuList>
+              <MenuItem tabIndex={0}>
                 <Link href="/product">
                   <a>Products</a>
                 </Link>
-              </li>
-              <li className="mt-4 mx-2">
+              </MenuItem>
+              <MenuItem tabIndex={-1}>
                 <Link href="#store">
                   <a>Store</a>
                 </Link>
-              </li>
-            </ul><Link href="/signin">
+              </MenuItem>
+            </MenuList>
+            <Link href="/signin">
               <a className="btn btn-primary-outlined m-2">Sign in</a>
-            </Link><Link href="/signup">
+            </Link>
+            <Link href="/signup">
               <a className="btn btn-primary m-2">Sign up</a>
             </Link>
           </>
