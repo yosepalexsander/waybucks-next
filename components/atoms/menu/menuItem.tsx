@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import styles from './menu.module.css';
 
