@@ -8,8 +8,6 @@ import MenuItem from '@/components/atoms/menu/menuItem';
 import styles from '@/components/moleculs/dropdown.module.css';
 
 import { AccountIcon, DashboardIcon, LogoutIcon } from 'icons';
-import Badge from '../atoms/badge';
-
 
 type DropdownProps = HTMLAttributes<HTMLElement> & {
   userId: number
@@ -46,7 +44,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
           <div onMouseLeave={handleClose}>
             <Paper width={150} maxWidth="100%" >
               <MenuList>
-                <MenuItem>
+                <MenuItem tabIndex={0}>
                   <Link href={{pathname: '/profile', query: {id: userId}}}>
                     <a>
                       <div>
@@ -57,7 +55,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                   </Link>
                 </MenuItem>
                 {is_admin && (
-                  <MenuItem>
+                  <MenuItem tabIndex={-1}>
                     <Link href={{ pathname: '/admin/product' }}>
                       <a>
                         <div>
@@ -68,7 +66,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                     </Link>
                   </MenuItem>
                 )}
-                <MenuItem>
+                <MenuItem tabIndex={-1}>
                   <button onClick={handleLogout}>
                     <div>
                       <LogoutIcon size={24} className="text-primary"/>
