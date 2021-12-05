@@ -2,9 +2,6 @@
   "name": "waysbucks",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "v16.13.0"
-  },
   "scripts": {
     "dev": "NODE_ENV=development next dev",
     "analyze": "ANALYZE=true next build",
