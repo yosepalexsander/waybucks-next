@@ -80,7 +80,7 @@ footer {
 
 /* button */
 .btn {
-  @apply relative overflow-hidden rounded-md px-2 py-2 
+  @apply relative overflow-hidden rounded-md px-2 py-2 text-center
   font-bold shadow-none select-none disabled:bg-gray-400 disabled:text-white;
   outline: none;
 }

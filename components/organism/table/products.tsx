@@ -86,8 +86,8 @@ export default function TableProduct() {
   if(error && error.status === 404) {
     return (
       <div className="flex flex-col justify-center items-center w-full">
-        <div className="img-container max-w-sm">
-          <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover"/>
+        <div className="img-container max-w-sm mb-4">
+          <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover" quality={70}/>
         </div>
         <p>Looks like there is no product</p>
         <button onClick={onClickAdd} className="mt-2 text-blue-600">Add New</button>
@@ -126,7 +126,8 @@ export default function TableProduct() {
                     <td>{index + 1}</td>
                     <td className="table-name">{item.name}</td>
                     <td className="table-img">
-                      <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"/>
+                      <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"
+                        quality={70}/>
                     </td>
                     <td className="table-price">{currencyFormatter.format(item.price)}</td>
                     <td>

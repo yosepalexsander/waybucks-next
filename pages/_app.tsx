@@ -9,8 +9,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <div>
       <Head>
         <meta httpEquiv="Content-Type" content="charset=UTF-8" key="content-type"/>
-        <meta name="google-site-verification" content="DPFcC_LCruDmfa6DbU6tRo715wFEJ-98n2dsxl0SSYA"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" key="viewport"/>
+        <meta httpEquiv="X-UA-Compatible" content="IE=7" />
+        <meta name="google-site-verification" content="HgHV0mp7qKlzrzdPxcAlsa1OlgV532cobrphWZgnvrc"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="description" content="Waysbucks: coffee to make your time more meaningful" key="description"/>
         <meta name="theme-color" content="#CD1818" />
         <link rel="manifest" href="/manifest.webmanifest" />
