@@ -108,7 +108,8 @@ export default function DetailProduct({user} : ProductProps) {
                 alt={product?.payload.name} 
                 layout="fill" 
                 objectFit="cover" 
-                className="rounded-md"/>
+                className="rounded-md"
+                priority/>
             )}
             {!product?.payload.image && (
               <Image 
@@ -116,7 +117,8 @@ export default function DetailProduct({user} : ProductProps) {
                 alt={product?.payload.name} 
                 layout="fill" 
                 objectFit="cover" 
-                className="rounded-md"/>
+                className="rounded-md"
+                priority/>
             )}
           </div>
           <div className="product-info">

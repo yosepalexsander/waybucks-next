@@ -28,7 +28,7 @@ export const AddressSchema = Yup.object().shape({
 
 export const ToppingSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  price: Yup.number().min(1000).required('Postal code is required'),
+  price: Yup.number().min(1000).required('Price is required'),
 })
 
 export const ProductSchema = ToppingSchema.shape({

@@ -123,7 +123,7 @@ export default function TableProduct() {
               <>
                 {data?.payload.map((item, index) => (
                   <tr key={item.id}>
-                    <td>{index}</td>
+                    <td>{index + 1}</td>
                     <td className="table-name">{item.name}</td>
                     <td className="table-img">
                       <Image src={item.image} alt={item.name} objectFit="cover" layout="responsive" width={50} height={50} className="rounded-md"/>

@@ -181,7 +181,7 @@ footer {
   height: 100%;
 }
 
-.img-container > div {
+.img-container > span {
   position: relative !important;
   width: 100% !important;
   height: 100% !important;
@@ -222,7 +222,7 @@ footer {
 }
 
 textarea.form-control-input {
-  resize: vertical;
+  resize: none;
 }
 
 .form-control-input:focus ~ .form-label,

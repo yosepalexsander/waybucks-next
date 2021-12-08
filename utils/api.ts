@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import { TransactionRequest, RequestError } from 'interfaces/api';
+import { TransactionRequest, RequestError, SigninResponse } from 'interfaces/api';
 import Cookies from 'js-cookie';
 
 const checkStatusRes = (status: number, errMsg: string) => {
@@ -58,8 +58,27 @@ export async function register<T>(data: Record<string, any>, config: AxiosReques
    * @param config axios request config
    * @returns response object
    */
-export async function login<T>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.post<T>('/login', data, config)
+export async function signin<T extends SigninResponse>(data: Record<string, any>, config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  try {
+    const response = await instance.post<T>('/login', data, config)
+    await axios.post('/api/signin', { 
+      token: response.data.payload.token, 
+      id: response.data.payload.id 
+    }, { headers: { 'Content-Type': 'application/json' } });
+    return response
+  } catch (e) {
+    throw new Error('Invalid Email or Password');
+  }  
+}
+
+/**Request for user login
+   * 
+   * @param data request body
+   * @param config axios request config
+   * @returns response object
+   */
+export async function signout(): Promise<null> {
+  return await axios.post('/api/signout', { }, { headers: { 'Content-Type': 'application/json' } });
 }
 
 /**Request for get user data with corresponding id

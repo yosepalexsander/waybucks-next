@@ -6,9 +6,9 @@ import Input from '@/components/atoms/input';
 import Button from '@/components/atoms/button';
 import Alert from '@/components/atoms/alert';
 
-import {login, createAxiosRequestConfig } from 'utils/api';
+import {signin, createAxiosRequestConfig } from 'utils/api';
 import { SigninResponse } from 'interfaces/api';
-import { authLogin } from 'utils/auth';
+import { authSignin } from 'utils/auth';
 
 
 type SigninFormValues = {
@@ -39,20 +39,19 @@ export default function SigninForm() {
     const config = createAxiosRequestConfig({'Content-Type': 'application/json'})
 
     try {
-      const {data, ...response} = await login<SigninResponse>(values, config) 
-      if (response.status === 200) {
-        
-        authLogin({
+      const { data } = await signin<SigninResponse>(values, config)
+      if (data) {
+        authSignin({
           id: data.payload.id, 
           token: data.payload.token,
           redirect: data.payload.name === 'admin' ? '/admin/product' : '/'
         })
-        return
       }
-      setError({isError: true, message: 'Invalid Email or Password'})
-      setShowAlert(true)
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      if (err instanceof Error) {
+        setError({isError: true, message: err.message})
+        setShowAlert(true)
+      } 
     }
   }
 
@@ -104,7 +103,7 @@ export default function SigninForm() {
                 )}
               </div>
               <Button variant="contained" color="primary" type="submit" disabled={isValid ? false : true} 
-                className="h-full w-full mt-4 mb-2">Submit</Button>
+                className="h-full w-full mt-4 mb-2">Sign In</Button>
             </Form>
           )}
         </Formik>

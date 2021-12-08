@@ -62,7 +62,8 @@
 }
 
 .topping-list .input-checkbox {
-  @apply w-36 h-28 text-center mb-2;
+  @apply h-28 text-center mb-2;
+  width: 8.5rem;
 }
 
 .topping-list .input-checkbox > .topping-name {

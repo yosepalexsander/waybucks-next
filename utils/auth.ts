@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext, GetStaticPropsContext, NextPageContext 
 import Router from 'next/router';
 import cookies from 'next-cookies';
 import cookie from 'js-cookie';
-import { createAxiosRequestConfig, getUser } from 'utils/api';
+import { createAxiosRequestConfig, getUser, signout } from 'utils/api';
 import { GetUserResponse } from 'interfaces/api';
 import { User } from 'interfaces/object';
 
@@ -58,15 +58,16 @@ export const authCSR =  async (): Promise<GetUserResponse | null> => {
   throw error
 }
 
-export const authLogout = () => {
+export const authSignout = async () => {
+  // await signout()
   cookie.remove('id');
-  cookie.remove('token')
-  // To support logging out from all windows
+  cookie.remove('token');
+
   window.localStorage.setItem('logout', Date.now().toString());
   Router.push('/signin');
 };
 
-export const authLogin = ({id, token, redirect}: {id: string, token: string, redirect: string}) => {
+export const authSignin = ({id, token, redirect}: {id: string, token: string, redirect: string}) => {
   cookie.set('id', id, {
     expires: 1
   })

@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
-import HeroBg from 'public/assets/images/banner.png';
 import HeroImg from 'public/assets/images/hero-img.png';
+
 
 export default function Hero() {
   return (
@@ -19,7 +18,7 @@ export default function Hero() {
         </Link>
       </div>
       <div className="hero-img">
-        <Image alt="hero" src={HeroImg} layout="responsive" objectFit="cover" className="shadow-md"/>
+        <Image alt="hero" src={HeroImg} layout="responsive" objectFit="cover" className="shadow-md" priority/>
       </div>
     </section>
   )

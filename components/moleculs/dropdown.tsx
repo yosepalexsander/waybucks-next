@@ -63,7 +63,7 @@ export default class Dropdown extends PureComponent<DropdownProps> {
                         <div>
                           <DashboardIcon size={24} className="text-primary"/>
                         </div>
-                        <span>Content</span> 
+                        <span>Product</span> 
                       </a>
                     </Link>
                   </MenuItem>

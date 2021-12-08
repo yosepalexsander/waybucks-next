@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { User } from 'interfaces/object';
 import { GetCartsResponse } from 'interfaces/api';
 import { getCarts } from 'utils/api';
-import { authLogout } from 'utils/auth';
+import { authSignout } from 'utils/auth';
 
 import Drawer from '@/components/moleculs/drawer';
 import Dropdown from '@/components/moleculs/dropdown';
@@ -25,7 +25,7 @@ type HeaderProps = {
 }
 export default function Header({user}: HeaderProps) {
   //get user carts, first parameter is not used in request
-  const {data: cartData, error} = useSWR<GetCartsResponse, Record<string, any>>(user && !user.is_admin ? `/carts/${user.id}`: null, getCarts, {
+  const { data: cartData } = useSWR<GetCartsResponse, Record<string, any>>(user && !user.is_admin ? `/carts/${user.id}`: null, getCarts, {
     revalidateOnFocus: false,
     onErrorRetry: (error) => {
       if (error?.status === 404) return
@@ -42,7 +42,7 @@ export default function Header({user}: HeaderProps) {
     <header className="app-bar">
       <Link href="/">
         <a className="app-bar-brand" aria-label="back to home">
-          <Image alt="brand" src={Logo} layout="fill"/>
+          <Image alt="brand" src={Logo} layout="fill" priority/>
         </a>
       </Link>
       <button id="menuButton" className="btn-menu" 
@@ -90,7 +90,7 @@ export default function Header({user}: HeaderProps) {
                 is_admin={user.is_admin}
                 open={openDropdown} 
                 handleClose={() =>   setOpenDropdown(!openDropdown)}
-                handleLogout={authLogout}
+                handleLogout={authSignout}
               />
             </div>
           </>
@@ -136,14 +136,14 @@ export default function Header({user}: HeaderProps) {
                       <div>
                         <DashboardIcon size={24} className="text-primary"/>
                       </div>
-                      <span>Content</span> 
+                      <span>Product</span> 
                     </a>
                   </Link>
                 </MenuItem>
               )}
               {!user.is_admin && (
                 <MenuItem>
-                  <Link href={{pathname: '/cart', query: {id: user.id}}}>
+                  <Link href={{pathname: '/cart', query: {userId: user.id}}}>
                     <a>
                       <div>
                         <Badge badgeContent={cartData?.payload?.length} color="secondary">
@@ -156,7 +156,7 @@ export default function Header({user}: HeaderProps) {
                 </MenuItem>
               )}
               <MenuItem>
-                <a onClick={authLogout} className="w-full">
+                <a onClick={authSignout} className="w-full">
                   <div>
                     <LogoutIcon size={24} className="text-primary"/>
                   </div>
