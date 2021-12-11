@@ -12,7 +12,7 @@ export default function SigninPage() {
       <section id="signin" className="auth">
         <div className="auth-img">
           <Image src={img} layout="responsive" width={100} height={100} 
-            objectFit="cover" alt="coffee addict"/>
+            objectFit="cover" alt="coffee addict" priority/>
         </div>
         <div className="form-container">
           <div className="mb-6 text-center">

@@ -7,8 +7,8 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
     serialize('token', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
-      expires: new Date(0),
       sameSite: 'strict',
+      expires: new Date(0),
       path: '/',
     }),
   );

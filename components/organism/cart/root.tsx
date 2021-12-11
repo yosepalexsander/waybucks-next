@@ -88,7 +88,7 @@ export default function Carts({user}: CartProps) {
       service_fee: serviceFee, 
       orders: orderReq
     }
-    console.log(transactionReq)
+    
     try {
       const config = createAxiosRequestConfig({
         'Content-Type': 'application/json'
