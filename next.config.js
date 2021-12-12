@@ -14,9 +14,6 @@ const nextConfig = withPWA({
     dest: 'public',
     runtimeCaching,
     disable: process.env.NODE_ENV === 'development',
-    fallbacks: {
-      image: '/assets/images/no_data.svg'
-    }
   },
 })
 
