@@ -22,7 +22,7 @@ export const AddressSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   address: Yup.string().required('Address is required'),
   phone: Yup.string().matches(/^(0|\+62)(\d{11,12})$/, 'Phone must be in Indonesia format').required('Phone is required'),
-  postal_code: Yup.number().required('Postal code is required'),
+  postal_code: Yup.number().min(10000, 'min. digit is 5').max(99999 , 'max. digit is 5').required('Postal code is required'),
   city: Yup.string().required('City is required')
 })
 

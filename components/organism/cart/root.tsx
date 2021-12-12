@@ -10,7 +10,7 @@ import Button from '@/components/atoms/button';
 import Alert from '@/components/atoms/alert';
 
 import { Address, Cart, User } from 'interfaces/object';
-import { CommonResponse, GetAddressResponse, GetCartsResponse, OrderRequest, TransactionRequest } from 'interfaces/api';
+import { CommonResponse, GetAddressResponse, GetCartsResponse, OrderRequest, PostTransactionResponse, TransactionRequest } from 'interfaces/api';
 import { createAxiosRequestConfig, deleteCart, getCarts, getUserAddress, postTransaction, updateCart } from 'utils/api';
 
 type CartProps = {
@@ -93,7 +93,7 @@ export default function Carts({user}: CartProps) {
       const config = createAxiosRequestConfig({
         'Content-Type': 'application/json'
       })
-      const response = await postTransaction<Record<string, any>>(transactionReq, config)
+      const response = await postTransaction<PostTransactionResponse>(transactionReq, config)
       const { payload } = response.data
       if(!payload.token) {
         setStatus({

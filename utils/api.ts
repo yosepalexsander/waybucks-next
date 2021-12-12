@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import { TransactionRequest, RequestError, SigninResponse } from 'interfaces/api';
+import {  CommonResponse, RequestError, SigninResponse, TransactionRequest } from 'interfaces/api';
 import Cookies from 'js-cookie';
 
 const checkStatusRes = (status: number, errMsg: string) => {
@@ -167,8 +167,12 @@ export async function getAllTransactions<T>(): Promise<T> {
    * @param config axios request config
    * @returns response object
    */
-export async function postAddress<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.post<T>('/address', data,  config)
+export async function postAddress<T extends CommonResponse>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.post<T>('/address', data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 /**Request for post new product. This can be only used by admin
    * 
@@ -176,8 +180,12 @@ export async function postAddress<T>(data: Record<string, any>, config?: AxiosRe
    * @param config axios request config
    * @returns response object
    */
-export async function postProduct<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.post<T>('/products', data,  config)
+export async function postProduct<T extends CommonResponse>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.post<T>('/products', data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for post new topping. This can be only used by admin
@@ -186,8 +194,12 @@ export async function postProduct<T>(data: Record<string, any>, config?: AxiosRe
    * @param config axios request config
    * @returns response object
    */
-export async function postTopping<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.post<T>('/toppings', data,  config)
+export async function postTopping<T extends CommonResponse>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.post<T>('/toppings', data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for post new cart by user
@@ -196,8 +208,12 @@ export async function postTopping<T>(data: Record<string, any>, config?: AxiosRe
    * @param config axios request config
    * @returns response object
    */
-export async function postCart<T>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.post<T>('/carts', data,  config)
+export async function postCart<T extends CommonResponse>(data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.post<T>('/carts', data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for post new transaction by user
@@ -206,8 +222,12 @@ export async function postCart<T>(data: Record<string, any>, config?: AxiosReque
    * @param config axios request config
    * @returns response object
    */
-export async function postTransaction<T>(data: TransactionRequest, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.post<T>('/transactions', data, config)
+export async function postTransaction<T extends CommonResponse>(data: TransactionRequest, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.post<T>('/transactions', data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for update user 
@@ -217,8 +237,16 @@ export async function postTransaction<T>(data: TransactionRequest, config?: Axio
    * @param config axios request config
    * @returns response object
    */
-export async function updateUser<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.put<T>(`/users/${id}`, data, config)
+export async function updateUser<T extends CommonResponse>(
+  id: number, 
+  data: Record<string, any>, 
+  config?: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.put<T>(`/users/${id}`, data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for update userAddress 
@@ -228,8 +256,16 @@ export async function updateUser<T>(id: number, data: Record<string, any>, confi
    * @param config axios request config
    * @returns response object
    */
-export async function updateAddress<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.put<T>(`/address/${id}`, data, config)
+export async function updateAddress<T extends CommonResponse>(
+  id: number, 
+  data: Record<string, any>, 
+  config?: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.put<T>(`/address/${id}`, data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for update product by admin
@@ -239,8 +275,16 @@ export async function updateAddress<T>(id: number, data: Record<string, any>, co
    * @param config axios request config
    * @returns response object
    */
-export async function updateProduct<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.put<T>(`/products/${id}`, data, config)
+export async function updateProduct<T extends CommonResponse>(
+  id: number, 
+  data: Record<string, any>, 
+  config?: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.put<T>(`/products/${id}`, data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for update topping by admin
@@ -250,8 +294,16 @@ export async function updateProduct<T>(id: number, data: Record<string, any>, co
    * @param config axios request config
    * @returns response object
    */
-export async function updateTopping<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.put<T>(`/toppings/${id}`, data, config)
+export async function updateTopping<T extends CommonResponse>(
+  id: number, 
+  data: Record<string, any>, 
+  config?: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.put<T>(`/toppings/${id}`, data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
   
 /**Request for update cart by user
@@ -261,8 +313,16 @@ export async function updateTopping<T>(id: number, data: Record<string, any>, co
    * @param config axios request config
    * @returns response object
    */
-export async function updateCart<T>(id: number, data: Record<string, any>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return instance.put<T>(`/carts/${id}`, data, config)
+export async function updateCart<T extends CommonResponse>(
+  id: number, 
+  data: Record<string, any>,
+  config?: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.put<T>(`/carts/${id}`, data,  config)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for update transaction by user
@@ -281,8 +341,12 @@ export async function updateTransaction<T>(id: string, data: Record<string, any>
  * @param id address to be deleted
  * @returns response object
  */
-export async function deleteAddress<T>(id: number): Promise<AxiosResponse<T>> {
-  return instance.delete<T>(`/address/${id}`)
+export async function deleteAddress<T extends CommonResponse>(id: number): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.delete<T>(`/address/${id}`)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for delete user cart
@@ -290,8 +354,12 @@ export async function deleteAddress<T>(id: number): Promise<AxiosResponse<T>> {
  * @param id cart to be deleted
  * @returns response object
  */
-export async function deleteCart<T>(id: number): Promise<AxiosResponse<T>> {
-  return instance.delete<T>(`/carts/${id}`)
+export async function deleteCart<T extends CommonResponse>(id: number): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.delete<T>(`/carts/${id}`)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 /**Request for delete product
@@ -299,15 +367,23 @@ export async function deleteCart<T>(id: number): Promise<AxiosResponse<T>> {
  * @param id product to be deleted
  * @returns response object
  */
-export async function deleteProduct<T>(id: number): Promise<AxiosResponse<T>> {
-  return await instance.delete<T>(`/products/${id}`)
+export async function deleteProduct<T extends CommonResponse>(id: number): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.delete<T>(`/products/${id}`)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 /**Request for delete topping
  * 
  * @param id topping to be deleted
  * @returns response object
  */
-export async function deleteTopping<T>(id: number): Promise<AxiosResponse<T>> {
-  return await instance.delete<T>(`/toppings/${id}`)
+export async function deleteTopping<T extends CommonResponse>(id: number): Promise<AxiosResponse<T>> {
+  try {
+    return await instance.delete<T>(`/toppings/${id}`)
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 

@@ -42,7 +42,7 @@ export default function Header({user}: HeaderProps) {
     <header className="app-bar">
       <Link href="/">
         <a className="app-bar-brand" aria-label="back to home">
-          <Image alt="brand" src={Logo} layout="fill" priority/>
+          <Image alt="brand" src={Logo} layout="fill" />
         </a>
       </Link>
       <button id="menuButton" className="btn-menu" 

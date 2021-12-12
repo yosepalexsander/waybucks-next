@@ -7,7 +7,7 @@ import Button from '@/components/atoms/button';
 import Modal from '@/components/atoms/modal';
 import Paper from '@/components/atoms/paper';
 
-import { CommonResponse, GetToppingsResponse } from 'interfaces/api';
+import { GetToppingsResponse } from 'interfaces/api';
 import { Topping } from 'interfaces/object';
 import { createAxiosRequestConfig, deleteTopping, getToppings, updateTopping } from 'utils/api';
 import TableSkeleton from './skeleton';
@@ -66,7 +66,7 @@ export default function TableTopping() {
       is_available: e.target.checked
     }
     try {
-      await updateTopping<CommonResponse>(parseInt(e.target.id, 10), data, config)
+      await updateTopping(parseInt(e.target.id, 10), data, config)
       const updatedTopping: Topping = { ...item, is_available: data.is_available }
       await onMutationUpdate(updatedTopping)
     } catch (error) {
@@ -76,12 +76,13 @@ export default function TableTopping() {
 
   const onDeleteTopping = async (id: number) => {
     try {
-      await deleteTopping<CommonResponse>(id)
+      await deleteTopping(id)
       await mutate()
     } catch (error) {
       console.error(error)
     }
   }
+
   if(error && error.status === 404) {
     return (
       <div className="flex flex-col justify-center items-center w-full">
@@ -100,6 +101,7 @@ export default function TableTopping() {
       </div>
     )
   }
+
   return (
     <>
       <div className="flex justify-end">

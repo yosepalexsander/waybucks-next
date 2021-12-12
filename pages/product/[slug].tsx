@@ -14,7 +14,7 @@ import Button from '@/components/atoms/button';
 import Alert from '@/components/atoms/alert';
 
 import { createAxiosRequestConfig, getProduct, getUser, postCart } from 'utils/api';
-import { RequestError, CommonResponse, GetProductResponse, GetUserResponse } from 'interfaces/api';
+import { RequestError, GetProductResponse, GetUserResponse } from 'interfaces/api';
 import { User } from 'interfaces/object';
 
 import ProductPlaceholder from 'public/assets/images/product_placeholder.jpg';
@@ -69,7 +69,7 @@ export default function DetailProduct({user} : ProductProps) {
       'Content-Type': 'application/json'
     })
 
-    const response = await postCart<CommonResponse>(data, config)
+    const response = await postCart(data, config)
     if (response.status === 200) {
       router.push('/cart')
     } else if(response.status === 401 || response.status === 400) {
@@ -94,7 +94,7 @@ export default function DetailProduct({user} : ProductProps) {
       ) : (productError && productError.status === 404) ? (
         <div className="flex flex-col justify-center items-center w-full">
           <div className="img-container max-w-md mb-4">
-            <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover" quality={70}/>
+            <Image src={NoData} alt="no data" layout="responsive" width={50} height={50} objectFit="cover" quality={70} />
           </div>
           <p>Looks like there is no product here</p>
           <Link href={{pathname: '/'}}>
@@ -121,7 +121,8 @@ export default function DetailProduct({user} : ProductProps) {
                 layout="fill" 
                 objectFit="cover" 
                 className="rounded-md"
-                priority/>
+                priority
+              />
             )}
             {!product?.payload.image && (
               <Image 
@@ -130,7 +131,8 @@ export default function DetailProduct({user} : ProductProps) {
                 layout="fill" 
                 objectFit="cover" 
                 className="rounded-md"
-                priority/>
+                priority
+              />
             )}
           </div>
           <div className="product-info">

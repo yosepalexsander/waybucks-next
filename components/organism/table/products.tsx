@@ -53,7 +53,7 @@ export default function TableProduct() {
   }
   
   // refetch after submitting product data
-  const onUpdateProduct = () => {
+  const onSubmitSuccess = () => {
     setShowModal(false)
     mutate()
   }
@@ -66,7 +66,7 @@ export default function TableProduct() {
       'Content-Type': 'application/json'
     })
     try {
-      await updateProduct<CommonResponse>(parseInt(e.target.id, 10), data, config)
+      await updateProduct(parseInt(e.target.id, 10), data, config)
       const updatedProduct: Product = { ...item, is_available: data.is_available }
       await onMutationUpdate(updatedProduct)
     } catch (error) {
@@ -76,7 +76,7 @@ export default function TableProduct() {
 
   const onDeleteproduct = async (id: number) => {
     try {
-      await deleteProduct<CommonResponse>(id)
+      await deleteProduct(id)
       await mutate()
     } catch (error) {
       console.error(error)
@@ -95,7 +95,7 @@ export default function TableProduct() {
           <Paper width="100%" maxWidth="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
             padding={16} position="absolute" display="flex" flexDirection="column" alignItems="center">
             <p className="text-3xl mb-4 text-center text-primary">{selectedProduct ? 'Update': 'New'} Product</p>
-            <ProductForm oldProduct={selectedProduct} isUpdate={selectedProduct ? true : false} onSubmitSuccess={onUpdateProduct} />
+            <ProductForm oldProduct={selectedProduct} isUpdate={selectedProduct ? true : false} onSubmitSuccess={onSubmitSuccess} />
           </Paper>
         </Modal>
       </div>
@@ -162,7 +162,7 @@ export default function TableProduct() {
         <Paper width="100%" maxWidth="24rem" transform="translate(-50%, -50%)" top="50%" left="50%" 
           padding={16} position="absolute" display="flex" flexDirection="column" alignItems="center">
           <p className="text-3xl mb-4 text-center text-primary">{selectedProduct ? 'Update': 'New'} Product</p>
-          <ProductForm oldProduct={selectedProduct} isUpdate={selectedProduct ? true : false} onSubmitSuccess={onUpdateProduct} />
+          <ProductForm oldProduct={selectedProduct} isUpdate={selectedProduct ? true : false} onSubmitSuccess={onSubmitSuccess} />
         </Paper>
       </Modal>
     </>

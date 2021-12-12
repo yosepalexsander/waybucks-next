@@ -8,7 +8,6 @@ import Alert from '@/components/atoms/alert';
 
 import {  ProductSchema } from 'utils/validation';
 import { createAxiosRequestConfig, postProduct, updateProduct } from 'utils/api';
-import { CommonResponse } from 'interfaces/api';
 import { Product } from 'interfaces/object';
 import { AttachmentIcon } from 'icons';
 
@@ -80,14 +79,14 @@ export default function ProductForm({oldProduct, isUpdate, formTopping, onSubmit
         body.set('price', `${values.price}`)
         body.set('image', image, image.name)
         const { data, ...response } = isUpdate 
-          ? await updateProduct<CommonResponse>(oldProduct?.id as number, body) 
-          : await postProduct<CommonResponse>(body) 
+          ? await updateProduct(oldProduct?.id as number, body) 
+          : await postProduct(body) 
         onResponse(response.status)
       } else {
         const body: Record<string, any> = { ...values }
         const { data, ...response } = isUpdate 
-          ? await updateProduct<CommonResponse>(oldProduct?.id as number, body, config) 
-          : await postProduct<CommonResponse>(body, config) 
+          ? await updateProduct(oldProduct?.id as number, body, config) 
+          : await postProduct(body, config) 
         onResponse(response.status)
       }
       onSubmitSuccess()

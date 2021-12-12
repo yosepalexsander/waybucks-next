@@ -74,6 +74,13 @@ export interface TransactionRequest {
   orders: OrderRequest[]
 }
 
+export interface PostTransactionResponse extends CommonResponse {
+  payload: {
+    token: string
+    redirect_url: string
+  }
+}
+
 export interface RequestError extends Error {
   status: number
 }

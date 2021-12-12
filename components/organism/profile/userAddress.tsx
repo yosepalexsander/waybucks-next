@@ -45,7 +45,7 @@ export default function UserAddress({address, mutator}: UserAddressProps) {
 
   const onDeleteAddress = async (id: number) => {
     try {
-      await deleteAddress<CommonResponse>(id)
+      await deleteAddress(id)
       await mutator()
     } catch (error) {
       console.error(error)

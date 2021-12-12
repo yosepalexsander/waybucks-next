@@ -17,7 +17,7 @@ export default function Hero() {
         </Link>
       </div>
       <div className="hero-img">
-        <Image alt="barista bring a cup of coffee" src={HeroImg} layout="responsive" objectFit="cover" className="shadow-md" quality={70} priority/>
+        <Image alt="barista bring a cup of coffee" src={HeroImg} layout="responsive" objectFit="cover" className="shadow-md" quality={70} priority />
       </div>
     </section>
   )

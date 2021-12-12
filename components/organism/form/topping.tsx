@@ -78,14 +78,14 @@ export default function ToppingForm({oldProduct, isUpdate, formTopping, onSubmit
         body.set('price', `${values.price}`)
         body.set('image', image, image.name)
         const { data, ...response } = isUpdate 
-          ? await updateTopping<CommonResponse>(oldProduct?.id as number, body) 
-          : await postTopping<CommonResponse>(body) 
+          ? await updateTopping(oldProduct?.id as number, body) 
+          : await postTopping(body) 
         onResponse(response.status)
       } else {
         const body: Record<string, any> = { ...values }
         const { data, ...response } = isUpdate 
-          ? await updateTopping<CommonResponse>(oldProduct?.id as number, body, config) 
-          : await postTopping<CommonResponse>(body, config) 
+          ? await updateTopping(oldProduct?.id as number, body, config) 
+          : await postTopping(body, config) 
         onResponse(response.status)
       }
     } catch (error) {

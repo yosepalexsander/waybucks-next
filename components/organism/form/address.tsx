@@ -8,7 +8,6 @@ import Alert from '@/components/atoms/alert';
 
 import { AddressSchema } from 'utils/validation';
 import { createAxiosRequestConfig, postAddress, updateAddress } from 'utils/api';
-import { CommonResponse } from 'interfaces/api';
 import { Address } from 'interfaces/object';
 
 type AddressValues = {
@@ -55,8 +54,8 @@ export default function AddressForm({oldAddress, isUpdate, onSubmitSuccess}: Add
     const body: Record<string, any> = { ...values }
     try {
       const { data, ...response } = isUpdate 
-        ?  await updateAddress<CommonResponse>(oldAddress?.id as number, body, config) 
-        : await postAddress<CommonResponse>(body, config) 
+        ?  await updateAddress(oldAddress?.id as number, body, config) 
+        : await postAddress(body, config) 
       if (response.status !== 200) {
         setShowAlert(true)
         setError({
@@ -66,8 +65,6 @@ export default function AddressForm({oldAddress, isUpdate, onSubmitSuccess}: Add
         return
       }
       onSubmitSuccess()
-      
-
     } catch (error) {
       console.log(error)
     }
